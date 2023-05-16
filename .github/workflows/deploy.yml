@@ -22,7 +22,7 @@ jobs:
         with:
           source-directory: 'output'
           destination-github-username: ctdlog
-          destination-repository-name: SmartAuction_FE
+          destination-repository-name: memorip-frontend
           user-email: ${{ secrets.OFFICIAL_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
