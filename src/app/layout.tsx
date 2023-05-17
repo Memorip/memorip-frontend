@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <Head>
+      <head>
         <meta
           name='thumbnail'
           content='https://user-images.githubusercontent.com/73215539/239014594-c8083529-075f-44f5-ac83-af80eeeba32f.png'
@@ -26,7 +26,7 @@ export default function RootLayout({
           property='og:image'
           content='https://user-images.githubusercontent.com/73215539/239014594-c8083529-075f-44f5-ac83-af80eeeba32f.png'
         />
-      </Head>
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );
