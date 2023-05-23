@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import './globals.css'
 import { Poppins, Noto_Sans_KR } from 'next/font/google'
+import Script from 'next/script'
+import { NAVER_MAPS_CLIENT_ID } from '@/envs'
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -36,7 +38,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           property='og:image'
           content='https://user-images.githubusercontent.com/73215539/239014594-c8083529-075f-44f5-ac83-af80eeeba32f.png'
         />
+        <Script
+          type='text/javascript'
+          src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=int5of2d7f`}
+        ></Script>
       </head>
+
       <body className={cls(notoSansKr.className, poppins.className)}>{children}</body>
     </html>
   )
