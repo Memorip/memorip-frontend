@@ -41,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script
           type='text/javascript'
           src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=int5of2d7f`}
+          strategy='beforeInteractive'
         ></Script>
       </head>
 
