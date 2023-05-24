@@ -1,40 +1,31 @@
-'use client'
-
-import { useEffect, useRef } from 'react'
+import ROUTE from '@/constants/route'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Home() {
-  const mapElement = useRef(null)
-
-  useEffect(() => {
-    const { naver } = window
-    if (!mapElement.current || !naver) return
-
-    // 지도에 표시할 위치의 위도와 경도 좌표를 파라미터로 넣어줍니다.
-    const location = new naver.maps.LatLng(37.5656, 126.9769)
-    const mapOptions: naver.maps.MapOptions = {
-      center: location,
-      zoom: 17,
-      zoomControl: true,
-      zoomControlOptions: {
-        position: naver.maps.Position.TOP_RIGHT,
-      },
-    }
-    const map = new naver.maps.Map(mapElement.current, mapOptions)
-    new naver.maps.Marker({
-      position: location,
-      map,
-    })
-  }, [])
-
   return (
-    <main>
-      <div
-        ref={mapElement}
-        style={{
-          width: '100%',
-          height: '100vh',
-        }}
-      ></div>
+    <main className='flex flex-col justify-between items-center h-screen py-12 px-8'>
+      <div>
+        <Image src='/images/logo.png' width={200} height={200} alt='logo' />
+        <p className='text-center text-xl'>
+          지금 Memorip에서 <br />
+          여행 계획을 짜보세요!
+        </p>
+      </div>
+      <div className='flex flex-col gap-4 w-full '>
+        <Link
+          href={ROUTE.SIGN_UP}
+          className='py-4 bg-blue-500 w-full rounded-lg text-white text-xl text-bold text-center'
+        >
+          이메일로 회원가입
+        </Link>
+        <Link
+          href={ROUTE.SIGN_IN}
+          className='py-4 w-full rounded-lg text-black border border-zinc-500 text-xl text-bold text-center'
+        >
+          로그인
+        </Link>
+      </div>
     </main>
   )
 }

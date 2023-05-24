@@ -1,5 +1,7 @@
 const ROUTE = {
   HOME: '/',
-} as const;
+  SIGN_IN: '/sign-in',
+  SIGN_UP: '/sign-up',
+} as const
 
-export default ROUTE;
+export default ROUTE
