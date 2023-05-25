@@ -17,7 +17,8 @@ export default function Home() {
           href={ROUTE.SIGN_UP}
           className='py-4 bg-blue-500 w-full rounded-lg text-white text-xl font-bold text-center'
         >
-          이메일로 회원가입
+          <i className='ri-mail-line mr-1' />
+          <span>이메일로 회원가입</span>
         </Link>
         <Link
           href={ROUTE.SIGN_IN}

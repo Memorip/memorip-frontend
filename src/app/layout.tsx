@@ -1,8 +1,8 @@
-import Head from 'next/head'
-import './globals.css'
+import '@/styles/globals.css'
 import { Poppins, Noto_Sans_KR } from 'next/font/google'
 import Script from 'next/script'
-import { NAVER_MAPS_CLIENT_ID } from '@/envs'
+import 'remixicon/fonts/remixicon.css'
+import Toastify from '@/components/client/Toastify'
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -26,8 +26,18 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  function setScreenSize() {
+    if (typeof window !== 'undefined') {
+      let vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+      window.addEventListener('resize', setScreenSize)
+    }
+  }
+
+  setScreenSize()
+
   return (
-    <html lang='en'>
+    <html lang='en' className={cls(notoSansKr.className, poppins.className)}>
       <head>
         <meta
           name='thumbnail'
@@ -44,8 +54,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           strategy='beforeInteractive'
         ></Script>
       </head>
-
-      <body className={cls(notoSansKr.className, poppins.className)}>{children}</body>
+      <body>
+        <Toastify />
+        {children}
+      </body>
     </html>
   )
 }
