@@ -3,6 +3,7 @@ import { Poppins, Noto_Sans_KR } from 'next/font/google'
 import Script from 'next/script'
 import 'remixicon/fonts/remixicon.css'
 import Toastify from '@/components/client/Toastify'
+import MobileHeightProvider from '@/components/client/MobileHeightProvider'
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -26,16 +27,6 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  function setScreenSize() {
-    if (typeof window !== 'undefined') {
-      let vh = window.innerHeight * 0.01
-      document.documentElement.style.setProperty('--vh', `${vh}px`)
-      window.addEventListener('resize', setScreenSize)
-    }
-  }
-
-  setScreenSize()
-
   return (
     <html lang='en' className={cls(notoSansKr.className, poppins.className)}>
       <head>
@@ -55,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ></Script>
       </head>
       <body>
+        <MobileHeightProvider />
         <Toastify />
         {children}
       </body>
