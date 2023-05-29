@@ -18,8 +18,8 @@ const Main = () => {
             <div className='relative min-w-[240px] min-h-[180px]' key={index}>
               <Image className='rounded-t-lg' src='/images/testimage2.png' fill alt='제주도' />
             </div>
-            <div className='flex flex-col gap-2 p-4'>
-              <span className='text-md text-zinc-400'>여은지님의 일정</span>
+            <div className='flex flex-col gap-1 p-4'>
+              <span className='text-sm text-zinc-400'>여은지님의 일정</span>
               <span className='text-md font-semibold'>제주도 동쪽 뚜벅이 3박 4일 🏃‍♂️</span>
             </div>
           </div>
