@@ -1,5 +1,6 @@
 'use client'
 
+import ROUTE from '@/constants/route'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -17,11 +18,12 @@ const SignIn = () => {
   } = useForm<FormValues>({
     mode: 'onChange',
   })
-  const { back } = useRouter()
+  const { back, push } = useRouter()
 
   const onSubmit = () => {
     // TODO: API CALL
     toast.success('로그인 성공!')
+    push(ROUTE.MAIN)
   }
 
   return (
@@ -30,7 +32,7 @@ const SignIn = () => {
       <h1 className='mt-12 font-bold text-2xl'>이메일로 로그인</h1>
       <form className='mt-10' onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col gap-12'>
-          <label className='flex flex-col gap-2'>
+          <label className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>input]:focus-within:border-blue-600'>
             <span>이메일</span>
             <input
               className='border-b border-b-zinc-300 py-2 outline-none'
@@ -44,7 +46,7 @@ const SignIn = () => {
               })}
             />
           </label>
-          <label className='flex flex-col gap-2'>
+          <label className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>input]:focus-within:border-blue-600'>
             <span>비밀번호</span>
             <input
               className='border-b border-b-zinc-300 py-2 outline-none'

@@ -45,9 +45,9 @@ const SignUp = () => {
         <form className='mt-10' onSubmit={handleSubmit(onSubmit, onError)}>
           <div className='flex flex-col gap-12'>
             <div className='flex flex-col gap-1 h-24'>
-              <label className='flex flex-col gap-2'>
-                <span className='focus-within:text-blue-600'>이메일</span>
-                <div className='w-full flex items-center border-b border-b-zinc-300 focus-within:border-blue-600'>
+              <div className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>div]:focus-within:border-blue-600'>
+                <span>이메일</span>
+                <div className='w-full flex items-center border-b border-b-zinc-300'>
                   <input
                     className='w-full py-2 outline-none'
                     type='email'
@@ -66,7 +66,7 @@ const SignUp = () => {
                   {/* TODO: 이메일 중복 검사 API 처리 및 로딩 스피너 추가 */}
                   {getValues('email') && !errors.email && <i className='ri-check-line text-xl text-blue-600' />}
                 </div>
-              </label>
+              </div>
               <small className='text-red-600' role='alert'>
                 {errors.email?.message}
               </small>
@@ -74,7 +74,7 @@ const SignUp = () => {
             {isEmailValid && (
               <>
                 <div className='flex flex-col gap-1 h-24'>
-                  <div className='flex flex-col gap-2'>
+                  <div className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>div]:focus-within:border-blue-600'>
                     <span>닉네임</span>
                     <div className='w-full flex items-center border-b border-b-zinc-300'>
                       <input
@@ -110,7 +110,7 @@ const SignUp = () => {
                   </small>
                 </div>
                 <div className='flex flex-col gap-1 h-24'>
-                  <div className='flex flex-col gap-2'>
+                  <div className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>div]:focus-within:border-blue-600'>
                     <span>비밀번호</span>
                     <div className='w-full flex items-center border-b border-b-zinc-300'>
                       <input
@@ -141,7 +141,7 @@ const SignUp = () => {
                   </small>
                 </div>
                 <div className='flex flex-col gap-1 h-24'>
-                  <div className='flex flex-col gap-2'>
+                  <div className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>div]:focus-within:border-blue-600'>
                     <span>비밀번호 확인</span>
                     <div className='w-full flex items-center border-b border-b-zinc-300'>
                       <input
@@ -168,11 +168,12 @@ const SignUp = () => {
               </>
             )}
           </div>
-          {isValid && (
-            <button className='w-full bg-blue-500 py-3 rounded-lg text-white mt-8' type='submit'>
-              확인
-            </button>
-          )}
+          <button
+            className={`w-full bg-blue-500 py-3 rounded-lg text-white mt-8 ${isValid ? 'block' : 'hidden'}`}
+            type='submit'
+          >
+            확인
+          </button>
         </form>
       </div>
     </>
