@@ -19,8 +19,8 @@ const Main = () => {
               <Image className='rounded-t-lg' src='/images/testimage2.png' fill alt='제주도' />
             </div>
             <div className='flex flex-col gap-2 p-4'>
-              <span className='text-md text-zinc-400'>안녕!</span>
-              <span className='text-md font-semibold'>제주도 바다</span>
+              <span className='text-md text-zinc-400'>여은지님의 일정</span>
+              <span className='text-md font-semibold'>제주도 동쪽 뚜벅이 3박 4일 🏃‍♂️</span>
             </div>
           </div>
         ))}
