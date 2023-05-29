@@ -8,7 +8,7 @@ const Main = () => {
         <div className='flex justify-center items-center w-8 h-8 p-2 bg-white rounded-full'>
           <i className='ri-search-eye-line text-lg' />
         </div>
-        <input className='bg-zinc-300 outline-none' type='text' placeholder='여행지 입력하기' />
+        <input className='flex-1 bg-zinc-300 outline-none' type='text' placeholder='여행지 입력하기' />
       </div>
       <h1 className='text-2xl font-bold mt-8 mb-1'>국내 인기 여행지</h1>
       <span className='text-zinc-500 text-md'>직접 다녀온 추천 일정과 여행 꿀팁 확인하기</span>
