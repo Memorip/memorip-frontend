@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
 interface ChildrenProps {
@@ -6,6 +7,15 @@ interface ChildrenProps {
 
 const Modal = ({ children }: ChildrenProps) => {
   const element = typeof window !== 'undefined' && document.querySelector('#modal-root')
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  })
+
   return element && children ? ReactDOM.createPortal(children, element) : null
 }
 

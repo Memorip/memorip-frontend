@@ -4,6 +4,7 @@ import Script from 'next/script'
 import 'remixicon/fonts/remixicon.css'
 import Toastify from '@/components/client/Toastify'
 import MobileHeightProvider from '@/components/client/MobileHeightProvider'
+import Navigation from '@/components/shared/Navigation/Navigation'
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],

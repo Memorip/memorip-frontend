@@ -21,7 +21,6 @@ const Header = () => {
       <button onClick={openNavigation}>
         <i className='ri-menu-line text-xl' />
       </button>
-      <Navigation />
     </header>
   )
 }
