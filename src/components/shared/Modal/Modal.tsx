@@ -19,9 +19,10 @@ const Modal = ({ children }: ChildrenProps) => {
   return element && children ? ReactDOM.createPortal(children, element) : null
 }
 
-const Background = () => {
+const Background = ({ onClose }: { onClose: () => void }) => {
   return (
     <div
+      onClick={onClose}
       style={{
         position: 'fixed',
         top: 0,
