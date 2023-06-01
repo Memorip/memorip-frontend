@@ -95,11 +95,11 @@ const Navigation = () => {
             </li> */}
             <li className='flex items-center gap-4 py-4 border-b-[0.5px] border-gray-200'>
               <i className='ri-heart-3-line text-md' />
-              <span className='text-md font-bold'>좋아요</span>
+              <span className='text-md font-semibold'>좋아요</span>
             </li>
             <li className='flex items-center gap-4 py-4 border-b-[0.5px] border-gray-200'>
               <i className='ri-settings-3-line text-md' />
-              <span className='text-md font-bold'>설정</span>
+              <span className='text-md font-semibold'>설정</span>
             </li>
           </ul>
         </div>
