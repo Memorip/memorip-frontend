@@ -2,7 +2,11 @@
 
 import { useEffect } from 'react'
 
-const MobileHeightProvider = () => {
+interface Props {
+  children: React.ReactNode
+}
+
+const ResponsiveHeightProvider = ({ children }: Props) => {
   useEffect(() => {
     function setScreenSize() {
       let vh = window.innerHeight * 0.01
@@ -13,7 +17,7 @@ const MobileHeightProvider = () => {
     setScreenSize()
   })
 
-  return null
+  return <>{children}</>
 }
 
-export default MobileHeightProvider
+export default ResponsiveHeightProvider

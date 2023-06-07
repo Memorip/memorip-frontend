@@ -3,8 +3,9 @@ import { Poppins, Noto_Sans_KR } from 'next/font/google'
 import Script from 'next/script'
 import 'remixicon/fonts/remixicon.css'
 import Toastify from '@/components/client/Toastify'
-import MobileHeightProvider from '@/components/client/MobileHeightProvider'
-import Navigation from '@/components/shared/Navigation/Navigation'
+import ResponsiveHeightProvider from '@/components/client/ResponsiveHeightProvider'
+
+import QueryClientProvider from '@/components/client/TanstackQueryProvider'
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -47,10 +48,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <div id='modal-root' />
-        <MobileHeightProvider />
-        <Toastify />
-        {children}
+        <QueryClientProvider>
+          <ResponsiveHeightProvider>
+            <div id='modal-root' />
+            <Toastify />
+            {children}
+          </ResponsiveHeightProvider>
+        </QueryClientProvider>
       </body>
     </html>
   )

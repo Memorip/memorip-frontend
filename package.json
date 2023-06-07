@@ -12,6 +12,8 @@
     "eslint:fix": "eslint  \"src/**/*.{js,jsx,ts,tsx}\" --fix"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.29.12",
+    "@tanstack/react-query-devtools": "^4.29.12",
     "@types/node": "20.1.5",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
