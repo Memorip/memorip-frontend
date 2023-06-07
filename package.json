@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "eslint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "eslint:fix": "eslint  \"src/**/*.{js,jsx,ts,tsx}\" --fix"
   },
   "dependencies": {
     "@types/node": "20.1.5",
@@ -27,6 +30,9 @@
     "zustand": "^4.3.8"
   },
   "devDependencies": {
-    "@types/navermaps": "^3.6.5"
+    "@types/navermaps": "^3.6.5",
+    "eslint-plugin-tailwindcss": "^3.12.1",
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0"
   }
 }

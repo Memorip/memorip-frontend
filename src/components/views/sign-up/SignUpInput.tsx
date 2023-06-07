@@ -45,13 +45,13 @@ const SignUpInput = ({ setStep }: Props) => {
   return (
     <div className='flex flex-col p-4'>
       <i className='ri-arrow-left-line cursor-pointer text-xl' onClick={back} />
-      <h1 className='mt-12 font-bold text-2xl'>이메일로 회원가입</h1>
+      <h1 className='mt-12 text-2xl font-bold'>이메일로 회원가입</h1>
       <form className='mt-10' onSubmit={handleSubmit(onSubmit, onError)}>
         <div className='flex flex-col gap-12'>
-          <div className='flex flex-col gap-1 h-24'>
-            <div className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>div]:focus-within:border-blue-600'>
+          <div className='flex h-24 flex-col gap-1'>
+            <div className='flex flex-col gap-2 [&>div]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
               <span>이메일</span>
-              <div className='w-full flex items-center border-b border-b-zinc-300'>
+              <div className='flex w-full items-center border-b  border-b-zinc-300'>
                 <input
                   className='w-full py-2 outline-none'
                   type='email'
@@ -77,10 +77,10 @@ const SignUpInput = ({ setStep }: Props) => {
           </div>
           {isEmailValid && (
             <>
-              <div className='flex flex-col gap-1 h-24'>
-                <div className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>div]:focus-within:border-blue-600'>
+              <div className='flex h-24 flex-col gap-1'>
+                <div className='flex flex-col gap-2 [&>div]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
                   <span>닉네임</span>
-                  <div className='w-full flex items-center border-b border-b-zinc-300'>
+                  <div className='flex w-full items-center border-b border-b-zinc-300'>
                     <input
                       className='w-full py-2 outline-none'
                       type='text'
@@ -111,10 +111,10 @@ const SignUpInput = ({ setStep }: Props) => {
                   {errors.nickname?.message}
                 </small>
               </div>
-              <div className='flex flex-col gap-1 h-24'>
-                <div className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>div]:focus-within:border-blue-600'>
+              <div className='flex h-24 flex-col gap-1'>
+                <div className='flex flex-col gap-2 [&>div]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
                   <span>비밀번호</span>
-                  <div className='w-full flex items-center border-b border-b-zinc-300'>
+                  <div className='flex w-full items-center border-b border-b-zinc-300'>
                     <input
                       className='w-full py-2 outline-none'
                       type='password'
@@ -140,10 +140,10 @@ const SignUpInput = ({ setStep }: Props) => {
                   {errors.password?.message}
                 </small>
               </div>
-              <div className='flex flex-col gap-1 h-24'>
-                <div className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>div]:focus-within:border-blue-600'>
+              <div className='flex h-24 flex-col gap-1'>
+                <div className='flex flex-col gap-2 [&>div]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
                   <span>비밀번호 확인</span>
-                  <div className='w-full flex items-center border-b border-b-zinc-300'>
+                  <div className='flex w-full items-center border-b border-b-zinc-300'>
                     <input
                       className='w-full py-2 outline-none'
                       type='password'
@@ -169,7 +169,7 @@ const SignUpInput = ({ setStep }: Props) => {
           )}
         </div>
         <button
-          className={`w-full bg-blue-500 py-3 rounded-lg text-white mt-8 ${isValid ? 'block' : 'hidden'}`}
+          className={`mt-8 w-full rounded-lg bg-blue-500 py-3 text-white ${isValid ? 'block' : 'hidden'}`}
           type='submit'
         >
           확인

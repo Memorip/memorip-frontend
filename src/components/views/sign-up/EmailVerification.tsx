@@ -39,14 +39,14 @@ const EmailVerification = () => {
   }
 
   return (
-    <form className='flex flex-col justify-center items-center h-screen p-4' onSubmit={handleSubmit}>
+    <form className='flex h-screen flex-col items-center justify-center p-4' onSubmit={handleSubmit}>
       <Image src='/images/email.png' width={100} height={100} alt='email verification' />
-      <h1 className='text-xl font-bold mt-4 mb-2'>이메일을 확인해주세요.</h1>
-      <span className='text-xs text-zinc-500 mb-8'>hello123@gmail.com으로 인증 번호를 보냈어요.</span>
-      <div className='flex gap-2 mb-4'>
+      <h1 className='mb-2 mt-4 text-xl font-bold'>이메일을 확인해주세요.</h1>
+      <span className='mb-8 text-xs text-zinc-500'>hello123@gmail.com으로 인증 번호를 보냈어요.</span>
+      <div className='mb-4 flex gap-2'>
         {codes.map((code, index) => (
           <input
-            className='w-16 h-16 bg-zinc-100 rounded-md flex justify-center items-center text-center outline-none'
+            className='flex h-16 w-16 items-center justify-center rounded-md bg-zinc-100 text-center outline-none'
             type='text'
             maxLength={1}
             value={code}
@@ -57,11 +57,11 @@ const EmailVerification = () => {
           />
         ))}
       </div>
-      <div className='flex gap-2 items-center mb-8'>
+      <div className='mb-8 flex items-center gap-2'>
         <span className='text-xs text-zinc-500'>인증 번호가 도착하지 않으셨나요?</span>
         <button className='text-xs text-zinc-500 underline underline-offset-1'>인증번호 재전송</button>
       </div>
-      <button className='w-[280px] bg-teal-500 py-3 rounded-lg text-white'>인증하기</button>
+      <button className='w-[280px] rounded-lg bg-teal-500 py-3 text-white'>인증하기</button>
     </form>
   )
 }

@@ -17,7 +17,7 @@ const Header = () => {
   }
 
   return (
-    <header className='flex justify-end sticky px-3 py-4 shadow-md shadow-zinc-100'>
+    <header className='sticky flex justify-end px-3 py-4 shadow-md shadow-zinc-100'>
       <button onClick={openNavigation}>
         <i className='ri-menu-line text-xl' />
       </button>

@@ -29,10 +29,10 @@ const SignIn = () => {
   return (
     <div className='flex flex-col p-4'>
       <i className='ri-arrow-left-line cursor-pointer text-xl' onClick={back} />
-      <h1 className='mt-12 font-bold text-2xl'>이메일로 로그인</h1>
+      <h1 className='mt-12 text-2xl font-bold'>이메일로 로그인</h1>
       <form className='mt-10' onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col gap-12'>
-          <label className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>input]:focus-within:border-blue-600'>
+          <label className='flex flex-col gap-2 [&>input]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
             <span>이메일</span>
             <input
               className='border-b border-b-zinc-300 py-2 outline-none'
@@ -46,7 +46,7 @@ const SignIn = () => {
               })}
             />
           </label>
-          <label className='flex flex-col gap-2 [&>span]:focus-within:text-blue-600 [&>input]:focus-within:border-blue-600'>
+          <label className='flex flex-col gap-2 [&>input]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
             <span>비밀번호</span>
             <input
               className='border-b border-b-zinc-300 py-2 outline-none'
@@ -62,14 +62,14 @@ const SignIn = () => {
           </label>
         </div>
         <button
-          className={`w-full bg-blue-500 py-3 rounded-lg text-white mt-5 ${
-            !isValid ? 'opacity-50 cursor-not-allowed' : ''
+          className={`mt-5 w-full rounded-lg bg-blue-500 py-3 text-white ${
+            !isValid ? 'cursor-not-allowed opacity-50' : ''
           }`}
           type='submit'
         >
           로그인
         </button>
-        <button className='w-full text-center mt-4 text-zinc-700 underline cursor-pointer' type='button'>
+        <button className='mt-4 w-full cursor-pointer text-center text-zinc-700 underline' type='button'>
           비밀번호를 잊으셨나요?
         </button>
       </form>
