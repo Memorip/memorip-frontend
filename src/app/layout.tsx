@@ -1,11 +1,11 @@
-import '@/styles/globals.css'
+/* eslint-disable @next/next/no-sync-scripts */
 import { Poppins, Noto_Sans_KR } from 'next/font/google'
-import Script from 'next/script'
 
+import Meta from '@/components/shared/Meta'
+import Providers from '@/components/shared/Providers'
+
+import '@/styles/globals.css'
 import 'remixicon/fonts/remixicon.css'
-import ResponsiveHeightProvider from '@/components/client/ResponsiveHeightProvider'
-import QueryClientProvider from '@/components/client/TanstackQueryProvider'
-import Toastify from '@/components/client/Toastify'
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -30,29 +30,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en' className={cls(notoSansKr.className, poppins.className)}>
       <head>
-        <meta
-          name='thumbnail'
-          content='https://user-images.githubusercontent.com/73215539/239014594-c8083529-075f-44f5-ac83-af80eeeba32f.png'
-        />
-        <meta property='og:url' content='https://memorip.vercel.app' />
-        <meta
-          property='og:image'
-          content='https://user-images.githubusercontent.com/73215539/239014594-c8083529-075f-44f5-ac83-af80eeeba32f.png'
-        />
-        <Script
+        <Meta />
+        {/* NAVER MAPS API */}
+        <script
           type='text/javascript'
           src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=int5of2d7f`}
-          strategy='beforeInteractive'
         />
       </head>
       <body>
-        <QueryClientProvider>
-          <ResponsiveHeightProvider>
-            <div id='modal-root' />
-            <Toastify />
-            {children}
-          </ResponsiveHeightProvider>
-        </QueryClientProvider>
+        <Providers>
+          <div id='modal-root' />
+          {children}
+        </Providers>
       </body>
     </html>
   )

@@ -65,6 +65,7 @@ module.exports = {
       },
     ],
     camelcase: 'off',
+    'arrow-body-style': ['off'],
     'import/prefer-default-export': ['off'],
     'no-use-before-define': ['off'],
     'no-new': ['off'],
