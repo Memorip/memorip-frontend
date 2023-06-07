@@ -1,9 +1,12 @@
 'use client'
 
-import { useNavigationStore } from '@/stores/navigation'
-import Modal from '../Modal/Modal'
 import { useEffect } from 'react'
+
 import Image from 'next/image'
+
+import { useNavigationStore } from '@/stores/navigation'
+
+import Modal from '../Modal/Modal'
 
 const Navigation = () => {
   const isMenuOpen = useNavigationStore((state) => state.isMenuOpen)

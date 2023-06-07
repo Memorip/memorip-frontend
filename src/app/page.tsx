@@ -1,6 +1,7 @@
-import ROUTE from '@/constants/route'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import ROUTE from '@/constants/route'
 
 export default function Home() {
   return (
@@ -15,14 +16,14 @@ export default function Home() {
       <div className='flex w-full flex-col gap-4 '>
         <Link
           href={ROUTE.SIGN_UP}
-          className='text-l w-full rounded-lg bg-blue-500 py-4 text-center font-bold text-white'
+          className='w-full rounded-lg bg-blue-500 py-4 text-center text-lg font-bold text-white'
         >
           <i className='ri-mail-line mr-1' />
           <span>이메일로 회원가입</span>
         </Link>
         <Link
           href={ROUTE.SIGN_IN}
-          className='text-l w-full rounded-lg border border-zinc-500 py-4 text-center font-bold text-black'
+          className='w-full rounded-lg border border-zinc-500 py-4 text-center text-lg font-bold text-black'
         >
           로그인
         </Link>

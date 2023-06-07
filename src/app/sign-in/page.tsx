@@ -1,9 +1,10 @@
 'use client'
 
-import ROUTE from '@/constants/route'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+
+import ROUTE from '@/constants/route'
 
 interface FormValues {
   email: string

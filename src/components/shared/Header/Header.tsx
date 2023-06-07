@@ -1,19 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import Navigation from '@/components/shared/Navigation'
 import { useNavigationStore } from '@/stores/navigation'
 
 const Header = () => {
-  const isMenuOpen = useNavigationStore((state) => state.isMenuOpen)
   const setIsMenuOpen = useNavigationStore((state) => state.setIsMenuOpen)
 
   const openNavigation = () => {
     setIsMenuOpen(true)
-  }
-
-  const closeNavigation = () => {
-    setIsMenuOpen(false)
   }
 
   return (

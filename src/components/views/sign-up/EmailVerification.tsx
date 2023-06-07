@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useRef } from 'react'
+
 import Image from 'next/image'
-import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
+
 import ROUTE from '@/constants/route'
 
 const EmailVerification = () => {

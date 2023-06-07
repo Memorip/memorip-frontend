@@ -3,8 +3,6 @@
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const Toastify = () => {
-  return <ToastContainer position='top-right' />
-}
+const Toastify = () => <ToastContainer position='top-right' />
 
 export default Toastify

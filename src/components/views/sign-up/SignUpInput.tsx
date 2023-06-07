@@ -1,10 +1,11 @@
 'use client'
 
-import { STEP } from '@/app/sign-up/page.const'
-import { regex } from '@/constants/regex'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+
+import { STEP } from '@/app/sign-up/page.const'
+import { regex } from '@/constants/regex'
 
 interface Props {
   setStep: (step: number) => void
@@ -34,10 +35,9 @@ const SignUpInput = ({ setStep }: Props) => {
     console.log(email, nickname, password, passwordConfirm)
   }
 
-  const onError = (error: any) => {
+  const onError = () => {
     // TODO: 에러 처리
-    toast.error('회원가입 실패!')
-    console.log(error)
+    toast.error('회원가입에 실패했어요.')
   }
 
   const isEmailValid = getValues('email') && !errors.email
@@ -153,7 +153,7 @@ const SignUpInput = ({ setStep }: Props) => {
                           value: true,
                           message: '비밀번호를 입력해주세요.',
                         },
-                        validate: (value) => value === getValues('password') || '비밀번호가 일치하지 않습니다.',
+                        validate: (value) => value === getValues('password') || '비밀번호가 일치하지 않아요.',
                       })}
                     />
                     {getValues('passwordConfirm') && !errors.passwordConfirm && (

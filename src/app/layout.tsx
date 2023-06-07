@@ -1,11 +1,11 @@
 import '@/styles/globals.css'
 import { Poppins, Noto_Sans_KR } from 'next/font/google'
 import Script from 'next/script'
-import 'remixicon/fonts/remixicon.css'
-import Toastify from '@/components/client/Toastify'
-import ResponsiveHeightProvider from '@/components/client/ResponsiveHeightProvider'
 
+import 'remixicon/fonts/remixicon.css'
+import ResponsiveHeightProvider from '@/components/client/ResponsiveHeightProvider'
 import QueryClientProvider from '@/components/client/TanstackQueryProvider'
+import Toastify from '@/components/client/Toastify'
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -19,9 +19,7 @@ const poppins = Poppins({
   variable: '--font-poppins',
 })
 
-const cls = (...classnames: string[]) => {
-  return classnames.join(' ')
-}
+const cls = (...classnames: string[]) => classnames.join(' ')
 
 export const metadata = {
   title: 'Memorip - 여행을 기록해봐요!',

@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+
 import ReactDOM from 'react-dom'
 
 interface ChildrenProps {
@@ -19,8 +20,7 @@ const Modal = ({ children }: ChildrenProps) => {
   return element && children ? ReactDOM.createPortal(children, element) : null
 }
 
-const Background = ({ onClose }: { onClose: () => void }) => {
-  return (
+const Background = ({ onClose }: { onClose: () => void }) => (
     <div
       onClick={onClose}
       style={{
@@ -34,10 +34,8 @@ const Background = ({ onClose }: { onClose: () => void }) => {
       }}
     />
   )
-}
 
-const Layout = ({ children }: ChildrenProps) => {
-  return (
+const Layout = ({ children }: ChildrenProps) => (
     <div
       style={{
         position: 'fixed',
@@ -50,7 +48,6 @@ const Layout = ({ children }: ChildrenProps) => {
       {children}
     </div>
   )
-}
 
 Modal.Background = Background
 Modal.Layout = Layout
