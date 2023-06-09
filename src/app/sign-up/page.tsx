@@ -2,10 +2,9 @@
 
 import { useState } from 'react'
 
-import EmailVerification from '@/components/views/sign-up/EmailVerification'
-import SignUpInput from '@/components/views/sign-up/SignUpInput'
-
-import { STEP } from './page.const'
+import EmailVerification from '@/app/sign-up/components/client/EmailVerification'
+import SignUpInput from '@/app/sign-up/components/client/SignUpInput'
+import { STEP } from '@/app/sign-up/sign-up.constants'
 
 const SignUp = () => {
   const [step, setStep] = useState(STEP.SIGN_UP)

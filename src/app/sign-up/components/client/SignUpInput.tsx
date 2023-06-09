@@ -1,10 +1,8 @@
-'use client'
-
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-import { STEP } from '@/app/sign-up/page.const'
+import { STEP } from '@/app/sign-up/sign-up.constants'
 import { regex } from '@/constants/regex'
 
 interface Props {

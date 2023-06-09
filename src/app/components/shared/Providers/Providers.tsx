@@ -1,6 +1,6 @@
-import ResponsiveHeightProvider from '@/components/provider/ResponsiveHeightProvider'
-import QueryClientProvider from '@/components/provider/TanstackQueryProvider'
-import ToastifyProvider from '@/components/provider/ToastifyProvider'
+import ResponsiveHeightProvider from '@/app/components/provider/ResponsiveHeightProvider'
+import QueryClientProvider from '@/app/components/provider/TanstackQueryProvider'
+import ToastifyProvider from '@/app/components/provider/ToastifyProvider'
 
 interface Props {
   children: React.ReactNode
