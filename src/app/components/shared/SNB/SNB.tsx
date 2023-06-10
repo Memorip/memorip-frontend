@@ -6,29 +6,29 @@ import { useAtom } from 'jotai'
 import Image from 'next/image'
 
 import Modal from '@/app/components/shared/Modal'
-import { gnbAtom } from '@/stores/gnb'
+import { snbAtom } from '@/stores/snb'
 
 const Navigation = () => {
-  const [isOpenGnb, setIsOpenGnb] = useAtom(gnbAtom)
+  const [isOpenSnb, setIsOpenSnb] = useAtom(snbAtom)
 
   const onClose = () => {
-    setIsOpenGnb(false)
+    setIsOpenSnb(false)
   }
 
   useEffect(() => {
-    if (isOpenGnb) {
+    if (isOpenSnb) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
     }
-  }, [isOpenGnb])
+  }, [isOpenSnb])
 
   return (
     <>
-      {isOpenGnb && <Modal.Background onClose={onClose} />}
+      {isOpenSnb && <Modal.Background onClose={onClose} />}
       <nav
         className={`fixed top-0 w-4/5 max-w-[340px] ${
-          isOpenGnb ? 'right-0' : 'right-[-350px]'
+          isOpenSnb ? 'right-0' : 'right-[-350px]'
         } z-10 h-screen bg-white p-4
         transition-all duration-500 ease-in-out
       `}

@@ -2,18 +2,18 @@
 
 import { useAtom } from 'jotai'
 
-import { gnbAtom } from '@/stores/gnb'
+import { snbAtom } from '@/stores/snb'
 
 const Header = () => {
-  const [, setIsOpenGnb] = useAtom(gnbAtom)
+  const [, setIsOpenSnb] = useAtom(snbAtom)
 
-  const openGnb = () => {
-    setIsOpenGnb(true)
+  const openSnb = () => {
+    setIsOpenSnb(true)
   }
 
   return (
     <header className='sticky flex justify-end px-3 py-4 shadow-md shadow-zinc-100'>
-      <button onClick={openGnb}>
+      <button onClick={openSnb}>
         <i className='ri-menu-line text-xl' />
       </button>
     </header>
