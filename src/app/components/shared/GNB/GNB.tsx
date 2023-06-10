@@ -2,34 +2,33 @@
 
 import { useEffect } from 'react'
 
+import { useAtom } from 'jotai'
 import Image from 'next/image'
 
-import { useNavigationStore } from '@/stores/navigation'
-
-import Modal from '../Modal/Modal'
+import Modal from '@/app/components/shared/Modal'
+import { gnbAtom } from '@/stores/gnb'
 
 const Navigation = () => {
-  const isMenuOpen = useNavigationStore((state) => state.isMenuOpen)
-  const setIsMenuOpen = useNavigationStore((state) => state.setIsMenuOpen)
+  const [isOpenGnb, setIsOpenGnb] = useAtom(gnbAtom)
 
   const onClose = () => {
-    setIsMenuOpen(false)
+    setIsOpenGnb(false)
   }
 
   useEffect(() => {
-    if (isMenuOpen) {
+    if (isOpenGnb) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
     }
-  }, [isMenuOpen])
+  }, [isOpenGnb])
 
   return (
     <>
-      {isMenuOpen && <Modal.Background onClose={onClose} />}
+      {isOpenGnb && <Modal.Background onClose={onClose} />}
       <nav
         className={`fixed top-0 w-4/5 max-w-[340px] ${
-          isMenuOpen ? 'right-0' : 'right-[-350px]'
+          isOpenGnb ? 'right-0' : 'right-[-350px]'
         } z-10 h-screen bg-white p-4
         transition-all duration-500 ease-in-out
       `}

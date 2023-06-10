@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import { STEP } from '@/app/sign-up/sign-up.constants'
+import type { Step } from '@/app/sign-up/sign-up.constants'
 import { regex } from '@/constants/regex'
 
 interface Props {
-  setStep: (step: number) => void
+  setStep: (step: Step) => void
 }
 
 interface FormValues {
@@ -16,7 +17,7 @@ interface FormValues {
   passwordConfirm: string
 }
 
-const SignUpInput = ({ setStep }: Props) => {
+const SignUpForm = ({ setStep }: Props) => {
   const { back } = useRouter()
   const {
     handleSubmit,
@@ -177,4 +178,4 @@ const SignUpInput = ({ setStep }: Props) => {
   )
 }
 
-export default SignUpInput
+export default SignUpForm

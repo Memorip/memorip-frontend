@@ -1,17 +1,19 @@
 'use client'
 
-import { useNavigationStore } from '@/stores/navigation'
+import { useAtom } from 'jotai'
+
+import { gnbAtom } from '@/stores/gnb'
 
 const Header = () => {
-  const setIsMenuOpen = useNavigationStore((state) => state.setIsMenuOpen)
+  const [, setIsOpenGnb] = useAtom(gnbAtom)
 
-  const openNavigation = () => {
-    setIsMenuOpen(true)
+  const openGnb = () => {
+    setIsOpenGnb(true)
   }
 
   return (
     <header className='sticky flex justify-end px-3 py-4 shadow-md shadow-zinc-100'>
-      <button onClick={openNavigation}>
+      <button onClick={openGnb}>
         <i className='ri-menu-line text-xl' />
       </button>
     </header>

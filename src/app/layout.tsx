@@ -3,6 +3,7 @@ import { Poppins, Noto_Sans_KR } from 'next/font/google'
 
 import Meta from '@/app/components/shared/Meta'
 import Providers from '@/app/components/shared/Providers'
+import { useAxiosInterceptor } from '@/hooks'
 
 import '@/styles/globals.css'
 import 'remixicon/fonts/remixicon.css'
@@ -27,6 +28,8 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  useAxiosInterceptor()
+
   return (
     <html lang='en' className={cls(notoSansKr.className, poppins.className)}>
       <head>
