@@ -70,5 +70,6 @@ module.exports = {
     'no-use-before-define': ['off'],
     'no-new': ['off'],
     'no-restricted-exports': ['off'],
+    'no-underscore-dangle': ['off'],
   },
 }
