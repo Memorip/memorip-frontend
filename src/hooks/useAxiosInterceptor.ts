@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react'
 
-import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
 import { getAccessTokenFromLocalStorage, setAccessTokenToLocalStorage } from '@/features/auth/token'
 import { axiosInstance } from '@/services/api'
-import { RegenerateAccessTokenByRefreshTokenResponse, ServerError } from '@/types/api'
+import type { RegenerateAccessTokenByRefreshTokenResponse, ServerError } from '@/types/api'
 
 export const useAxiosInterceptor = () => {
   const requestHandler = (config: InternalAxiosRequestConfig) => {
@@ -20,28 +20,28 @@ export const useAxiosInterceptor = () => {
     return config
   }
 
-  const requestErrorHandler = (error: AxiosError) => {
-    return Promise.reject(error)
+  const requestErrorHandler = async (error: AxiosError) => {
+    return await Promise.reject(error)
   }
 
   let isRefreshing = false
-  let refreshSubscribers: ((token: string) => void)[] = []
+  let refreshSubscribers: Array<(token: string) => void> = []
 
   const responseHandler = (response: AxiosResponse) => {
     return response
   }
 
-  const responseErrorHandler = (error: AxiosError<ServerError>) => {
+  const responseErrorHandler = async (error: AxiosError<ServerError>) => {
     const { config, status } = error
     const originalRequest = config
 
     if (!originalRequest) {
-      return Promise.reject(error)
+      return await Promise.reject(error)
     }
 
     if (status === 401) {
       if (isRefreshing) {
-        return new Promise((resolve) => {
+        return await new Promise((resolve) => {
           refreshSubscribers.push((_accessToken) => {
             originalRequest.headers.Authorization = `Bearer ${_accessToken}`
             resolve(axiosInstance(originalRequest))
@@ -51,7 +51,7 @@ export const useAxiosInterceptor = () => {
 
       isRefreshing = true
 
-      return new Promise((resolve) => {
+      return await new Promise((resolve) => {
         axiosInstance
           .post<RegenerateAccessTokenByRefreshTokenResponse>(`/user/refresh`)
           .then(({ data }) => {
@@ -62,19 +62,19 @@ export const useAxiosInterceptor = () => {
             refreshSubscribers = []
             resolve(axiosInstance(originalRequest))
           })
-          .catch((_error: AxiosError) => {
-            return Promise.reject()
+          .catch(async (_error: AxiosError) => {
+            return await Promise.reject(new Error('Refresh token is expired'))
           })
       })
-        .catch((_error: AxiosError<ServerError>) => {
-          return Promise.reject(_error)
+        .catch(async (_error: AxiosError<ServerError>) => {
+          return await Promise.reject(_error)
         })
         .finally(() => {
           isRefreshing = false
         })
     }
 
-    return Promise.reject(error)
+    return await Promise.reject(error)
   }
 
   const requestInterceptor = axiosInstance.interceptors.request.use(requestHandler, requestErrorHandler)

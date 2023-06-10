@@ -18,7 +18,7 @@ const SignUp = () => {
     return <EmailVerification />
   }
 
-  throw new Error(`Step is not valid. Step: ${step}`)
+  throw new Error('Step is not valid.')
 }
 
 export default SignUp

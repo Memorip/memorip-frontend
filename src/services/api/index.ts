@@ -1,7 +1,8 @@
-import axios, { AxiosRequestConfig } from 'axios'
+/* eslint-disable @typescript-eslint/promise-function-async */
+import axios, { type AxiosRequestConfig } from 'axios'
 
 import { getApiEndpoint } from '@/envs'
-import { ServerResponse } from '@/types/api'
+import type { ServerResponse } from '@/types/api'
 
 const createApi = () => {
   const _api = axios.create({

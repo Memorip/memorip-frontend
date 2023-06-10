@@ -1,25 +1,23 @@
 module.exports = {
   env: {
-    browser: true,
     es2021: true,
-    node: true,
   },
   extends: [
-    'eslint:recommended',
     'plugin:react/recommended',
-    'airbnb-base',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:import/recommended',
+    'standard-with-typescript',
+    'plugin:import/typescript',
     'plugin:tailwindcss/recommended',
     'next/core-web-vitals',
     'prettier',
   ],
+  overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: './tsconfig.json',
   },
-  plugins: ['react', 'react-hooks', '@typescript-eslint', 'import', 'tailwindcss'],
+  plugins: ['react', 'import', 'tailwindcss'],
   rules: {
     'tailwindcss/no-custom-classname': [
       'warn',
@@ -46,30 +44,28 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
-    'import/extensions': [
+    eqeqeq: ['error', 'always'],
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/triple-slash-reference': 'off',
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+    '@typescript-eslint/no-confusing-void-expression': [
       'error',
-      'ignorePackages',
       {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
+        ignoreArrowShorthand: true,
       },
     ],
-    'import/no-extraneous-dependencies': [
-      'off',
+    '@typescript-eslint/no-misused-promises': [
+      'error',
       {
-        devDependencies: true,
-        optionalDependencies: false,
-        peerDependencies: false,
+        checksVoidReturn: false,
       },
     ],
-    camelcase: 'off',
-    'arrow-body-style': ['off'],
-    'import/prefer-default-export': ['off'],
-    'no-use-before-define': ['off'],
-    'no-new': ['off'],
-    'no-restricted-exports': ['off'],
-    'no-underscore-dangle': ['off'],
+    'no-warning-comments': [
+      'warn',
+      {
+        terms: ['todo', 'fixme', 'xxx'],
+        location: 'start',
+      },
+    ],
   },
 }

@@ -39,7 +39,10 @@ const SignUpForm = ({ setStep }: Props) => {
     toast.error('회원가입에 실패했어요.')
   }
 
-  const isEmailValid = getValues('email') && !errors.email
+  const isEmailValid = Boolean(getValues('email')) && !errors.email
+  const isNicknameValid = Boolean(getValues('nickname')) && !errors.nickname
+  const isPasswordValid = Boolean(getValues('password')) && !errors.password
+  const isPasswordConfirmValid = Boolean(getValues('passwordConfirm')) && !errors.passwordConfirm
 
   return (
     <div className='flex flex-col p-4'>
@@ -67,7 +70,7 @@ const SignUpForm = ({ setStep }: Props) => {
                   })}
                 />
                 {/* TODO: 이메일 중복 검사 API 처리 및 로딩 스피너 추가 */}
-                {getValues('email') && !errors.email && <i className='ri-check-line text-xl text-blue-600' />}
+                {isEmailValid && <i className='ri-check-line text-xl text-blue-600' />}
               </div>
             </div>
             <small className='text-red-600' role='alert'>
@@ -103,7 +106,7 @@ const SignUpForm = ({ setStep }: Props) => {
                         },
                       })}
                     />
-                    {getValues('nickname') && !errors.nickname && <i className='ri-check-line text-xl text-blue-600' />}
+                    {isNicknameValid && <i className='ri-check-line text-xl text-blue-600' />}
                   </div>
                 </div>
                 <small className='text-red-600' role='alert'>
@@ -129,7 +132,7 @@ const SignUpForm = ({ setStep }: Props) => {
                         },
                       })}
                     />
-                    {getValues('password') && !errors.password && <i className='ri-check-line text-xl text-blue-600' />}
+                    {isPasswordValid && <i className='ri-check-line text-xl text-blue-600' />}
                   </div>
                 </div>
                 <small className='text-zinc-600' role='alert'>
@@ -155,9 +158,7 @@ const SignUpForm = ({ setStep }: Props) => {
                         validate: (value) => value === getValues('password') || '비밀번호가 일치하지 않아요.',
                       })}
                     />
-                    {getValues('passwordConfirm') && !errors.passwordConfirm && (
-                      <i className='ri-check-line text-xl text-blue-600' />
-                    )}
+                    {isPasswordConfirmValid && <i className='ri-check-line text-xl text-blue-600' />}
                   </div>
                 </div>
                 <small className='text-red-600' role='alert'>

@@ -11,7 +11,7 @@ import ROUTE from '@/constants/route'
 const EmailVerification = () => {
   const { push } = useRouter()
   const [codes, setCodes] = useState<string[]>(['', '', '', ''])
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([])
+  const inputRefs = useRef<Array<HTMLInputElement | null>>([])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const { value } = e.target
@@ -54,9 +54,7 @@ const EmailVerification = () => {
             value={code}
             onChange={(e) => handleChange(e, index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            ref={(el) => {
-              inputRefs.current[index] = el
-            }}
+            ref={(el) => (inputRefs.current[index] = el)}
             key={index}
           />
         ))}
