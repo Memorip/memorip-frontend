@@ -28,8 +28,6 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  useAxiosInterceptor()
-
   return (
     <html lang='en' className={cls(notoSansKr.className, poppins.className)}>
       <head>
