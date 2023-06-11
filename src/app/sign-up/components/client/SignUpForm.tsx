@@ -1,20 +1,15 @@
 import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
+import { type FormValues } from '@/app/sign-up/page'
 import { STEP } from '@/app/sign-up/sign-up.constants'
 import type { Step } from '@/app/sign-up/sign-up.constants'
 import { regex } from '@/constants/regex'
+import { sendCode, signUp } from '@/services/api/auth'
 
 interface Props {
   setStep: (step: Step) => void
-}
-
-interface FormValues {
-  email: string
-  nickname: string
-  password: string
-  passwordConfirm: string
 }
 
 const SignUpForm = ({ setStep }: Props) => {
@@ -24,14 +19,16 @@ const SignUpForm = ({ setStep }: Props) => {
     register,
     getValues,
     formState: { errors, isValid },
-  } = useForm<FormValues>({
-    mode: 'onChange',
-  })
+  } = useFormContext<FormValues>()
 
-  const onSubmit = ({ email, nickname, password, passwordConfirm }: FormValues) => {
-    setStep(STEP.EMAIL_VERIFICATION)
-    // TODO: API CALL
-    console.log(email, nickname, password, passwordConfirm)
+  const onSubmit = async ({ email, nickname, password }: FormValues) => {
+    try {
+      await signUp(email, nickname, password)
+      await sendCode(email)
+      setStep(STEP.EMAIL_VERIFICATION)
+    } catch (error) {
+      onError()
+    }
   }
 
   const onError = () => {

@@ -4,12 +4,16 @@ import { useState, useRef } from 'react'
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useFormContext } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
+import { type FormValues } from '@/app/sign-up/page'
 import ROUTE from '@/constants/route'
+import { verifyCode } from '@/services/api/auth'
 
 const EmailVerification = () => {
   const { push } = useRouter()
+  const { getValues } = useFormContext<FormValues>()
   const [codes, setCodes] = useState<string[]>(['', '', '', ''])
   const inputRefs = useRef<Array<HTMLInputElement | null>>([])
 
@@ -34,10 +38,15 @@ const EmailVerification = () => {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    toast.success('이메일 인증이 완료되었어요.')
-    push(ROUTE.SIGN_IN)
+    try {
+      await verifyCode(getValues('email'), codes.join(''))
+      toast.success('이메일 인증이 완료되었어요.')
+      push(ROUTE.SIGN_IN)
+    } catch (error) {
+      toast.error('이메일 인증에 실패했어요.')
+    }
   }
 
   return (
