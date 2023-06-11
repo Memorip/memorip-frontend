@@ -17,3 +17,9 @@ export const verifyCode = async (email: string, code: string) =>
     email,
     code,
   })
+
+export const signIn = async (email: string, password: string) =>
+  await api.post('/api/login', {
+    email,
+    password,
+  })
