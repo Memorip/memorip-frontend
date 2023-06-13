@@ -1,14 +1,13 @@
 export interface ServerResponse<T> {
-  status: number
-  message: string
-  success: boolean
-  payload: T
+  statusCode: number
+  responseMessage: string
+  data: T
 }
 
 export interface ServerError {
-  success: boolean
-  status: number
-  message: string
+  statusCode: number
+  responseMessage: string
+  data: boolean
 }
 
 export interface RegenerateAccessTokenByRefreshTokenResponse {
