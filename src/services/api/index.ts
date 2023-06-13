@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 import axios, { type AxiosRequestConfig } from 'axios'
 
 import { getApiEndpoint } from '@/envs'

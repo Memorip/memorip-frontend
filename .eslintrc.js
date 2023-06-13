@@ -60,6 +60,8 @@ module.exports = {
         checksVoidReturn: false,
       },
     ],
+    '@typescript-eslint/promise-function-async': ['off'],
+    '@typescript-eslint/return-await': ['off'],
     'no-warning-comments': [
       'warn',
       {
