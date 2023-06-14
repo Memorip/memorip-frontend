@@ -1,13 +1,15 @@
 'use client'
 
-import { useState, useRef } from 'react'
-
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+
+import { useState, useRef } from 'react'
+
 import { useFormContext } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import { type FormValues } from '@/app/sign-up/page'
+
 import ROUTE from '@/constants/route'
 import { verifyCode } from '@/services/api/auth'
 

@@ -1,11 +1,13 @@
 'use client'
 
+import Image from 'next/image'
+
 import { useEffect } from 'react'
 
 import { useAtom } from 'jotai'
-import Image from 'next/image'
 
 import Modal from '@/app/components/shared/Modal'
+
 import { snbAtom } from '@/stores/snb'
 
 const Navigation = () => {
