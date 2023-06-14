@@ -5,9 +5,9 @@ export interface ServerResponse<T> {
 }
 
 export interface ServerError {
-  statusCode: number
   responseMessage: string
   data: boolean
+  statusCode: number
 }
 
 export interface RegenerateAccessTokenByRefreshTokenResponse {
