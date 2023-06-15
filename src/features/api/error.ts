@@ -1,10 +1,6 @@
 import { AxiosError } from 'axios'
 
-interface ServerError {
-  responseMessage: string
-  data: boolean
-  statusCode: number
-}
+import { type ServerError } from '@/types/api'
 
 export const isServerErrorWithMessage = (error: unknown): error is AxiosError<ServerError> => {
   return (

@@ -1,15 +1,19 @@
 import { useRouter } from 'next/navigation'
+
+import { useEffect, useState } from 'react'
+
 import { useFormContext } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import { type FormValues } from '@/app/sign-up/page'
-import { STEP } from '@/app/sign-up/sign-up.constants'
-import type { Step } from '@/app/sign-up/sign-up.constants'
+import { type Step, STEP } from '@/app/sign-up/sign-up.constants'
+
 import { regex } from '@/constants/regex'
-import { sendCode, signUp } from '@/services/api/auth'
+import { isServerErrorWithMessage } from '@/features/api/error'
+import { checkDuplicateEmail, sendCode, signUp } from '@/services/api/auth'
 
 interface Props {
-  setStep: (step: Step) => void
+  setStep: React.Dispatch<React.SetStateAction<Step>>
 }
 
 const SignUpForm = ({ setStep }: Props) => {
@@ -18,8 +22,14 @@ const SignUpForm = ({ setStep }: Props) => {
     handleSubmit,
     register,
     getValues,
+    setError,
+    watch,
     formState: { errors, isValid },
   } = useFormContext<FormValues>()
+
+  const currentEmail = watch('email')
+  const [isEmailValidating, setIsEmailValidating] = useState(false)
+  const [isDuplicated, setIsDuplicated] = useState(false)
 
   const onSubmit = async ({ email, nickname, password }: FormValues) => {
     try {
@@ -27,19 +37,50 @@ const SignUpForm = ({ setStep }: Props) => {
       await sendCode(email)
       setStep(STEP.EMAIL_VERIFICATION)
     } catch (error) {
-      onError()
+      onError(error)
     }
   }
 
-  const onError = () => {
-    // TODO: 에러 처리
-    toast.error('회원가입에 실패했어요.')
+  const onError = (error: unknown) => {
+    if (isServerErrorWithMessage(error)) {
+      toast.error(error.response?.data.responseMessage)
+      return
+    }
+
+    toast.error('서버에 문제가 생겼어요.')
   }
 
-  const isEmailValid = Boolean(getValues('email')) && !errors.email
-  const isNicknameValid = Boolean(getValues('nickname')) && !errors.nickname
-  const isPasswordValid = Boolean(getValues('password')) && !errors.password
-  const isPasswordConfirmValid = Boolean(getValues('passwordConfirm')) && !errors.passwordConfirm
+  const isEmailValid = getValues('email') && !errors.email
+  const isNicknameValid = getValues('nickname') && !errors.nickname
+  const isPasswordValid = getValues('password') && !errors.password
+  const isPasswordConfirmValid = getValues('passwordConfirm') && !errors.passwordConfirm
+
+  useEffect(() => {
+    const validateEmail = async () => {
+      try {
+        setIsEmailValidating(true)
+        await checkDuplicateEmail(currentEmail)
+        setIsDuplicated(false)
+      } catch (error) {
+        if (isServerErrorWithMessage(error)) {
+          setError('email', {
+            type: 'manual',
+            message: error.response?.data.responseMessage,
+          })
+          setIsDuplicated(true)
+          return
+        }
+
+        toast.error('서버에 문제가 생겼어요.')
+      } finally {
+        setIsEmailValidating(false)
+      }
+    }
+
+    if (currentEmail && regex.email.test(currentEmail)) {
+      void validateEmail()
+    }
+  }, [currentEmail, setError])
 
   return (
     <div className='flex flex-col p-4'>
@@ -66,15 +107,18 @@ const SignUpForm = ({ setStep }: Props) => {
                     },
                   })}
                 />
-                {/* TODO: 이메일 중복 검사 API 처리 및 로딩 스피너 추가 */}
-                {isEmailValid && <i className='ri-check-line text-xl text-blue-600' />}
+                {isEmailValid && isEmailValidating ? (
+                  <i className='ri-loader-4-line animate-spin text-xl' />
+                ) : isEmailValid && !isDuplicated ? (
+                  <i className='ri-check-line text-xl text-blue-600' />
+                ) : null}
               </div>
             </div>
             <small className='text-red-600' role='alert'>
               {errors.email?.message}
             </small>
           </div>
-          {isEmailValid && (
+          {isEmailValid && !isDuplicated && (
             <>
               <div className='flex h-24 flex-col gap-1'>
                 <div className='flex flex-col gap-2 [&>div]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
@@ -162,15 +206,15 @@ const SignUpForm = ({ setStep }: Props) => {
                   {errors.passwordConfirm?.message}
                 </small>
               </div>
+              <button
+                className={`mt-8 w-full rounded-lg bg-blue-500 py-3 text-white ${isValid ? 'block' : 'hidden'}`}
+                type='submit'
+              >
+                확인
+              </button>
             </>
           )}
         </div>
-        <button
-          className={`mt-8 w-full rounded-lg bg-blue-500 py-3 text-white ${isValid ? 'block' : 'hidden'}`}
-          type='submit'
-        >
-          확인
-        </button>
       </form>
     </div>
   )
