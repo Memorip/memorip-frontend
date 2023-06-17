@@ -26,12 +26,12 @@ const PlanDetail = () => {
           {new Array(TIMELINE_LENGTH).fill(0).map((_, index) => (
             <TimeLine key={index} />
           ))}
-          <button className='flex h-[88px] w-full items-center justify-center rounded-lg bg-zinc-100 p-4'>
+          <div className='flex h-[88px] w-full items-center justify-center rounded-lg bg-zinc-100 p-4'>
             <div className='flex items-center gap-1'>
               <i className='ri-add-line text-lg font-bold text-emerald-500' />
               <span className='text-sm font-bold text-emerald-500'>일정 추가하기</span>
             </div>
-          </button>
+          </div>
         </div>
       </div>
     </div>

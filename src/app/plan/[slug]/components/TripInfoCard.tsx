@@ -18,7 +18,7 @@ const TripInfoCard = ({
       <div className='mb-10 flex gap-1'>
         {tags.map((tag, index) => (
           <span className='rounded-full bg-blue-500 px-3 py-1 text-white' key={tag}>
-            #{tag}
+            {tag}
           </span>
         ))}
       </div>
