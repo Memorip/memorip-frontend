@@ -6,7 +6,7 @@ interface ChildrenProps {
   children: React.ReactNode
 }
 
-const Modal = ({ children }: ChildrenProps) => {
+export default function Modal({ children }: ChildrenProps) {
   const element = typeof window !== 'undefined' && document.querySelector('#modal-root')
 
   useEffect(() => {
@@ -20,8 +20,8 @@ const Modal = ({ children }: ChildrenProps) => {
   return element && children ? ReactDOM.createPortal(children, element) : null
 }
 
-const Background = ({ onClose }: { onClose: () => void }) => (
-  <div
+function Background({ onClose }: { onClose: () => void }) {
+  return <div
     onClick={onClose}
     style={{
       position: 'fixed',
@@ -33,10 +33,10 @@ const Background = ({ onClose }: { onClose: () => void }) => (
       zIndex: 9,
     }}
   />
-)
+}
 
-const Layout = ({ children }: ChildrenProps) => (
-  <div
+function Layout({ children }: ChildrenProps) {
+  return <div
     style={{
       position: 'fixed',
       top: '50%',
@@ -47,9 +47,7 @@ const Layout = ({ children }: ChildrenProps) => (
   >
     {children}
   </div>
-)
+}
 
 Modal.Background = Background
 Modal.Layout = Layout
-
-export default Modal

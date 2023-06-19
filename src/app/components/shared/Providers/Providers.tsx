@@ -7,7 +7,7 @@ interface Props {
   children: React.ReactNode
 }
 
-const Providers = ({ children }: Props) => {
+export default function Providers({ children }: Props) {
   return (
     <QueryClientProvider>
       <AxiosProvider>
@@ -18,5 +18,3 @@ const Providers = ({ children }: Props) => {
     </QueryClientProvider>
   )
 }
-
-export default Providers

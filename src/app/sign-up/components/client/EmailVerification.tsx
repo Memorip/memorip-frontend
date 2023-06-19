@@ -13,7 +13,7 @@ import { type FormValues } from '@/app/sign-up/page'
 import ROUTE from '@/constants/route'
 import { verifyCode } from '@/services/api/auth'
 
-const EmailVerification = () => {
+export default function EmailVerification() {
   const { push } = useRouter()
   const { getValues } = useFormContext<FormValues>()
   const [codes, setCodes] = useState<string[]>(['', '', '', ''])
@@ -78,5 +78,3 @@ const EmailVerification = () => {
     </form>
   )
 }
-
-export default EmailVerification

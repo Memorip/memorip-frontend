@@ -16,7 +16,7 @@ interface Props {
   setStep: React.Dispatch<React.SetStateAction<Step>>
 }
 
-const SignUpForm = ({ setStep }: Props) => {
+export default function SignUpForm({ setStep }: Props) {
   const { back } = useRouter()
   const {
     handleSubmit,
@@ -219,5 +219,3 @@ const SignUpForm = ({ setStep }: Props) => {
     </div>
   )
 }
-
-export default SignUpForm
