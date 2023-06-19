@@ -10,7 +10,7 @@ import Modal from '@/app/components/shared/Modal'
 
 import { snbAtom } from '@/stores/snb'
 
-const Navigation = () => {
+export default function Navigation() {
   const [isOpenSnb, setIsOpenSnb] = useAtom(snbAtom)
 
   const onClose = () => {
@@ -111,5 +111,3 @@ const Navigation = () => {
     </>
   )
 }
-
-export default Navigation

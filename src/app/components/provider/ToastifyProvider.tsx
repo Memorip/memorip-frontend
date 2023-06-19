@@ -7,7 +7,7 @@ interface Props {
   children: React.ReactNode
 }
 
-const ToastifyProvider = ({ children }: Props) => {
+export default function ToastifyProvider({ children }: Props) {
   return (
     <>
       <ToastContainer position='top-right' />
@@ -15,5 +15,3 @@ const ToastifyProvider = ({ children }: Props) => {
     </>
   )
 }
-
-export default ToastifyProvider

@@ -15,7 +15,7 @@ export interface FormValues {
   passwordConfirm: string
 }
 
-const SignUp = () => {
+export default function SignUp() {
   const methods = useForm<FormValues>({
     mode: 'onChange',
   })
@@ -29,5 +29,3 @@ const SignUp = () => {
     </FormProvider>
   )
 }
-
-export default SignUp

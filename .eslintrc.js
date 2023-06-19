@@ -84,5 +84,12 @@ module.exports = {
         location: 'start',
       },
     ],
+    'react/function-component-definition': [
+      'error',
+      {
+        namedComponents: 'function-declaration',
+        unnamedComponents: 'function-expression',
+      },
+    ],
   },
 }

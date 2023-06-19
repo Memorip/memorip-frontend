@@ -6,7 +6,7 @@ interface Props {
   children: React.ReactNode
 }
 
-const ResponsiveHeightProvider = ({ children }: Props) => {
+export default function ResponsiveHeightProvider({ children }: Props) {
   useEffect(() => {
     function setScreenSize() {
       const vh = window.innerHeight * 0.01
@@ -19,5 +19,3 @@ const ResponsiveHeightProvider = ({ children }: Props) => {
 
   return <>{children}</>
 }
-
-export default ResponsiveHeightProvider
