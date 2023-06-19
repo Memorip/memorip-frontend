@@ -9,7 +9,7 @@ interface Props {
   children: React.ReactNode
 }
 
-const QueryClientProvider = ({ children }: Props) => {
+export default function QueryClientProvider({ children }: Props) {
   const [queryClient] = useState(
     new QueryClient({
       defaultOptions: {
@@ -28,5 +28,3 @@ const QueryClientProvider = ({ children }: Props) => {
     </TanstackQueryProvider>
   )
 }
-
-export default QueryClientProvider

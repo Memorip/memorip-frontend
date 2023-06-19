@@ -4,7 +4,7 @@ import { useAtom } from 'jotai'
 
 import { snbAtom } from '@/stores/snb'
 
-const Header = () => {
+export default function Header() {
   const [, setIsOpenSnb] = useAtom(snbAtom)
 
   const openSnb = () => {
@@ -19,5 +19,3 @@ const Header = () => {
     </header>
   )
 }
-
-export default Header
