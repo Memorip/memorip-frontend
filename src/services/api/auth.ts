@@ -7,16 +7,9 @@ export const signUp = (email: string, password: string, nickname: string) =>
     nickname,
   })
 
-export const sendCode = (email: string) =>
-  api.post('/mail/sendCode', {
-    email,
-  })
+export const sendCode = (email: string) => api.get(`/api/mail/sendCode?rcv=${email}`)
 
-export const verifyCode = (email: string, code: string) =>
-  api.post('/mail/verifyCode', {
-    email,
-    code,
-  })
+export const verifyCode = (email: string, code: string) => api.get(`/api/mail/verifyCode?rcv=${email}&code=${code}`)
 
 export const checkDuplicateEmail = (email: string) => api.get<boolean>(`/api/checkEmail?email=${email}`)
 
