@@ -1,4 +1,4 @@
-const ProgressDot = ({ total }: { total: number }) => {
+export default function ProgressDot({ total }: { total: number }) {
   return (
     <div className='mt-8 flex flex-col'>
       {new Array(total).fill(0).map((_, index) => (
@@ -11,5 +11,3 @@ const ProgressDot = ({ total }: { total: number }) => {
     </div>
   )
 }
-
-export default ProgressDot

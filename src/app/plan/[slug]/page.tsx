@@ -5,7 +5,7 @@ import TripInfoCard from '@/app/plan/[slug]/components/TripInfoCard'
 
 const TIMELINE_LENGTH = 4
 
-const PlanDetail = () => {
+export default function PlanDetail() {
   return (
     <div className='mt-4 p-4'>
       <TripInfoCard
@@ -37,5 +37,3 @@ const PlanDetail = () => {
     </div>
   )
 }
-
-export default PlanDetail

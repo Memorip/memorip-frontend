@@ -1,4 +1,4 @@
-const TripInfoCard = ({
+export default function TripInfoCard({
   title,
   startDate,
   endDate,
@@ -8,7 +8,7 @@ const TripInfoCard = ({
   startDate: string
   endDate: string
   tags: string[]
-}) => {
+}) {
   return (
     <>
       <h1 className='mb-1 text-2xl font-bold'>{title}</h1>
@@ -25,5 +25,3 @@ const TripInfoCard = ({
     </>
   )
 }
-
-export default TripInfoCard
