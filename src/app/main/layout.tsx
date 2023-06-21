@@ -1,5 +1,5 @@
 import { HamburgerButton, HeaderRoot } from '@/app/components/shared/Header'
-import Navigation from '@/app/components/shared/SNB/SNB'
+import SNB from '@/app/components/shared/SNB/SNB'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -7,7 +7,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <HeaderRoot>
         <HamburgerButton />
       </HeaderRoot>
-      <Navigation />
+      <SNB />
       {children}
     </section>
   )
