@@ -13,7 +13,7 @@ interface FormValues {
   password: string
 }
 
-export default function SignIn() {
+export default function LogIn() {
   const {
     handleSubmit,
     register,
