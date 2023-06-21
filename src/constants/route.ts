@@ -1,7 +1,7 @@
 const ROUTE = {
   HOME: '/',
-  SIGN_IN: '/sign-in',
-  SIGN_UP: '/sign-up',
+  SIGN_IN: '/login',
+  SIGN_UP: '/signup',
   MAIN: '/main',
 } as const
 

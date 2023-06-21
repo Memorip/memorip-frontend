@@ -1,16 +1,17 @@
 import { useRouter } from 'next/navigation'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { useFormContext } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-import { type FormValues } from '@/app/sign-up/page'
-import { type Step, STEP } from '@/app/sign-up/sign-up.constants'
+import { useEmailValidation } from '@/app/signup/hooks/useEmailValidation'
+import { type FormValues } from '@/app/signup/page'
+import { type Step, STEP } from '@/app/signup/signup.constants'
 
 import { regex } from '@/constants/regex'
 import { isServerErrorWithMessage } from '@/features/api/error'
-import { checkDuplicateEmail, sendCode, signUp } from '@/services/api/auth'
+import { sendCode, signUp } from '@/services/api/auth'
 
 interface Props {
   setStep: React.Dispatch<React.SetStateAction<Step>>
@@ -26,10 +27,8 @@ export default function SignUpForm({ setStep }: Props) {
     watch,
     formState: { errors, isValid },
   } = useFormContext<FormValues>()
-
-  const currentEmail = watch('email')
-  const [isEmailValidating, setIsEmailValidating] = useState(false)
-  const [isDuplicated, setIsDuplicated] = useState(false)
+  const email = watch('email')
+  const { isEmailValidating, isDuplicated, error } = useEmailValidation(email)
 
   const onSubmit = async ({ email, nickname, password }: FormValues) => {
     try {
@@ -50,37 +49,19 @@ export default function SignUpForm({ setStep }: Props) {
     toast.error('서버에 문제가 생겼어요.')
   }
 
+  useEffect(() => {
+    if (error) {
+      setError('email', {
+        type: 'manual',
+        message: error.response?.data.responseMessage,
+      })
+    }
+  }, [error, setError])
+
   const isEmailValid = getValues('email') && !errors.email
   const isNicknameValid = getValues('nickname') && !errors.nickname
   const isPasswordValid = getValues('password') && !errors.password
   const isPasswordConfirmValid = getValues('passwordConfirm') && !errors.passwordConfirm
-
-  useEffect(() => {
-    const validateEmail = async () => {
-      try {
-        setIsEmailValidating(true)
-        await checkDuplicateEmail(currentEmail)
-        setIsDuplicated(false)
-      } catch (error) {
-        if (isServerErrorWithMessage(error)) {
-          setError('email', {
-            type: 'manual',
-            message: error.response?.data.responseMessage,
-          })
-          setIsDuplicated(true)
-          return
-        }
-
-        toast.error('서버에 문제가 생겼어요.')
-      } finally {
-        setIsEmailValidating(false)
-      }
-    }
-
-    if (currentEmail && regex.email.test(currentEmail)) {
-      void validateEmail()
-    }
-  }, [currentEmail, setError])
 
   return (
     <div className='flex flex-col p-4'>
