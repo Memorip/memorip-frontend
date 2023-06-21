@@ -1,10 +1,17 @@
 'use client'
 
+import Link from 'next/link'
+
 import { useAtom } from 'jotai'
 
+import ROUTE from '@/constants/route'
 import { snbAtom } from '@/stores/snb'
 
-export default function Header() {
+function HeaderRoot({ children }: { children: React.ReactNode }) {
+  return <header className='sticky flex justify-end gap-4 px-3 py-4 shadow-md shadow-zinc-100'>{children}</header>
+}
+
+function HamburgerButton() {
   const [, setIsOpenSnb] = useAtom(snbAtom)
 
   const openSnb = () => {
@@ -12,10 +19,24 @@ export default function Header() {
   }
 
   return (
-    <header className='sticky flex justify-end px-3 py-4 shadow-md shadow-zinc-100'>
-      <button onClick={openSnb}>
-        <i className='ri-menu-line text-xl' />
-      </button>
-    </header>
+    <button onClick={openSnb}>
+      <i className='ri-menu-line text-xl' />
+    </button>
   )
 }
+
+function MapButton() {
+  return (
+    <Link href={ROUTE.MAP}>
+      <i className='ri-map-2-line text-xl' />
+    </Link>
+  )
+}
+
+const Header = Object.assign(HeaderRoot, {
+  HamburgerButton,
+  MapButton,
+})
+
+export default Header
+export { HeaderRoot, HamburgerButton, MapButton }

@@ -21,32 +21,36 @@ export default function Modal({ children }: ChildrenProps) {
 }
 
 function Background({ onClose }: { onClose: () => void }) {
-  return <div
-    onClick={onClose}
-    style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100vw',
-      height: '100vh',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      zIndex: 9,
-    }}
-  />
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        zIndex: 9,
+      }}
+    />
+  )
 }
 
 function Layout({ children }: ChildrenProps) {
-  return <div
-    style={{
-      position: 'fixed',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      zIndex: 10,
-    }}
-  >
-    {children}
-  </div>
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 10,
+      }}
+    >
+      {children}
+    </div>
+  )
 }
 
 Modal.Background = Background
