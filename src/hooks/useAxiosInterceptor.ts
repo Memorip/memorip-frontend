@@ -20,8 +20,8 @@ export const useAxiosInterceptor = () => {
     return config
   }
 
-  const requestErrorHandler = async (error: AxiosError) => {
-    return await Promise.reject(error)
+  const requestErrorHandler = (error: AxiosError) => {
+    return Promise.reject(error)
   }
 
   let isRefreshing = false
@@ -31,17 +31,17 @@ export const useAxiosInterceptor = () => {
     return response
   }
 
-  const responseErrorHandler = async (error: AxiosError<ServerError>) => {
+  const responseErrorHandler = (error: AxiosError<ServerError>) => {
     const { config, status } = error
     const originalRequest = config
 
     if (!originalRequest) {
-      return await Promise.reject(error)
+      return Promise.reject(error)
     }
 
     if (status === 401) {
       if (isRefreshing) {
-        return await new Promise((resolve) => {
+        return new Promise((resolve) => {
           refreshSubscribers.push((_accessToken) => {
             originalRequest.headers.Authorization = `Bearer ${_accessToken}`
             resolve(axiosInstance(originalRequest))
@@ -51,7 +51,7 @@ export const useAxiosInterceptor = () => {
 
       isRefreshing = true
 
-      return await new Promise((resolve) => {
+      return new Promise((resolve) => {
         axiosInstance
           .post<RegenerateAccessTokenByRefreshTokenResponse>(`/user/refresh`)
           .then(({ data }) => {
@@ -62,19 +62,19 @@ export const useAxiosInterceptor = () => {
             refreshSubscribers = []
             resolve(axiosInstance(originalRequest))
           })
-          .catch(async (_error: AxiosError) => {
-            return await Promise.reject(new Error('Refresh token is expired'))
+          .catch((_error: AxiosError) => {
+            return Promise.reject(new Error('Refresh token is expired'))
           })
       })
-        .catch(async (_error: AxiosError<ServerError>) => {
-          return await Promise.reject(_error)
+        .catch((_error: AxiosError<ServerError>) => {
+          return Promise.reject(_error)
         })
         .finally(() => {
           isRefreshing = false
         })
     }
 
-    return await Promise.reject(error)
+    return Promise.reject(error)
   }
 
   const requestInterceptor = axiosInstance.interceptors.request.use(requestHandler, requestErrorHandler)

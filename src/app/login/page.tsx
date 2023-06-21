@@ -1,17 +1,19 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import ROUTE from '@/constants/route'
+import { signIn } from '@/services/api/auth'
 
 interface FormValues {
   email: string
   password: string
 }
 
-const SignIn = () => {
+export default function LogIn() {
   const {
     handleSubmit,
     register,
@@ -21,10 +23,14 @@ const SignIn = () => {
   })
   const { back, push } = useRouter()
 
-  const onSubmit = () => {
-    // TODO: API CALL
-    toast.success('로그인 성공!')
-    push(ROUTE.MAIN)
+  const onSubmit = async ({ email, password }: FormValues) => {
+    try {
+      await signIn(email, password)
+      toast.success('로그인에 성공했어요.')
+      push(ROUTE.MAIN)
+    } catch (error) {
+      toast.error('로그인에 실패했어요.')
+    }
   }
 
   return (
@@ -77,5 +83,3 @@ const SignIn = () => {
     </div>
   )
 }
-
-export default SignIn

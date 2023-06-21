@@ -31,8 +31,23 @@ module.exports = {
         groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
         pathGroups: [
           {
+            pattern: 'next/**',
+            group: 'external',
+            position: 'before',
+          },
+          {
             pattern: 'react',
             group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '@/app/**',
+            group: 'internal',
+            position: 'before',
+          },
+          {
+            pattern: '@/components/**',
+            group: 'internal',
             position: 'before',
           },
         ],
@@ -60,11 +75,20 @@ module.exports = {
         checksVoidReturn: false,
       },
     ],
+    '@typescript-eslint/promise-function-async': ['off'],
+    '@typescript-eslint/return-await': ['off'],
     'no-warning-comments': [
       'warn',
       {
         terms: ['todo', 'fixme', 'xxx'],
         location: 'start',
+      },
+    ],
+    'react/function-component-definition': [
+      'error',
+      {
+        namedComponents: 'function-declaration',
+        unnamedComponents: 'function-expression',
       },
     ],
   },

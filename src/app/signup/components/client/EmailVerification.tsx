@@ -1,17 +1,19 @@
 'use client'
 
-import { useState, useRef } from 'react'
-
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+
+import { useState, useRef } from 'react'
+
 import { useFormContext } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-import { type FormValues } from '@/app/sign-up/page'
+import { type FormValues } from '@/app/signup/page'
+
 import ROUTE from '@/constants/route'
 import { verifyCode } from '@/services/api/auth'
 
-const EmailVerification = () => {
+export default function EmailVerification() {
   const { push } = useRouter()
   const { getValues } = useFormContext<FormValues>()
   const [codes, setCodes] = useState<string[]>(['', '', '', ''])
@@ -76,5 +78,3 @@ const EmailVerification = () => {
     </form>
   )
 }
-
-export default EmailVerification
