@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-import { useValidateEmail } from '@/app/signup/hooks/useValidateEmail'
+import { useEmailValidation } from '@/app/signup/hooks/useEmailValidation'
 import { type FormValues } from '@/app/signup/page'
 import { type Step, STEP } from '@/app/signup/signup.constants'
 
@@ -28,7 +28,7 @@ export default function SignUpForm({ setStep }: Props) {
     formState: { errors, isValid },
   } = useFormContext<FormValues>()
   const email = watch('email')
-  const { isEmailValidating, isDuplicated, error } = useValidateEmail(email)
+  const { isEmailValidating, isDuplicated, error } = useEmailValidation(email)
 
   const onSubmit = async ({ email, nickname, password }: FormValues) => {
     try {

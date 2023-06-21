@@ -8,7 +8,7 @@ import { isServerErrorWithMessage } from '@/features/api/error'
 import { checkDuplicateEmail } from '@/services/api/auth'
 import { type ServerError } from '@/types/api'
 
-export const useValidateEmail = (email: string) => {
+export const useEmailValidation = (email: string) => {
   const [isEmailValidating, setIsEmailValidating] = useState(false)
   const [isDuplicated, setIsDuplicated] = useState(false)
   const [error, setError] = useState<AxiosError<ServerError, any> | null>(null)
