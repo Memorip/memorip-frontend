@@ -4,6 +4,7 @@ const ROUTE = {
   SIGN_UP: '/signup',
   MAIN: '/main',
   MAP: '/map',
+  SEARCH: '/search',
 } as const
 
 export default ROUTE
