@@ -1,6 +1,11 @@
 import { Dialog } from '@headlessui/react'
 
-export default function MemoDialog({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (isOpen: boolean) => void }) {
+interface MemoDialogProps {
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function MemoDialog({ isOpen, setIsOpen }: MemoDialogProps) {
   return (
     <Dialog className='relative z-50' open={isOpen} onClose={() => setIsOpen(false)}>
       <div className='fixed inset-0 bg-black/30' aria-hidden='true' />
