@@ -4,7 +4,12 @@ import { Dialog } from '@headlessui/react'
 
 import MemoDialog from '@/app/plan/[slug]/components/MemoDialog'
 
-export default function TimeLineMenu({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (isOpen: boolean) => void }) {
+interface TimeLineMenuProps {
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function TimeLineMenu({ isOpen, setIsOpen }: TimeLineMenuProps) {
   const [isOpenMemoDialog, setIsOpenMemoDialog] = useState(false)
 
   return (
