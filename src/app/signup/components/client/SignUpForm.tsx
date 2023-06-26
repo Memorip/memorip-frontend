@@ -11,7 +11,7 @@ import { type Step, STEP } from '@/app/signup/signup.constants'
 
 import { regex } from '@/constants/regex'
 import { isServerErrorWithMessage } from '@/features/api/error'
-import { sendCode, signUp } from '@/services/api/auth'
+import { sendCode } from '@/services/api/auth'
 
 interface Props {
   setStep: React.Dispatch<React.SetStateAction<Step>>
@@ -30,9 +30,8 @@ export default function SignUpForm({ setStep }: Props) {
   const email = watch('email')
   const { isEmailValidating, isDuplicated, error } = useEmailValidation(email)
 
-  const onSubmit = async ({ email, password, nickname }: FormValues) => {
+  const onSubmit = async ({ email }: FormValues) => {
     try {
-      await signUp(email, password, nickname)
       await sendCode(email)
       setStep(STEP.EMAIL_VERIFICATION)
     } catch (error) {

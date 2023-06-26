@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import { type FormValues } from '@/app/signup/page'
 
 import ROUTE from '@/constants/route'
-import { verifyCode } from '@/services/api/auth'
+import { signUp, verifyCode } from '@/services/api/auth'
 
 export default function EmailVerification() {
   const { push } = useRouter()
@@ -44,7 +44,8 @@ export default function EmailVerification() {
     e.preventDefault()
     try {
       await verifyCode(getValues('email'), codes.join(''))
-      toast.success('이메일 인증이 완료되었어요.')
+      await signUp(getValues('email'), getValues('password'), getValues('nickname'))
+      toast.success('회원가입이 완료되었어요.')
       push(ROUTE.SIGN_IN)
     } catch (error) {
       toast.error('이메일 인증에 실패했어요.')
@@ -55,7 +56,7 @@ export default function EmailVerification() {
     <form className='flex h-screen flex-col items-center justify-center p-4' onSubmit={handleSubmit}>
       <Image src='/images/email.png' width={100} height={100} alt='email verification' />
       <h1 className='mb-2 mt-4 text-xl font-bold'>이메일을 확인해주세요.</h1>
-      <span className='mb-8 text-xs text-zinc-500'>hello123@gmail.com으로 인증 번호를 보냈어요.</span>
+      <span className='mb-8 text-xs text-zinc-500'>{getValues('email')}으로 인증 번호를 보냈어요.</span>
       <div className='mb-4 flex gap-2'>
         {codes.map((code, index) => (
           <input
