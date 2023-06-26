@@ -30,9 +30,9 @@ export default function SignUpForm({ setStep }: Props) {
   const email = watch('email')
   const { isEmailValidating, isDuplicated, error } = useEmailValidation(email)
 
-  const onSubmit = async ({ email, nickname, password }: FormValues) => {
+  const onSubmit = async ({ email, password, nickname }: FormValues) => {
     try {
-      await signUp(email, nickname, password)
+      await signUp(email, password, nickname)
       await sendCode(email)
       setStep(STEP.EMAIL_VERIFICATION)
     } catch (error) {
