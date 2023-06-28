@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { SERVER_URL } from '@/envs'
+import { accessToken } from '@/constants/token'
+import { apiFetch } from '@/services/fetch'
 
 interface LoginResult {
   data: {
@@ -8,14 +9,11 @@ interface LoginResult {
   }
 }
 
-export async function POST(request: NextRequest) {
-  const { email, password } = await request.json()
+export async function POST(req: NextRequest, res: NextResponse, next: () => void) {
+  const { email, password } = await req.json()
 
-  const response = await fetch(`${SERVER_URL}/api/login`, {
+  const response = await apiFetch('/api/login', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({
       email,
       password,
@@ -30,7 +28,7 @@ export async function POST(request: NextRequest) {
   expirationDate.setDate(expirationDate.getDate() + 1)
 
   nextResponse.cookies.set({
-    name: 'accessToken',
+    name: accessToken,
     value: loginResult.data.token,
     httpOnly: true,
     expires: expirationDate,
