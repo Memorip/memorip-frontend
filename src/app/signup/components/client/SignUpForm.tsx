@@ -11,7 +11,7 @@ import { type Step, STEP } from '@/app/signup/signup.constants'
 
 import { regex } from '@/constants/regex'
 import { isServerErrorWithMessage } from '@/features/api/error'
-import { sendCode } from '@/services/api/auth'
+import { sendCode } from '@/services/auth'
 
 interface Props {
   setStep: React.Dispatch<React.SetStateAction<Step>>

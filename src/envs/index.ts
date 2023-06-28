@@ -1,7 +1,7 @@
-export const NAVER_MAPS_APP = process.env.NEXT_PUBLIC_NAVER_MAPS_APP
-export const NAVER_MAPS_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_MAPS_CLIENT_ID
-export const NAVER_MAPS_CLIENT_SECRET = process.env.NEXT_PUBLIC_NAVER_MAPS_CLIENT_SECRET
-export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
+export const NAVER_MAPS_APP = process.env.NEXT_PUBLIC_NAVER_MAPS_APP as string
+export const NAVER_MAPS_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_MAPS_CLIENT_ID as string
+export const NAVER_MAPS_CLIENT_SECRET = process.env.NEXT_PUBLIC_NAVER_MAPS_CLIENT_SECRET as string
+export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL as string
 
 export type AppEnv = 'production' | 'development'
 

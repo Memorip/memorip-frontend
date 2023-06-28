@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 
 import { regex } from '@/constants/regex'
 import { isServerErrorWithMessage } from '@/features/api/error'
-import { checkDuplicateEmail } from '@/services/api/auth'
+import { checkDuplicateEmail } from '@/services/auth'
 import { type ServerError } from '@/types/api'
 
 export const useEmailValidation = (email: string) => {
