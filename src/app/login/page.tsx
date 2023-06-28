@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import ROUTE from '@/constants/route'
+import { isServerErrorWithMessage } from '@/features/api/error'
 import { signIn } from '@/services/auth'
 
 interface FormValues {
@@ -29,7 +30,12 @@ export default function LogIn() {
       toast.success('로그인에 성공했어요.')
       push(ROUTE.MAIN)
     } catch (error) {
-      toast.error('로그인에 실패했어요.')
+      if (isServerErrorWithMessage(error)) {
+        toast.error(error.response?.data.responseMessage)
+        return
+      }
+
+      toast.error('서버에 문제가 생겼어요. 잠시 후 다시 시도해주세요.')
     }
   }
 

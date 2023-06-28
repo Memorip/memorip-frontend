@@ -22,6 +22,10 @@ export async function POST(req: NextRequest, res: NextResponse, next: () => void
 
   const loginResult: LoginResult = await response.json()
 
+  if (!loginResult.data) {
+    return NextResponse.json(loginResult, { status: loginResult.statusCode })
+  }
+
   const nextResponse = NextResponse.json({ res: loginResult }, { status: 200 })
 
   const expirationDate = new Date()
