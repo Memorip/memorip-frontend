@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 import { type Timeline } from '@/types/timeline'
 
@@ -23,7 +23,7 @@ export default function TimeLine({ timeline }: TimeLineProps) {
         <span className='text-base font-bold'>{data}</span>
         <span className='text-xs font-semibold'>{memo}</span>
       </div>
-      <span className='text-xs font-semibold text-stone-400'>{moment(createdAt).format('LT')}</span>
+      <span className='text-xs font-semibold text-stone-400'>{dayjs(createdAt).format('HH:mm')}</span>
       <TimeLineMenu isOpen={isOpenMenu} setIsOpen={setIsOpenMenu} />
     </div>
   )
