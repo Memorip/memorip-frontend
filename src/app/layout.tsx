@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import { Poppins, Noto_Sans_KR } from 'next/font/google'
 
-import Meta from '@/app/components/shared/Meta'
-import Providers from '@/app/components/shared/Providers'
+import Meta from '@/components/shared/Meta'
+import Providers from '@/components/shared/Providers'
 
 import '@/styles/globals.css'
 import 'remixicon/fonts/remixicon.css'

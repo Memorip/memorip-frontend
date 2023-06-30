@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Dialog } from '@headlessui/react'
 
-import MemoDialog from '@/app/plan/[slug]/components/MemoDialog'
+import MemoDialog from '@/app/plan/[slug]/components/server/MemoDialog'
 
 interface TimeLineMenuProps {
   isOpen: boolean

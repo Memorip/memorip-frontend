@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import ROUTE from '@/constants/route'
-import { signIn } from '@/services/api/auth'
+import { signIn } from '@/services/auth'
 
 interface FormValues {
   email: string

@@ -36,14 +36,7 @@ interface FormFieldErrorProps {
 
 export const FormFieldContext = React.createContext<FormFieldContextProps<any> | undefined>(undefined)
 
-export const FormField = <T extends FieldValues>({
-  as,
-  className,
-  children,
-  control,
-  name,
-  rules,
-}: FormFieldProps<T>) => {
+export function FormField<T extends FieldValues>({ as, className, children, control, name, rules }: FormFieldProps<T>) {
   const Component = as ?? 'div'
   const { errors } = useFormState({ control, name })
 
@@ -54,12 +47,12 @@ export const FormField = <T extends FieldValues>({
   )
 }
 
-export const FormFieldLabel = ({
+export function FormFieldLabel({
   className,
   children,
   unUseDefaultClassname = false,
   required = false,
-}: FormFieldLabelProps) => {
+}: FormFieldLabelProps) {
   const context = React.useContext(FormFieldContext)
 
   return (
@@ -70,7 +63,7 @@ export const FormFieldLabel = ({
   )
 }
 
-export const FormFieldError = ({ className }: FormFieldErrorProps) => {
+export function FormFieldError({ className }: FormFieldErrorProps) {
   const context = React.useContext(FormFieldContext)
 
   return (

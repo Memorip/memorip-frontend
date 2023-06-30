@@ -1,5 +1,5 @@
-import { HamburgerButton, HeaderRoot } from '@/app/components/shared/Header'
-import SNB from '@/app/components/shared/SNB/SNB'
+import { HamburgerButton, HeaderRoot } from '@/components/shared/Header'
+import SNB from '@/components/shared/SNB/SNB'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
