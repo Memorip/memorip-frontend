@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { ACCESS_TOKEN } from '@/features/auth/token'
-import { apiFetch } from '@/services/fetch'
+import { serverFetch } from '@/services/serverFetch'
 
 interface LoginResult {
   data: {
@@ -10,10 +10,10 @@ interface LoginResult {
   statusCode: number
 }
 
-export async function POST(req: NextRequest, res: NextResponse, next: () => void) {
+export async function POST(req: NextRequest) {
   const { email, password } = await req.json()
 
-  const response = await apiFetch({
+  const response = await serverFetch({
     url: '/api/login',
     auth: false,
     options: {

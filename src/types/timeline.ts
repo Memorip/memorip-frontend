@@ -1,4 +1,4 @@
-type TimeLineType = 'FLIGHT' | 'PLACE' | 'MEMO'
+export type TimeLineType = 'FLIGHT' | 'PLACE' | 'MEMO'
 
 export interface Timeline {
   id: number

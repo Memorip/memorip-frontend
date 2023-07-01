@@ -15,8 +15,8 @@ export default function TripInfoCard({
       <span className='mb-2 inline-block text-neutral-400'>
         {startDate} ~ {endDate}
       </span>
-      <div className='mb-10 flex gap-1'>
-        {tags.map((tag, index) => (
+      <div className='mb-4 flex gap-1'>
+        {tags.map((tag) => (
           <span className='rounded-full bg-blue-500 px-3 py-1 text-white' key={tag}>
             {tag}
           </span>

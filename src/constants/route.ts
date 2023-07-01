@@ -4,7 +4,8 @@ const ROUTE = {
   SIGN_UP: '/signup',
   MAIN: '/main',
   MAP: '/map',
-  SEARCH: '/search',
+  PLAN: (planId: number) => `/plan/${planId}`,
+  SEARCH: (planId: number) => `/search?planId=${planId}`,
 } as const
 
 export default ROUTE

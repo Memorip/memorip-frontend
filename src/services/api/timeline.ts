@@ -1,9 +1,11 @@
-import { apiFetch } from '@/services/fetch'
+import { serverFetch } from '@/services/serverFetch'
+import { tags } from '@/services/tags'
 import { type Timeline } from '@/types/timeline'
 
 export const getTimelines = async (planId: number): Promise<{ data: Timeline[] }> => {
-  const res = await apiFetch({
+  const res = await serverFetch({
     url: `/api/timelines?planId=${planId}`,
+    tags: [tags.timelines],
     options: {
       method: 'GET',
     },

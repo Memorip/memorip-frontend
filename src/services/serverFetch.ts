@@ -7,24 +7,28 @@ interface RequestOptions extends RequestInit {
   baseUrl?: string
 }
 
-interface apiFetchOptions {
+interface serverFetchOptions {
   url: string
+  tags?: string[]
   auth?: boolean
   options?: RequestOptions
 }
 
-export function apiFetch({ url, auth = true, options = {} }: apiFetchOptions): Promise<Response> {
+export function serverFetch({ url, tags, auth = true, options = {} }: serverFetchOptions): Promise<Response> {
   const { baseUrl, ...fetchOptions } = options
   const requestUrl = `${baseUrl ?? SERVER_URL}${url}`
 
-  const headers = {
+  const headersOption = {
     'Content-Type': 'application/json',
-    ...(auth ? { Authorization: `Bearer ${cookies().get(ACCESS_TOKEN)?.value as string}` } : {}),
+    ...(auth ? { Cookie: `${ACCESS_TOKEN}=${cookies().get(ACCESS_TOKEN)?.value as string}` } : {}),
     ...(fetchOptions.headers ?? {}),
   }
 
   return fetch(requestUrl, {
     ...fetchOptions,
-    headers,
+    headers: headersOption,
+    next: {
+      tags,
+    },
   })
 }
