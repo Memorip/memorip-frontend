@@ -59,6 +59,12 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: ['../'],
+      },
+    ],
     eqeqeq: ['error', 'always'],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/triple-slash-reference': 'off',
