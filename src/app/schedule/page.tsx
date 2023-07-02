@@ -4,7 +4,8 @@ import { useRouter } from 'next/navigation'
 
 import React from 'react'
 
-import { Input } from '../components/forms'
+import { Input } from '@/components/forms'
+
 import Avatar from '../components/user/Avatar'
 
 interface City {
@@ -84,7 +85,7 @@ export default function Schedule() {
       {selectedCity.length > 0 && (
         <div className='absolute bottom-0 h-[30vh] w-full border-t border-slate-100 p-5'>
           <div className='flex w-fit items-center space-x-3'>
-            {selectedCity.map((city) => (
+            {selectedCity.map((city, idx) => (
               <>
                 <div key={city.id} className='flex flex-col items-center'>
                   <span
@@ -96,14 +97,13 @@ export default function Schedule() {
                   <Avatar size={40} />
                   <span className='flex-none text-xs'>{city.name}</span>
                 </div>
-                <i className='ri-arrow-right-line' />
+                {idx !== selectedCity.length - 1 && <i className='ri-arrow-right-line' />}
               </>
             ))}
-            <i className='ri-arrow-left-right-line' />
           </div>
 
           <button
-            className='mt-5 flex w-full flex-none items-center justify-center rounded-md bg-blue-500 p-3 text-sm font-medium text-white'
+            className='mt-5 flex w-full flex-none items-center justify-center rounded-md bg-blue-500 py-4 text-sm font-medium text-white'
             onClick={() => push('/schedule/plan')}
           >
             {`${
