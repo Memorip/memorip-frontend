@@ -5,7 +5,7 @@ const ROUTE = {
   MAIN: '/main',
   MAP: '/map',
   PLAN: (planId: number) => `/plan/${planId}`,
-  SEARCH: (planId: number) => `/search?planId=${planId}`,
+  SEARCH: (planId: number, date: string) => `/search?planId=${planId}&date=${date}`,
 } as const
 
 export default ROUTE

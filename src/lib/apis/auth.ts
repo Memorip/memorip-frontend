@@ -1,4 +1,4 @@
-import api from '@/services/api'
+import api from '@/lib/apis'
 
 export const signUp = (email: string, password: string, nickname: string) =>
   api.post('/api/signup', {

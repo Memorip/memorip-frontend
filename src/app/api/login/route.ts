@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { ACCESS_TOKEN } from '@/features/auth/token'
-import { serverFetch } from '@/services/serverFetch'
+import { serverFetch } from '@/lib/serverFetch'
 
 interface LoginResult {
   data: {

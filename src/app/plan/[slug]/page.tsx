@@ -1,9 +1,13 @@
 import { use } from 'react'
 
+import dayjs from 'dayjs'
+
 import TimeLineBlock from '@/app/plan/[slug]/components/client/TimeLineBlock'
 import TripInfoCard from '@/app/plan/[slug]/components/server/TripInfoCard'
 
-import { getTimelines } from '@/services/api/timeline'
+import { getPlan } from '@/lib/apis/plan'
+import { getTimelines } from '@/lib/apis/timeline'
+import { getDatesArray } from '@/utils/date'
 
 interface PlanDetailProps {
   params: {
@@ -13,23 +17,31 @@ interface PlanDetailProps {
 
 export default function PlanDetail({ params }: PlanDetailProps) {
   const planId = params.slug
-  const { data: timelines } = use(getTimelines(Number(planId)))
+  const { data: timelinesObject } = use(getTimelines(Number(planId)))
+  const { data: plan } = use(getPlan(Number(planId)))
+
+  const datesArray = getDatesArray(plan.startDate, plan.endDate)
 
   return (
     <div className='mt-4 p-4'>
       <TripInfoCard
         title='제주도 3박 4일 여행'
-        startDate='2023.05.30'
-        endDate='2023.06.02'
-        tags={['힐링', '자연', '바다']}
+        startDate={dayjs(plan.startDate).format('YYYY.MM.DD')}
+        endDate={dayjs(plan.endDate).format('YYYY.MM.DD')}
+        tags={[plan.tripType]}
       />
-      {/* <div className='no-scrollbar flex gap-10 overflow-x-auto pb-4'>
-        {new Array(timelineLength).fill(0).map((_, index) => (
-          <DateButton key={index} day={index + 1} />
-        ))}
-      </div> */}
       <hr className='mb-4' />
-      <TimeLineBlock timelines={timelines} planId={planId} />
+      <div className='flex flex-col space-y-4'>
+        {datesArray.map((date, index) => (
+          <TimeLineBlock
+            date={dayjs(date).format('YYYY-MM-DD')}
+            timelines={timelinesObject[dayjs(date).format('YYYY-MM-DD')]}
+            planId={planId}
+            day={index + 1}
+            key={date}
+          />
+        ))}
+      </div>
     </div>
   )
 }

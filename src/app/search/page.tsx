@@ -3,29 +3,32 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 
 import clsx from 'clsx'
+import { toast } from 'react-toastify'
 
-import { createTimeline } from '@/app/action/timeline'
 import Back from '@/app/search/components/client/Back'
 import Locations from '@/app/search/components/client/Locations'
 import LocationCard from '@/app/search/components/server/LocationCard'
 
 import ROUTE from '@/constants/route'
-import { TIMELINE_TYPE } from '@/constants/timelineType'
 import { useInput } from '@/hooks'
+import { createTimelines } from '@/lib/actions/timeline'
 
 interface SearchProps {
   searchParams: {
     planId: number
+    date: string
   }
 }
 
 export default function Search({ searchParams }: SearchProps) {
   const { push } = useRouter()
+  const [, startTransition] = useTransition()
   const [selectedLocations, setSelectedLocations] = useState<string[]>([])
   const { value: searchInput, onChange: handleChangeSearchInput } = useInput('')
+  const { planId, date } = searchParams
 
   const handleClickSelected = (location: string) => {
     if (selectedLocations.includes(location)) {
@@ -35,19 +38,12 @@ export default function Search({ searchParams }: SearchProps) {
     }
   }
 
-  const handleClickComplete = async () => {
-    for await (const location of selectedLocations) {
-      await createTimeline({
-        type: TIMELINE_TYPE.PLACE,
-        // FIXME: 사용자가 선택한 날짜로 변경
-        date: new Date().toISOString(),
-        // FIXME: 사용자가 선택한 타입으로 변경
-        memo: 'Memo',
-        data: location,
-        planId: searchParams.planId,
-      })
-    }
-    push(ROUTE.PLAN(2))
+  const handleClickComplete = () => {
+    startTransition(async () => {
+      await createTimelines(selectedLocations, planId, date)
+      toast.success('선택하신 장소가 추가되었어요.')
+      push(ROUTE.PLAN(planId))
+    })
   }
 
   return (
@@ -101,7 +97,7 @@ export default function Search({ searchParams }: SearchProps) {
       <div className='fixed inset-x-0 bottom-0 z-10 w-full bg-white p-4'>
         <form className='flex justify-center' action={handleClickComplete}>
           <button className='w-full max-w-3xl rounded-md bg-blue-500 py-2 text-white' type='submit'>
-            선택완료
+            선택 완료
           </button>
         </form>
       </div>

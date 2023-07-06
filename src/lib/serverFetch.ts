@@ -7,14 +7,14 @@ interface RequestOptions extends RequestInit {
   baseUrl?: string
 }
 
-interface serverFetchOptions {
+interface ServerFetchOptions {
   url: string
   tags?: string[]
   auth?: boolean
   options?: RequestOptions
 }
 
-export function serverFetch({ url, tags, auth = true, options = {} }: serverFetchOptions): Promise<Response> {
+export function serverFetch({ url, tags, auth = true, options = {} }: ServerFetchOptions): Promise<Response> {
   const { baseUrl, ...fetchOptions } = options
   const requestUrl = `${baseUrl ?? SERVER_URL}${url}`
 

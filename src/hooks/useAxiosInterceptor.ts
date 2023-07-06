@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
-import { axiosInstance } from '@/services/api'
+import { axiosInstance } from '@/lib/apis'
 import type { RegenerateAccessTokenByRefreshTokenResponse, ServerError } from '@/types/api'
 
 export const useAxiosInterceptor = () => {

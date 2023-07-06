@@ -4,8 +4,8 @@ import { type AxiosError } from 'axios'
 import { toast } from 'react-toastify'
 
 import { regex } from '@/constants/regex'
-import { checkDuplicateEmail } from '@/services/api/auth'
-import { isServerErrorWithMessage } from '@/services/error'
+import { checkDuplicateEmail } from '@/lib/apis/auth'
+import { isServerErrorWithMessage } from '@/lib/error'
 import { type ServerError } from '@/types/api'
 
 export const useEmailValidation = (email: string) => {
