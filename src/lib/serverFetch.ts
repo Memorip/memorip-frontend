@@ -14,7 +14,7 @@ interface ServerFetchOptions {
   options?: RequestOptions
 }
 
-export function serverFetch({ url, tags, auth = true, options = {} }: ServerFetchOptions): Promise<Response> {
+export function serverFetch({ url, auth = true, options = {} }: ServerFetchOptions): Promise<Response> {
   const { baseUrl, ...fetchOptions } = options
   const requestUrl = `${baseUrl ?? SERVER_URL}${url}`
 
@@ -27,8 +27,5 @@ export function serverFetch({ url, tags, auth = true, options = {} }: ServerFetc
   return fetch(requestUrl, {
     ...fetchOptions,
     headers: headersOption,
-    next: {
-      tags,
-    },
   })
 }

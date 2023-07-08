@@ -41,7 +41,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@/app/**',
+            pattern: '@/pages/**',
             group: 'internal',
             position: 'before',
           },
@@ -62,7 +62,7 @@ module.exports = {
     'no-restricted-imports': [
       'error',
       {
-        patterns: ['../'],
+        // patterns: ['../'],
       },
     ],
     eqeqeq: ['error', 'always'],
