@@ -2,11 +2,19 @@ import { useEffect } from 'react'
 
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
+import { getAccessToken } from '@/features/auth/token'
 import { axiosInstance } from '@/lib/apis'
 import type { RegenerateAccessTokenByRefreshTokenResponse, ServerError } from '@/types/api'
 
 export const useAxiosInterceptor = () => {
   const requestHandler = (config: InternalAxiosRequestConfig) => {
+    const accessToken = getAccessToken()
+
+    if (!accessToken) {
+      return config
+    }
+
+    config.headers.Cookie = `accessToken=${accessToken}`
     return config
   }
 

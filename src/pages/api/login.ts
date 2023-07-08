@@ -33,9 +33,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   setCookie(res, ACCESS_TOKEN, loginResult.data.token, {
     expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
     path: '/',
-    httpOnly: true,
-    secure: true,
-    sameSite: 'lax',
+    // httpOnly: true,
+    // secure: true,
+    // sameSite: 'lax',
   })
 
   res.status(loginResult.statusCode).json(loginResult)
