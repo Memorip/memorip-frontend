@@ -5,16 +5,6 @@ import React, { useContext } from 'react'
 import Calendar from './components/Calendar'
 import { CalendarContext } from './context/CalendarContext'
 
-export function getCalendar(year = 2023, month = 7) {
-  const rows = []
-
-  for (let day = 1; day <= 31; day++) {
-    rows.push(day)
-  }
-
-  return rows
-}
-
 export default function Plan() {
   const { calendarSettings } = useContext(CalendarContext)
 

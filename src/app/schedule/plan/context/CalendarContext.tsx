@@ -4,11 +4,11 @@ import React from 'react'
 import dayjs from 'dayjs'
 
 interface CalendarProps {
-  numMonths?: 1 | 2 | 3 | 4
+  numMonths?: 1 | 2 | 3 | 4 | 10 | 20
 }
 
 const defaultProps: CalendarProps = {
-  numMonths: 4,
+  numMonths: 20,
 }
 
 interface CalendarContextType {

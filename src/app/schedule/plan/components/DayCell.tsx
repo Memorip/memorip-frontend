@@ -5,19 +5,19 @@ interface DayCellProps {
   year: number
   date: number
   day: number
+  isOtherDay: boolean
 }
 
-export default function DayCell({ date, month, year, day }: DayCellProps) {
-  console.log(date)
+export default function DayCell({ date, month, year, day, isOtherDay }: DayCellProps) {
   return (
-    <div className='w-[calc(100%/7)] border-2 px-1 py-4'>
+    <div className='w-[calc(100%/7)] px-1 py-4'>
       <div
         className={clsx(
           'flex h-full w-full justify-center text-sm font-medium',
           day === 0 ? 'text-red-500' : day === 6 ? 'text-blue-500' : 'text-gray-900'
         )}
       >
-        {date}
+        <div className={clsx(isOtherDay ? 'hidden' : 'block')}>{date}</div>
       </div>
     </div>
   )

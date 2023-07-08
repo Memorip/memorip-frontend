@@ -15,7 +15,7 @@ export default function Dates({ year, month }: DateProps) {
   }, [year, month])
 
   return (
-    <div className='mb-16 flex flex-row flex-wrap border-2'>
+    <div className='mb-16 flex flex-row flex-wrap'>
       {totalDate.map((date) => (
         <DayCell
           key={date.toString()}
@@ -23,6 +23,7 @@ export default function Dates({ year, month }: DateProps) {
           year={date.getFullYear()}
           date={date.getDate()}
           day={date.getDay()}
+          isOtherDay={date.getMonth() + 1 !== month}
         />
       ))}
     </div>

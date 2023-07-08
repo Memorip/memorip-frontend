@@ -12,7 +12,6 @@ export default function Calendar({ index }: { index: number }) {
   const calculateNewDates = (currentMonth: dayjs.Dayjs, index: number) => {
     const newMonth = ((currentMonth.month() + index) % 12) + 1
     const newYear = currentMonth.year() + Math.floor((currentMonth.month() + index) / 12)
-
     return { newMonth, newYear }
   }
 
