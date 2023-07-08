@@ -8,7 +8,11 @@ import ROUTE from '@/constants/route'
 import { snbAtom } from '@/stores/snb'
 
 function HeaderRoot({ children }: { children: React.ReactNode }) {
-  return <header className='sticky flex justify-end gap-4 px-3 py-4 shadow-md shadow-zinc-100'>{children}</header>
+  return (
+    <header className='sticky top-0 z-50 flex justify-end gap-4 bg-white px-3 py-4 shadow-md shadow-zinc-100'>
+      {children}
+    </header>
+  )
 }
 
 function HamburgerButton() {

@@ -1,28 +1,32 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { SERVER_URL } from '@/envs'
+import { ACCESS_TOKEN } from '@/features/auth/token'
+import { serverFetch } from '@/lib/serverFetch'
 
 interface LoginResult {
   data: {
     token: string
   }
+  statusCode: number
 }
 
-export async function POST(request: NextRequest) {
-  const { email, password } = await request.json()
+export async function POST(req: NextRequest) {
+  const { email, password } = await req.json()
 
-  const response = await fetch(`${SERVER_URL}/api/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  const response = await serverFetch({
+    url: '/api/login',
+    auth: false,
+    options: {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
     },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
   })
 
   const loginResult: LoginResult = await response.json()
+
+  if (!loginResult.data) {
+    return NextResponse.json(loginResult, { status: loginResult.statusCode })
+  }
 
   const nextResponse = NextResponse.json({ res: loginResult }, { status: 200 })
 
@@ -30,12 +34,12 @@ export async function POST(request: NextRequest) {
   expirationDate.setDate(expirationDate.getDate() + 1)
 
   nextResponse.cookies.set({
-    name: 'accessToken',
+    name: ACCESS_TOKEN,
     value: loginResult.data.token,
     httpOnly: true,
     expires: expirationDate,
     secure: true,
-    sameSite: 'strict',
+    sameSite: 'lax',
   })
 
   return nextResponse

@@ -10,8 +10,8 @@ import { type FormValues } from '@/app/signup/page'
 import { type Step, STEP } from '@/app/signup/signup.constants'
 
 import { regex } from '@/constants/regex'
-import { isServerErrorWithMessage } from '@/features/api/error'
-import { sendCode } from '@/services/auth'
+import { sendCode } from '@/lib/apis/auth'
+import { isServerErrorWithMessage } from '@/lib/error'
 
 interface Props {
   setStep: React.Dispatch<React.SetStateAction<Step>>

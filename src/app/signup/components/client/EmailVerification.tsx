@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import { type FormValues } from '@/app/signup/page'
 
 import ROUTE from '@/constants/route'
-import { signUp, verifyCode } from '@/services/auth'
+import { signUp, verifyCode } from '@/lib/apis/auth'
 
 export default function EmailVerification() {
   const { push } = useRouter()

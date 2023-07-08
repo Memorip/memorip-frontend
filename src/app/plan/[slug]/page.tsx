@@ -1,43 +1,46 @@
-import Link from 'next/link'
+import { use } from 'react'
 
-import DateButton from '@/app/plan/[slug]/components/DateButton'
-import ProgressDot from '@/app/plan/[slug]/components/ProgressDot'
-import TimeLine from '@/app/plan/[slug]/components/TimeLine'
-import TripInfoCard from '@/app/plan/[slug]/components/TripInfoCard'
+import dayjs from 'dayjs'
 
-import ROUTE from '@/constants/route'
+import TimeLineBlock from '@/app/plan/[slug]/components/client/TimeLineBlock'
+import TripInfoCard from '@/app/plan/[slug]/components/server/TripInfoCard'
 
-const TIMELINE_LENGTH = 4
+import { getPlan } from '@/lib/apis/plan'
+import { getTimelines } from '@/lib/apis/timeline'
+import { getDatesArray } from '@/utils/date'
 
-export default function PlanDetail() {
+interface PlanDetailProps {
+  params: {
+    slug: string
+  }
+}
+
+export default function PlanDetail({ params }: PlanDetailProps) {
+  const planId = params.slug
+  const { data: timelinesObject } = use(getTimelines(Number(planId)))
+  const { data: plan } = use(getPlan(Number(planId)))
+
+  const datesArray = getDatesArray(plan.startDate, plan.endDate)
+
   return (
     <div className='mt-4 p-4'>
       <TripInfoCard
         title='제주도 3박 4일 여행'
-        startDate='2023.05.30'
-        endDate='2023.06.02'
-        tags={['힐링', '자연', '바다']}
+        startDate={dayjs(plan.startDate).format('YYYY.MM.DD')}
+        endDate={dayjs(plan.endDate).format('YYYY.MM.DD')}
+        tags={[plan.tripType]}
       />
-      <div className='no-scrollbar flex gap-10 overflow-x-auto pb-4'>
-        {new Array(TIMELINE_LENGTH).fill(0).map((_, index) => (
-          <DateButton key={index} day={index + 1} />
-        ))}
-      </div>
       <hr className='mb-4' />
-      <div className='flex gap-2'>
-        <ProgressDot total={TIMELINE_LENGTH} />
-        <div className='flex flex-1 flex-col gap-4'>
-          {new Array(TIMELINE_LENGTH).fill(0).map((_, index) => (
-            <TimeLine key={index} />
-          ))}
-          <Link
-            className='flex h-[88px] w-full items-center justify-center rounded-lg bg-zinc-100 p-4'
-            href={ROUTE.SEARCH}
-          >
-            <i className='ri-add-line text-lg font-bold text-emerald-500' />
-            <span className='text-sm font-bold text-emerald-500'>일정 추가하기</span>
-          </Link>
-        </div>
+      <div className='flex flex-col space-y-4'>
+        {datesArray.map((date, index) => (
+          <TimeLineBlock
+            date={dayjs(date).format('YYYY-MM-DD')}
+            timelines={timelinesObject[dayjs(date).format('YYYY-MM-DD')]}
+            planId={planId}
+            day={index + 1}
+            key={date}
+          />
+        ))}
       </div>
     </div>
   )

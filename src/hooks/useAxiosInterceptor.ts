@@ -4,19 +4,11 @@ import { useEffect } from 'react'
 
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
-import { getAccessTokenFromLocalStorage, setAccessTokenToLocalStorage } from '@/features/auth/token'
-import { axiosInstance } from '@/services/api'
+import { axiosInstance } from '@/lib/apis'
 import type { RegenerateAccessTokenByRefreshTokenResponse, ServerError } from '@/types/api'
 
 export const useAxiosInterceptor = () => {
   const requestHandler = (config: InternalAxiosRequestConfig) => {
-    const accessToken = getAccessTokenFromLocalStorage()
-
-    if (accessToken) {
-      // eslint-disable-next-line no-param-reassign
-      config.headers.Authorization = `Bearer ${accessToken}`
-    }
-
     return config
   }
 
@@ -56,7 +48,6 @@ export const useAxiosInterceptor = () => {
           .post<RegenerateAccessTokenByRefreshTokenResponse>(`/user/refresh`)
           .then(({ data }) => {
             const { accessToken: newAccessToken } = data.payload
-            setAccessTokenToLocalStorage(newAccessToken)
             originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
             refreshSubscribers.forEach((subscriber) => subscriber(newAccessToken))
             refreshSubscribers = []
