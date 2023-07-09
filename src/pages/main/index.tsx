@@ -1,29 +1,8 @@
 import Image from 'next/image'
 
-import { useEffect, useState } from 'react'
-
-import axios from 'axios'
 import { type GetServerSideProps } from 'next'
 
-import { SERVER_URL } from '@/envs'
-import api from '@/lib/apis'
-
 export default function Main() {
-  const [timelines, setTimelines] = useState<any>([])
-
-  console.log(timelines)
-
-  useEffect(() => {
-    api
-      .get(`/api/timelines?planId=4`)
-      .then((response) => {
-        setTimelines(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }, [])
-
   return (
     <div className='p-4'>
       <h1 className='mb-2 text-2xl font-bold'>어디로 떠나볼까요?</h1>
@@ -70,18 +49,7 @@ export default function Main() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const cookie = ctx.req.headers.cookie
-
-  const response = await axios.get(`${SERVER_URL}/api/timelines?planId=4`, {
-    headers: {
-      'Content-Type': 'application/json',
-      Cookie: cookie,
-    },
-  })
-
   return {
-    props: {
-      data: response.data,
-    },
+    props: {},
   }
 }
