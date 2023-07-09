@@ -7,6 +7,7 @@ module.exports = {
     'standard-with-typescript',
     'plugin:import/typescript',
     'plugin:tailwindcss/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
     'next/core-web-vitals',
     'prettier',
   ],
@@ -17,7 +18,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: ['react', 'import', 'tailwindcss'],
+  plugins: ['react', 'import', 'tailwindcss', '@tanstack/query'],
   rules: {
     'tailwindcss/no-custom-classname': [
       'warn',
@@ -83,6 +84,7 @@ module.exports = {
     ],
     '@typescript-eslint/promise-function-async': ['off'],
     '@typescript-eslint/return-await': ['off'],
+    '@typescript-eslint/no-floating-promises': ['off'],
     'no-warning-comments': [
       'warn',
       {

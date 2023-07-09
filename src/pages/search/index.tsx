@@ -1,8 +1,9 @@
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 
-import { useState, useTransition } from 'react'
+import { useState } from 'react'
 
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { toast } from 'react-toastify'
 
@@ -12,21 +13,15 @@ import Locations from '@/pages/search/components/Locations'
 
 import ROUTE from '@/constants/route'
 import { useInput } from '@/hooks'
-import { createTimelines } from '@/lib/actions/timeline'
+import { createTimelines } from '@/lib/apis/timeline'
+import { queryKeys } from '@/lib/queryKeys'
 
-interface SearchProps {
-  searchParams: {
-    planId: number
-    date: string
-  }
-}
-
-export default function Search({ searchParams }: SearchProps) {
-  const { push } = useRouter()
-  const [, startTransition] = useTransition()
+export default function Search() {
+  const queryClient = useQueryClient()
+  const { push, query } = useRouter()
   const [selectedLocations, setSelectedLocations] = useState<string[]>([])
   const { value: searchInput, onChange: handleChangeSearchInput } = useInput('')
-  const { planId, date } = searchParams
+  const { planId, date } = query as { planId: string; date: string }
 
   const handleClickSelected = (location: string) => {
     if (selectedLocations.includes(location)) {
@@ -36,12 +31,17 @@ export default function Search({ searchParams }: SearchProps) {
     }
   }
 
-  const handleClickComplete = () => {
-    startTransition(async () => {
-      await createTimelines(selectedLocations, planId, date)
+  const { mutate: createTimelinesMutation } = useMutation({
+    mutationFn: () => createTimelines(selectedLocations, Number(planId), date),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(queryKeys.timelines(Number(planId)))
       toast.success('선택하신 장소가 추가되었어요.')
-      push(ROUTE.PLAN(planId))
-    })
+      push(ROUTE.PLAN(Number(planId)))
+    },
+  })
+
+  const handleClickComplete = () => {
+    createTimelinesMutation()
   }
 
   return (
@@ -93,11 +93,9 @@ export default function Search({ searchParams }: SearchProps) {
         </div>
       </div>
       <div className='fixed inset-x-0 bottom-0 z-10 w-full bg-white p-4'>
-        <form className='flex justify-center' action={handleClickComplete}>
-          <button className='w-full max-w-3xl rounded-md bg-blue-500 py-2 text-white' type='submit'>
-            선택 완료
-          </button>
-        </form>
+        <button className='w-full max-w-3xl rounded-md bg-blue-500 py-2 text-white' onClick={handleClickComplete}>
+          선택 완료
+        </button>
       </div>
     </div>
   )

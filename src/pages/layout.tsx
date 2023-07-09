@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import { Poppins, Noto_Sans_KR } from 'next/font/google'
+import Head from 'next/head'
 
 import Meta from '@/components/shared/Meta'
 import Providers from '@/components/shared/Providers'
@@ -29,14 +30,14 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en' className={cls(notoSansKr.className, poppins.className)}>
-      <head>
+      <Head>
         <Meta />
         {/* NAVER MAPS API */}
         <script
           type='text/javascript'
           src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=int5of2d7f`}
         />
-      </head>
+      </Head>
       <body>
         <Providers>
           <div id='modal-root' />

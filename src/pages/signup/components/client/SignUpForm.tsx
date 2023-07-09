@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 import { useEffect } from 'react'
 
@@ -11,7 +11,7 @@ import { type Step, STEP } from '@/pages/signup/signup.constants'
 
 import { regex } from '@/constants/regex'
 import { sendCode } from '@/lib/apis/auth'
-import { isServerErrorWithMessage } from '@/lib/error'
+import { isServerErrorWithMessage } from '@/utils/error'
 
 interface Props {
   setStep: React.Dispatch<React.SetStateAction<Step>>

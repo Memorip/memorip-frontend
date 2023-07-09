@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 
 import ROUTE from '@/constants/route'
 import { signIn } from '@/lib/apis/auth'
-import { isServerErrorWithMessage } from '@/lib/error'
+import { isServerErrorWithMessage } from '@/utils/error'
 
 interface FormValues {
   email: string

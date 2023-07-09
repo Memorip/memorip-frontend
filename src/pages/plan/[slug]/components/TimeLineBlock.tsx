@@ -1,8 +1,9 @@
 import Link from 'next/link'
 
-import { useState, useTransition } from 'react'
+import { useState } from 'react'
 
 import { Disclosure } from '@headlessui/react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { toast } from 'react-toastify'
 
@@ -11,20 +12,21 @@ import TimeLine from '@/pages/plan/[slug]/components/TimeLine'
 
 import ROUTE from '@/constants/route'
 import { useToggle } from '@/hooks'
-import { deleteTimelines } from '@/lib/actions/timeline'
+import { deleteTimelines } from '@/lib/apis/timeline'
+import { queryKeys } from '@/lib/queryKeys'
 import { type Timeline } from '@/types/timeline'
 
 interface TimeLineBlockProps {
   date: string
   timelines: Timeline[] | undefined
-  planId: string
+  planId: number
   day: number
 }
 
 export default function TimeLineBlock({ date, timelines, planId, day }: TimeLineBlockProps) {
+  const queryClient = useQueryClient()
   const [isEditing, toggleEditing] = useToggle()
   const [selectedLocations, setSelectedLocations] = useState<string[]>([])
-  const [, startTransition] = useTransition()
   const timelineLength = timelines?.length
 
   const handleClickSelectLocation = (locationId: string) => {
@@ -35,14 +37,15 @@ export default function TimeLineBlock({ date, timelines, planId, day }: TimeLine
     }
   }
 
-  const handleActionDelete = () => {
-    startTransition(async () => {
-      await deleteTimelines(selectedLocations)
+  const { mutate: deleteTimelinesMutation } = useMutation({
+    mutationFn: () => deleteTimelines(selectedLocations),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(queryKeys.timelines(planId))
       setSelectedLocations([])
       toggleEditing()
       toast.success('선택하신 장소가 삭제되었어요.')
-    })
-  }
+    },
+  })
 
   return (
     <>
@@ -86,7 +89,7 @@ export default function TimeLineBlock({ date, timelines, planId, day }: TimeLine
                   ))}
                   <Link
                     className='flex h-[88px] w-full items-center justify-center rounded-lg bg-zinc-100 p-4'
-                    href={ROUTE.SEARCH(Number(planId), date)}
+                    href={ROUTE.SEARCH(planId, date)}
                   >
                     <i className='ri-add-line text-lg font-bold text-emerald-500' />
                     <span className='text-sm font-bold text-emerald-500'>일정 추가하기</span>
@@ -97,18 +100,16 @@ export default function TimeLineBlock({ date, timelines, planId, day }: TimeLine
           </>
         )}
       </Disclosure>
-      <form action={handleActionDelete}>
-        <button
-          className={clsx(
-            isEditing && selectedLocations.length > 0 ? 'flex gap-2' : 'hidden',
-            'fixed bottom-0 left-0 flex h-16 w-full items-center justify-center bg-blue-500 text-base font-bold text-white'
-          )}
-          type='submit'
-        >
-          <i className='ri-delete-bin-line' />
-          <span>삭제하기</span>
-        </button>
-      </form>
+      <button
+        className={clsx(
+          isEditing && selectedLocations.length > 0 ? 'flex gap-2' : 'hidden',
+          'fixed bottom-0 left-0 flex h-16 w-full items-center justify-center bg-blue-500 text-base font-bold text-white'
+        )}
+        onClick={() => deleteTimelinesMutation()}
+      >
+        <i className='ri-delete-bin-line' />
+        <span>삭제하기</span>
+      </button>
     </>
   )
 }

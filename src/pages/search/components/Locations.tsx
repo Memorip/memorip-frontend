@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import LocationCard from '@/pages/search/components/server/LocationCard'
+import LocationCard from '@/pages/search/components/LocationCard'
 
 interface LocationsProps {
   selectedLocations: string[]

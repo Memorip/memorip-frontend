@@ -34,7 +34,7 @@ export default function Maps() {
           width: '100%',
           height: '100vh',
         }}
-      ></div>
+      />
     </main>
   )
 }
