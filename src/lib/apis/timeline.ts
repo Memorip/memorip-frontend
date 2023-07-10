@@ -1,17 +1,34 @@
-import { serverFetch } from '@/lib/serverFetch'
+import { TIMELINE_TYPE } from '@/constants/timelineType'
+import api from '@/lib/apis'
+import { type Timeline } from '@/types/timeline'
 
 export const getTimelines = async (planId: number) => {
-  const res = await serverFetch({
-    url: `/api/timelines?planId=${planId}`,
-    options: {
-      method: 'GET',
-      cache: 'no-cache',
-    },
-  })
+  return api.get<Record<string, Timeline[]>>(`api/timelines?planId=${planId}`)
+}
 
-  if (!res.ok) {
-    throw new Error('타임 라인를 불러오는데 실패했습니다.')
+export const createTimelines = ({ locations, planId, date }: { locations: string[]; planId: number; date: string }) => {
+  const timelines: Array<{
+    type: Timeline['type']
+    date: Timeline['date']
+    memo: Timeline['memo']
+    data: Timeline['data']
+    planId: Timeline['planId']
+  }> = []
+
+  for (const location of locations) {
+    timelines.push({
+      type: TIMELINE_TYPE.PLACE,
+      date,
+      // FIXME: 사용자가 선택한 메모로 변경
+      memo: '여행지',
+      data: location,
+      planId,
+    })
   }
 
-  return await res.json()
+  return api.post('/api/timelines', timelines)
+}
+
+export const deleteTimelines = (ids: string[]) => {
+  return api.delete(`/api/timelines?ids=${ids.join(',')}`)
 }

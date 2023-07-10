@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import { Poppins, Noto_Sans_KR } from 'next/font/google'
 
-import Meta from '@/components/shared/Meta'
-import Providers from '@/components/shared/Providers'
+import clsx from 'clsx'
+
+import Meta from '@/components/shared/meta'
+import Providers from '@/components/shared/providers'
 
 import '@/styles/globals.css'
 import 'remixicon/fonts/remixicon.css'
@@ -19,8 +21,6 @@ const poppins = Poppins({
   variable: '--font-poppins',
 })
 
-const cls = (...classnames: string[]) => classnames.join(' ')
-
 export const metadata = {
   title: 'Memorip - 여행을 기록해봐요!',
   description: '여행을 기록해봐요!',
@@ -28,7 +28,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en' className={cls(notoSansKr.className, poppins.className)}>
+    <html lang='en' className={clsx(notoSansKr.className, poppins.className)}>
       <head>
         <Meta />
         {/* NAVER MAPS API */}
@@ -38,10 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <Providers>
-          <div id='modal-root' />
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
