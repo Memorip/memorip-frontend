@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 
 import { Input } from '@/components/forms'
-
-import Avatar from '../components/user/Avatar'
+import Avatar from '@/components/user/avatar'
 
 interface City {
   id: number

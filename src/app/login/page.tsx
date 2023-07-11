@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import ROUTE from '@/constants/route'
+import { setAccessTokenToCookie } from '@/features/auth/token'
 import { signIn } from '@/lib/apis/auth'
 import { isServerErrorWithMessage } from '@/lib/error'
 
@@ -26,7 +27,10 @@ export default function LogIn() {
 
   const onSubmit = async ({ email, password }: FormValues) => {
     try {
-      await signIn(email, password)
+      const {
+        data: { token },
+      } = await signIn(email, password)
+      setAccessTokenToCookie(token)
       toast.success('로그인에 성공했어요.')
       push(ROUTE.MAIN)
     } catch (error) {

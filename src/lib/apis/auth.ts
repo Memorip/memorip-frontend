@@ -14,7 +14,7 @@ export const verifyCode = (email: string, code: string) => api.get(`/api/mail/ve
 export const checkDuplicateEmail = (email: string) => api.get<boolean>(`/api/checkEmail?email=${email}`)
 
 export const signIn = (email: string, password: string) =>
-  api.post('/api/login', {
+  api.post<{ token: string }>('/api/login', {
     email,
     password,
   })

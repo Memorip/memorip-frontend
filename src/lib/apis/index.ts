@@ -1,10 +1,15 @@
 import axios, { type AxiosRequestConfig } from 'axios'
 
+import { getApiEndpoint } from '@/envs'
 import type { ServerResponse } from '@/types/api'
 
 const createApi = () => {
   const _api = axios.create({
+    baseURL: getApiEndpoint(),
     withCredentials: true,
+    headers: {
+      'Content-Type': 'application/json',
+    },
   })
 
   return _api

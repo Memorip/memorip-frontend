@@ -1,34 +1,29 @@
 'use client'
 
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 
-import { useState, useTransition } from 'react'
+import { useState } from 'react'
 
 import clsx from 'clsx'
 import { toast } from 'react-toastify'
 
-import Back from '@/app/search/components/client/Back'
-import Locations from '@/app/search/components/client/Locations'
-import LocationCard from '@/app/search/components/server/LocationCard'
+import Back from '@/app/search/_components/client/back'
+import Locations from '@/app/search/_components/client/locations'
+import LocationCard from '@/app/search/_components/server/location-card'
 
 import ROUTE from '@/constants/route'
 import { useInput } from '@/hooks'
-import { createTimelines } from '@/lib/actions/timeline'
 
-interface SearchProps {
-  searchParams: {
-    planId: number
-    date: string
-  }
-}
+import useCreateTimelinesMutation from './_hooks/use-create-timelines-mutation'
 
-export default function Search({ searchParams }: SearchProps) {
+export default function Search() {
+  const searchParams = useSearchParams()
   const { push } = useRouter()
-  const [, startTransition] = useTransition()
   const [selectedLocations, setSelectedLocations] = useState<string[]>([])
   const { value: searchInput, onChange: handleChangeSearchInput } = useInput('')
-  const { planId, date } = searchParams
+  const planId = Number(searchParams.get('planId'))
+  const date = searchParams.get('date')
 
   const handleClickSelected = (location: string) => {
     if (selectedLocations.includes(location)) {
@@ -38,11 +33,22 @@ export default function Search({ searchParams }: SearchProps) {
     }
   }
 
-  const handleClickComplete = () => {
-    startTransition(async () => {
-      await createTimelines(selectedLocations, planId, date)
+  if (!planId || !date) {
+    throw new Error('planId와 date가 필요합니다.')
+  }
+
+  const createTimelinesMutation = useCreateTimelinesMutation(planId, {
+    onSuccess: () => {
       toast.success('선택하신 장소가 추가되었어요.')
       push(ROUTE.PLAN(planId))
+    },
+  })
+
+  const handleClickComplete = () => {
+    createTimelinesMutation.mutate({
+      locations: selectedLocations,
+      planId,
+      date,
     })
   }
 

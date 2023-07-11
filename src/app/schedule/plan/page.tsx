@@ -2,8 +2,8 @@
 
 import React, { useContext } from 'react'
 
-import Calendar from './components/Calendar'
-import { CalendarContext } from './context/CalendarContext'
+import Calendar from '@/app/schedule/plan/_components/calendar'
+import { CalendarContext } from '@/app/schedule/plan/_context/calendar-context'
 
 export default function Plan() {
   const { calendarSettings } = useContext(CalendarContext)
