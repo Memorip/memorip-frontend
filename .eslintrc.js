@@ -83,6 +83,7 @@ module.exports = {
     ],
     '@typescript-eslint/promise-function-async': ['off'],
     '@typescript-eslint/return-await': ['off'],
+    '@typescript-eslint/no-floating-promises': ['off'],
     'no-warning-comments': [
       'warn',
       {

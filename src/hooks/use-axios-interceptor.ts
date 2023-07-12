@@ -1,14 +1,15 @@
-'use client'
-
 import { useEffect } from 'react'
 
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
+import { ACCESS_TOKEN, getAccessTokenFromCookie } from '@/features/auth/token'
 import { axiosInstance } from '@/lib/apis'
 import type { RegenerateAccessTokenByRefreshTokenResponse, ServerError } from '@/types/api'
 
 export const useAxiosInterceptor = () => {
   const requestHandler = (config: InternalAxiosRequestConfig) => {
+    config.headers.Cookie = `${ACCESS_TOKEN}=${getAccessTokenFromCookie() ?? ''}`
+
     return config
   }
 
@@ -70,6 +71,8 @@ export const useAxiosInterceptor = () => {
 
   const requestInterceptor = axiosInstance.interceptors.request.use(requestHandler, requestErrorHandler)
   const responseInterceptor = axiosInstance.interceptors.response.use(responseHandler, responseErrorHandler)
+
+  // axiosInstance.defaults.headers.Cookie = getAccessTokenFromCookie()
 
   useEffect(() => {
     return () => {
