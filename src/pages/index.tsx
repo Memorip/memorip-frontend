@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import ROUTE from '@/constants/route'
 
-export default function Home() {
+const Home = () => {
   return (
     <main className='flex h-screen flex-col items-center justify-between px-8 py-12'>
       <div>
@@ -31,3 +31,5 @@ export default function Home() {
     </main>
   )
 }
+
+export default Home

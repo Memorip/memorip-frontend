@@ -8,7 +8,7 @@ interface DayCellProps {
   isOtherDay: boolean
 }
 
-export default function DayCell({ date, month, year, day, isOtherDay }: DayCellProps) {
+const DayCell = ({ date, month, year, day, isOtherDay }: DayCellProps) => {
   return (
     <div className='w-[calc(100%/7)] px-1 py-4'>
       <div
@@ -22,3 +22,5 @@ export default function DayCell({ date, month, year, day, isOtherDay }: DayCellP
     </div>
   )
 }
+
+export default DayCell

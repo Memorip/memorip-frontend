@@ -1,7 +1,7 @@
 import { type UseMutationOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { deleteTimelines } from '@/lib/apis/timeline'
-import { queryKeys } from '@/lib/query-keys'
+import { QueryKeys } from '@/lib/queryKeys'
 
 const useDeleteTimelinesMutation = (planId: number, options?: UseMutationOptions) => {
   const queryClient = useQueryClient()
@@ -10,7 +10,7 @@ const useDeleteTimelinesMutation = (planId: number, options?: UseMutationOptions
     mutationFn: deleteTimelines,
     onSuccess: (data, variables, context) => {
       options?.onSuccess && options.onSuccess(data, variables, context)
-      return queryClient.invalidateQueries(queryKeys.timelines(planId))
+      return queryClient.invalidateQueries(QueryKeys.PLAN(planId))
     },
   })
 }

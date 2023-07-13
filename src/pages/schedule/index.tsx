@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 
 import { Input } from '@/components/forms'
-import Avatar from '@/components/user/avatar'
+import Avatar from '@/components/user/Avatar'
 
 interface City {
   id: number
@@ -11,7 +11,7 @@ interface City {
   selected: boolean
 }
 
-export default function Schedule() {
+const Schedule = () => {
   const { push } = useRouter()
 
   const MOCK = [
@@ -112,3 +112,5 @@ export default function Schedule() {
     </div>
   )
 }
+
+export default Schedule

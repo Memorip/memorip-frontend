@@ -29,6 +29,6 @@ interface CalendarProviderProps {
 }
 export const CalendarContext = React.createContext<CalendarContextType>(initialContextValue)
 
-export function CalendarProvider({ children }: CalendarProviderProps) {
+export const CalendarProvider = ({ children }: CalendarProviderProps) => {
   return <CalendarContext.Provider value={initialContextValue}>{children}</CalendarContext.Provider>
 }

@@ -8,7 +8,7 @@ interface LocationCardProps {
   setSelectedLocations: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-export default function LocationCard({ location, selectedLocations, setSelectedLocations }: LocationCardProps) {
+const LocationCard = ({ location, selectedLocations, setSelectedLocations }: LocationCardProps) => {
   const isSelected = selectedLocations.includes(location)
 
   const handleClickSelected = () => {
@@ -42,3 +42,5 @@ export default function LocationCard({ location, selectedLocations, setSelectedL
     </div>
   )
 }
+
+export default LocationCard

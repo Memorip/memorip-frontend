@@ -6,8 +6,8 @@ import React from 'react'
 
 import clsx from 'clsx'
 
-import Layout from '@/components/shared/layout'
-import Providers from '@/components/shared/providers'
+import Layout from '@/components/shared/Layout'
+import Providers from '@/components/shared/Providers'
 
 import '@/styles/globals.css'
 import 'remixicon/fonts/remixicon.css'
@@ -24,7 +24,7 @@ const poppins = Poppins({
   variable: '--font-poppins',
 })
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
@@ -40,3 +40,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </>
   )
 }
+
+export default App

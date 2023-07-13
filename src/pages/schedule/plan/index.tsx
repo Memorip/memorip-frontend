@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 
-import Calendar from '@/pages/schedule/plan/_components/calendar'
-import { CalendarContext } from '@/pages/schedule/plan/_context/calendar-context'
+import Calendar from '@/pages/schedule/plan/_components/Calendar'
+import { CalendarContext } from '@/pages/schedule/plan/_context/CalendarContext'
 
-export default function Plan() {
+const Plan = () => {
   const { calendarSettings } = useContext(CalendarContext)
 
   const { numMonths } = calendarSettings
@@ -23,3 +23,5 @@ export default function Plan() {
     </div>
   )
 }
+
+export default Plan

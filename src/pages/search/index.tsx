@@ -8,11 +8,11 @@ import { toast } from 'react-toastify'
 
 import ROUTE from '@/constants/route'
 import { useInput } from '@/hooks'
-import Back from '@/pages/search/_components/back'
+import Back from '@/pages/search/_components/Back'
 
-import LocationCard from './_components/location-card'
-import Locations from './_components/locations'
-import useCreateTimelinesMutation from './_hooks/use-create-timelines-mutation'
+import LocationCard from './_components/LocationCard'
+import Locations from './_components/Locations'
+import useCreateTimelinesMutation from './_hooks/useCreateTimelinesMutation'
 
 export default function Search() {
   const { push, query } = useRouter()

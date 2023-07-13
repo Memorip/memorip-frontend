@@ -8,11 +8,11 @@ import { toast } from 'react-toastify'
 
 import ROUTE from '@/constants/route'
 import { useToggle } from '@/hooks'
-import useDeleteTimelinesMutation from '@/pages/plan/[slug]/_hooks/use-delete-timelines-mutation'
+import useDeleteTimelinesMutation from '@/pages/plan/[slug]/_hooks/useDeleteTimelinesMutation'
 import { type Timeline } from '@/types/timeline'
 
-import ProgressDot from './progress-dot'
-import TimeLine from './timeline'
+import ProgressDot from './ProgressDot'
+import TimeLine from './Timeline'
 
 interface TimeLineBlockProps {
   date: string
@@ -21,7 +21,7 @@ interface TimeLineBlockProps {
   day: number
 }
 
-export default function TimeLineBlock({ date, timelines, planId, day }: TimeLineBlockProps) {
+const TimeLineBlock = ({ date, timelines, planId, day }: TimeLineBlockProps) => {
   const [isEditing, toggleEditing] = useToggle()
   const [selectedLocations, setSelectedLocations] = useState<string[]>([])
   const timelineLength = timelines?.length
@@ -109,3 +109,5 @@ export default function TimeLineBlock({ date, timelines, planId, day }: TimeLine
     </>
   )
 }
+
+export default TimeLineBlock

@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 import { FormProvider, useForm } from 'react-hook-form'
 
-import EmailVerification from '@/pages/signup/_components/email-verification'
+import EmailVerification from '@/pages/signup/_components/EmailVerification'
 import { STEP, type Step } from '@/pages/signup/signup.constants'
 
-import SignUpForm from './_components/sign-up-form'
+import SignUpForm from './_components/SignUpForm'
 
 export interface FormValues {
   email: string
@@ -14,7 +14,7 @@ export interface FormValues {
   passwordConfirm: string
 }
 
-export default function SignUp() {
+const SignUp = () => {
   const methods = useForm<FormValues>({
     mode: 'onChange',
   })
@@ -28,3 +28,5 @@ export default function SignUp() {
     </FormProvider>
   )
 }
+
+export default SignUp

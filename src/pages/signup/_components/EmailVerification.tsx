@@ -10,7 +10,7 @@ import ROUTE from '@/constants/route'
 import { signUp, verifyCode } from '@/lib/apis/auth'
 import { type FormValues } from '@/pages/signup'
 
-export default function EmailVerification() {
+const EmailVerification = () => {
   const { push } = useRouter()
   const { getValues } = useFormContext<FormValues>()
   const [codes, setCodes] = useState<string[]>(['', '', '', ''])
@@ -76,3 +76,5 @@ export default function EmailVerification() {
     </form>
   )
 }
+
+export default EmailVerification

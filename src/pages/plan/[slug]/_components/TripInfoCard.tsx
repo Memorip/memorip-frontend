@@ -1,14 +1,11 @@
-export default function TripInfoCard({
-  title,
-  startDate,
-  endDate,
-  tags,
-}: {
+interface TripInfoCardProps {
   title: string
   startDate: string
   endDate: string
   tags: string[]
-}) {
+}
+
+const TripInfoCard = ({ title, startDate, endDate, tags }: TripInfoCardProps) => {
   return (
     <>
       <h1 className='mb-1 text-2xl font-bold'>{title}</h1>
@@ -25,3 +22,5 @@ export default function TripInfoCard({
     </>
   )
 }
+
+export default TripInfoCard

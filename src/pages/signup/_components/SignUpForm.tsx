@@ -9,14 +9,14 @@ import { regex } from '@/constants/regex'
 import { sendCode } from '@/lib/apis/auth'
 import { isServerErrorWithMessage } from '@/lib/error'
 import { type FormValues } from '@/pages/signup'
-import { useEmailValidation } from '@/pages/signup/_hooks/use-email-validation'
+import { useEmailValidation } from '@/pages/signup/_hooks/useEmailValidation'
 import { type Step, STEP } from '@/pages/signup/signup.constants'
 
 interface Props {
   setStep: React.Dispatch<React.SetStateAction<Step>>
 }
 
-export default function SignUpForm({ setStep }: Props) {
+const SignUpForm = ({ setStep }: Props) => {
   const { back } = useRouter()
   const {
     handleSubmit,
@@ -198,3 +198,5 @@ export default function SignUpForm({ setStep }: Props) {
     </div>
   )
 }
+
+export default SignUpForm

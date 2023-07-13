@@ -3,25 +3,25 @@ import { useRouter } from 'next/router'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 
-import { HeaderRoot, MapButton, HamburgerButton } from '@/components/shared/header'
-import SNB from '@/components/shared/snb'
+import Header from '@/components/shared/Header'
+import SNB from '@/components/shared/SNB'
 
 import { getPlan } from '@/lib/apis/plan'
 import { getTimelines } from '@/lib/apis/timeline'
-import { queryKeys } from '@/lib/query-keys'
+import { QueryKeys } from '@/lib/queryKeys'
 import { getDatesArray } from '@/utils/date'
 
-import TimeLineBlock from './_components/timeline-block'
-import TripInfoCard from './_components/trip-info-card'
+import TimeLineBlock from './_components/TimelineBlock'
+import TripInfoCard from './_components/TripInfoCard'
 
-function PlanDetail() {
+const PlanDetail = () => {
   const { query } = useRouter()
   const planId = Number(query.slug)
 
-  const timelinesObjectQuery = useQuery(queryKeys.timelines(planId), () => getTimelines(planId), {
+  const timelinesObjectQuery = useQuery(QueryKeys.TIMELINES(planId), () => getTimelines(planId), {
     enabled: !!query.slug,
   })
-  const planQuery = useQuery(queryKeys.plan(planId), () => getPlan(planId), {
+  const planQuery = useQuery(QueryKeys.PLAN(planId), () => getPlan(planId), {
     enabled: !!query.slug,
   })
 
@@ -36,10 +36,10 @@ function PlanDetail() {
 
   return (
     <>
-      <HeaderRoot>
-        <MapButton />
-        <HamburgerButton />
-      </HeaderRoot>
+      <Header>
+        <Header.MapButton />
+        <Header.HamburgerButton />
+      </Header>
       <SNB />
       <div className='mt-4 p-4'>
         <TripInfoCard

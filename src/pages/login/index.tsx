@@ -13,7 +13,7 @@ interface FormValues {
   password: string
 }
 
-export default function LogIn() {
+const LogIn = () => {
   const {
     handleSubmit,
     register,
@@ -91,3 +91,5 @@ export default function LogIn() {
     </div>
   )
 }
+
+export default LogIn

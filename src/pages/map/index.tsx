@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export default function Maps() {
+const Maps = () => {
   const mapElement = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -38,3 +38,5 @@ export default function Maps() {
     </main>
   )
 }
+
+export default Maps

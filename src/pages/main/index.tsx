@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-export default function Main() {
+const Main = () => {
   return (
     <div className='p-4'>
       <h1 className='mb-2 text-2xl font-bold'>어디로 떠나볼까요?</h1>
@@ -45,3 +45,5 @@ export default function Main() {
     </div>
   )
 }
+
+export default Main
