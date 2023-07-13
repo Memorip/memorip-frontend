@@ -1,2 +1,2 @@
-export { Input } from './input'
-export { FormField, FormFieldLabel, FormFieldError } from './form-field'
+export { Input } from './Input'
+export { FormField, FormFieldLabel, FormFieldError } from './FormField'
