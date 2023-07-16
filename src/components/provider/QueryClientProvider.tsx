@@ -9,14 +9,15 @@ interface Props {
 
 export default function QueryClientProvider({ children }: Props) {
   const [queryClient] = useState(
-    new QueryClient({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
-          retry: false,
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            retry: false,
+          },
         },
-      },
-    })
+      })
   )
 
   return (
