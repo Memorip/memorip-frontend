@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 
 import type dayjs from 'dayjs'
 
-import Dates from '@/pages/schedule/plan/_components/Dates'
-import { CalendarContext } from '@/pages/schedule/plan/_context/CalendarContext'
+import Dates from '@/components/views/schedulePlan/components/Dates'
+import { CalendarContext } from '@/components/views/schedulePlan/contexts/CalendarContext'
 
 const Calendar = ({ index }: { index: number }) => {
   const { currentMonth } = React.useContext(CalendarContext)

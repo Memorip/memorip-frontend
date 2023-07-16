@@ -6,9 +6,10 @@ import { Disclosure } from '@headlessui/react'
 import clsx from 'clsx'
 import { toast } from 'react-toastify'
 
+import useDeleteTimelinesMutation from '@/components/views/planDetail/hooks/useDeleteTimelinesMutation'
+
 import ROUTE from '@/constants/route'
 import { useToggle } from '@/hooks'
-import useDeleteTimelinesMutation from '@/pages/plan/[slug]/_hooks/useDeleteTimelinesMutation'
 import { type Timeline } from '@/types/timeline'
 
 import ProgressDot from './ProgressDot'

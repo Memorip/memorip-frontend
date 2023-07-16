@@ -1,7 +1,7 @@
 import React from 'react'
 
-import DayCell from '@/pages/schedule/plan/_components/DayCell'
-import { generateMonthCalendar } from '@/pages/schedule/plan/_utils/dateUtils'
+import DayCell from '@/components/views/schedulePlan/components/DayCell'
+import { generateMonthCalendar } from '@/components/views/schedulePlan/utils/dateUtils'
 
 interface DateProps {
   year: number

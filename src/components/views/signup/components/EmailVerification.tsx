@@ -6,9 +6,10 @@ import { useState, useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
+import { type FormValues } from '@/components/views/signup/SignUpView'
+
 import ROUTE from '@/constants/route'
 import { signUp, verifyCode } from '@/lib/apis/auth'
-import { type FormValues } from '@/pages/signup'
 
 const EmailVerification = () => {
   const { push } = useRouter()

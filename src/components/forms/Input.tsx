@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react'
 
 import clsx from 'clsx'
 
-import { FormFieldContext } from './form-field'
+import { FormFieldContext } from './FormField'
 
 interface InputProps {
   className?: string

@@ -5,12 +5,13 @@ import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
+import { type Step, STEP } from '@/components/views/signup/constants'
+import { useEmailValidation } from '@/components/views/signup/hooks/useEmailValidation'
+import { type FormValues } from '@/components/views/signup/SignUpView'
+
 import { regex } from '@/constants/regex'
 import { sendCode } from '@/lib/apis/auth'
 import { isServerErrorWithMessage } from '@/lib/error'
-import { type FormValues } from '@/pages/signup'
-import { useEmailValidation } from '@/pages/signup/_hooks/useEmailValidation'
-import { type Step, STEP } from '@/pages/signup/signup.constants'
 
 interface Props {
   setStep: React.Dispatch<React.SetStateAction<Step>>
