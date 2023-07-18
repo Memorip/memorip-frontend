@@ -13,6 +13,27 @@ const Dates = ({ year, month }: DateProps) => {
     return generateMonthCalendar(year, month, 0)
   }, [year, month])
 
+  // const [booking, setBooking] = React.useState({
+  //   firstDate: undefined,
+  //   lastDate: undefined,
+  // })
+
+  // const getDatesInRange = (date: any) => {
+  //   if (!booking.firstDate || (booking.firstDate && booking.lastDate) || date < booking.firstDate) {
+  //     setBooking((prev) => ({
+  //       ...prev,
+  //       firstDate: date,
+  //       lastDate: undefined,
+  //     }))
+  //   } else if (date > booking.firstDate) {
+  //     setBooking((prev) => ({
+  //       ...prev,
+  //       lastDate: date,
+  //     }))
+  //   }
+  // }
+  // console.log('booking', booking)
+
   return (
     <div className='mb-16 flex flex-row flex-wrap'>
       {totalDate.map((date) => (
@@ -23,6 +44,7 @@ const Dates = ({ year, month }: DateProps) => {
           date={date.getDate()}
           day={date.getDay()}
           isOtherDay={date.getMonth() + 1 !== month}
+          // getDatesInRange={getDatesInRange}
         />
       ))}
     </div>

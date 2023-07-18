@@ -6,6 +6,11 @@ interface CalendarProps {
   numMonths?: 1 | 2 | 3 | 4 | 10 | 20
 }
 
+interface BookingDatesType {
+  firstDate: dayjs.Dayjs | undefined
+  lastDate: dayjs.Dayjs | undefined
+}
+
 const defaultProps: CalendarProps = {
   numMonths: 20,
 }
@@ -15,6 +20,8 @@ interface CalendarContextType {
   currentMonth: dayjs.Dayjs
   setCurrentMonth: (num: number) => void
   calendarSettings: CalendarProps
+  bookingDates: BookingDatesType
+  setBookingDates: React.Dispatch<React.SetStateAction<BookingDatesType>>
 }
 
 const initialContextValue: CalendarContextType = {
@@ -22,6 +29,11 @@ const initialContextValue: CalendarContextType = {
   currentMonth: dayjs(),
   setCurrentMonth: () => {},
   calendarSettings: defaultProps,
+  bookingDates: {
+    firstDate: undefined,
+    lastDate: undefined,
+  },
+  setBookingDates: () => {},
 }
 
 interface CalendarProviderProps {

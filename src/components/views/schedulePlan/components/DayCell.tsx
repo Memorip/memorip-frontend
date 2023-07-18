@@ -1,5 +1,7 @@
 import clsx from 'clsx'
 
+// import { CalendarContext } from '../contexts/CalendarContext'
+
 interface DayCellProps {
   month: number
   year: number
@@ -9,6 +11,11 @@ interface DayCellProps {
 }
 
 const DayCell = ({ date, month, year, day, isOtherDay }: DayCellProps) => {
+  // const { bookingDates, today, setBookingDates } = useContext(CalendarContext)
+  // const todayString = today.format('YYYY-MM-DD')
+
+  // console.log('todayString', todayString)
+
   return (
     <div className='w-[calc(100%/7)] px-1 py-4'>
       <div

@@ -1,6 +1,8 @@
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 import React from 'react'
+
+import { usePlan } from '@/app/schedule/plan/_hooks/usePlane'
 
 import { Input } from '@/components/forms'
 import Avatar from '@/components/user/Avatar'
@@ -12,8 +14,6 @@ interface City {
 }
 
 const ScheduleView = () => {
-  const { push } = useRouter()
-
   const MOCK = [
     { id: 1, name: '도쿄', selected: false },
     { id: 2, name: '하코네', selected: false },
@@ -37,6 +37,13 @@ const ScheduleView = () => {
         setSelectedCity((prev) => [...prev, selected])
       }
     }
+  }
+
+  const { addPlan } = usePlan()
+
+  const handleSetPlan = () => {
+    const cityName = selectedCity.map((city) => city.name)
+    addPlan(cityName)
   }
 
   return (
@@ -80,7 +87,7 @@ const ScheduleView = () => {
       </div>
 
       {selectedCity.length > 0 && (
-        <div className='absolute bottom-0 h-[30vh] w-full border-t border-slate-100 p-5'>
+        <div className='absolute h-[30vh] w-full border-t border-slate-100 p-5'>
           <div className='flex w-fit items-center space-x-3'>
             {selectedCity.map((city, idx) => (
               <>
@@ -99,14 +106,18 @@ const ScheduleView = () => {
             ))}
           </div>
 
-          <button
-            className='mt-5 flex w-full flex-none items-center justify-center rounded-md bg-blue-500 py-4 text-sm font-medium text-white'
-            onClick={() => push('/schedule/plan')}
-          >
-            {`${
-              selectedCity.length > 1 ? `${selectedCity[0].name} 외 ${selectedCity.length - 1}개` : selectedCity[0].name
-            } 선택 완료`}
-          </button>
+          <Link href={'schedule/plan'}>
+            <button
+              className='mt-5 flex w-full flex-none items-center justify-center rounded-md bg-blue-500 py-4 text-sm font-medium text-white'
+              onClick={handleSetPlan}
+            >
+              {`${
+                selectedCity.length > 1
+                  ? `${selectedCity[0].name} 외 ${selectedCity.length - 1}개`
+                  : selectedCity[0].name
+              } 선택 완료`}
+            </button>
+          </Link>
         </div>
       )}
     </div>
