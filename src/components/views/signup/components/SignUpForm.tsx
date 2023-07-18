@@ -32,7 +32,7 @@ const SignUpForm = ({ setStep }: Props) => {
 
   const onSubmit = async ({ email }: FormValues) => {
     try {
-      await sendCode(email)
+      await sendCode({ email })
       setStep(STEP.EMAIL_VERIFICATION)
     } catch (error) {
       onError(error)

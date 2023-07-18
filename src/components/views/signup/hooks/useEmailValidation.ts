@@ -17,7 +17,7 @@ export const useEmailValidation = (email: string) => {
     const validateEmail = async () => {
       try {
         setIsEmailValidating(true)
-        await checkDuplicateEmail(email)
+        await checkDuplicateEmail({ email })
         setIsDuplicated(false)
       } catch (error) {
         if (isServerErrorWithMessage(error)) {
