@@ -9,6 +9,8 @@ import {
   type SignInParams,
   type SignIn,
   SignInSchema,
+  type UserInfo,
+  UserInfoSchema,
 } from '@/types/auth'
 
 export const signUp = ({ email, password, nickname }: SingUpParams) => {
@@ -37,4 +39,9 @@ export const signIn = async ({ email, password }: SignInParams) => {
     password,
   })
   return SignInSchema.parse(response.data)
+}
+
+export const getUserInfo = async () => {
+  const response = await api.get<UserInfo>('/api/user')
+  return UserInfoSchema.parse(response.data)
 }

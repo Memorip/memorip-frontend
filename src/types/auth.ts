@@ -33,3 +33,14 @@ export const SignInSchema = z.object({
 })
 
 export type SignIn = z.infer<typeof SignInSchema>
+
+export const UserInfoSchema = z.object({
+  id: z.number(),
+  email: z.string(),
+  nickname: z.string(),
+  profile: z.string().nullable(),
+  created_at: z.string(),
+  is_active: z.boolean(),
+})
+
+export type UserInfo = z.infer<typeof UserInfoSchema>
