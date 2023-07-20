@@ -25,9 +25,7 @@ const LoginView = () => {
 
   const onSubmit = async ({ email, password }: FormValues) => {
     try {
-      const {
-        data: { token },
-      } = await signIn(email, password)
+      const { token } = await signIn({ email, password })
       setAccessTokenToCookie(token)
       toast.success('로그인에 성공했어요.')
       push(ROUTE.MAIN)

@@ -101,7 +101,7 @@ const TimeLineBlock = ({ date, timelines, planId, day }: TimeLineBlockProps) => 
           isEditing && selectedLocations.length > 0 ? 'flex gap-2' : 'hidden',
           'fixed bottom-0 left-0 flex h-16 w-full items-center justify-center bg-blue-500 text-base font-bold text-white'
         )}
-        onClick={() => deleteTimelinesMutation.mutate(selectedLocations)}
+        onClick={() => deleteTimelinesMutation.mutate({ ids: selectedLocations })}
         type='submit'
       >
         <i className='ri-delete-bin-line' />

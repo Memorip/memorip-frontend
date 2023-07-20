@@ -7,7 +7,7 @@ export const isServerErrorWithMessage = (error: unknown): error is AxiosError<Se
     error instanceof AxiosError &&
     error.response !== undefined &&
     typeof error.response.data === 'object' &&
-    'responseMessage' in error.response?.data &&
+    'responseMessage' in error.response.data &&
     typeof (error.response.data as Record<string, unknown>).responseMessage === 'string'
   )
 }

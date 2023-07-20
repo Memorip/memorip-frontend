@@ -93,7 +93,7 @@ const SearchView = () => {
           />
         </div>
       </div>
-      <div className='fixed inset-x-0 bottom-0 z-10 w-full bg-white p-4'>
+      <div className='fixed inset-x-0 bottom-0 z-10 flex w-full justify-center bg-white p-4'>
         <button className='w-full max-w-3xl rounded-md bg-blue-500 py-2 text-white' onClick={handleClickComplete}>
           선택 완료
         </button>

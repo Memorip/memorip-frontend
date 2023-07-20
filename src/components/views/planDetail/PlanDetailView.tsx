@@ -18,10 +18,10 @@ const PlanDetailView = () => {
   const { query } = useRouter()
   const planId = Number(query.slug)
 
-  const timelinesObjectQuery = useQuery(QueryKeys.TIMELINES(planId), () => getTimelines(planId), {
+  const timelinesObjectQuery = useQuery(QueryKeys.TIMELINES(planId), () => getTimelines({ planId }), {
     enabled: !!query.slug,
   })
-  const planQuery = useQuery(QueryKeys.PLAN(planId), () => getPlan(planId), {
+  const planQuery = useQuery(QueryKeys.PLAN(planId), () => getPlan({ planId }), {
     enabled: !!query.slug,
   })
 
@@ -29,8 +29,8 @@ const PlanDetailView = () => {
     return null
   }
 
-  const { data: timelinesObject } = timelinesObjectQuery.data
-  const { data: plan } = planQuery.data
+  const timelinesObject = timelinesObjectQuery.data
+  const plan = planQuery.data
 
   const datesArray = getDatesArray(plan.startDate, plan.endDate)
 
