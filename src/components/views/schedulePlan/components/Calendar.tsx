@@ -2,22 +2,18 @@ import React from 'react'
 
 import dayjs from 'dayjs'
 import { Calendar, getAllDatesInRange } from 'react-multi-date-picker'
-import {
-  type CalendarProps,
-  type DateObject,
-  type DatePickerProps as ReactMultiDatePickerProps,
-} from 'react-multi-date-picker'
+import { type DateObject } from 'react-multi-date-picker'
 
 interface ICalendar {
   setDates: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const CalendarComponent = ({ setDates }: Omit<ICalendar, keyof CalendarProps> & ReactMultiDatePickerProps) => {
+const CalendarComponent = ({ setDates }: ICalendar) => {
   const [value, setValue] = React.useState<DateObject | DateObject[] | null>()
 
   const handleChangeDate = (dataObjects: DateObject | DateObject[] | null) => {
     setValue(dataObjects)
-    const allDates = getAllDatesInRange(Object(dataObjects), true)
+    const allDates = getAllDatesInRange(Object(dataObjects))
     const formattedDates = allDates.map((date) => dayjs(date.toString()).format('YYYY-MM-DD'))
     setDates(formattedDates)
   }
