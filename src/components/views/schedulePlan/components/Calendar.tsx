@@ -1,52 +1,74 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import type dayjs from 'dayjs'
+import dayjs from 'dayjs'
+import { Calendar, getAllDatesInRange } from 'react-multi-date-picker'
+import {
+  type CalendarProps,
+  type DateObject,
+  type DatePickerProps as ReactMultiDatePickerProps,
+} from 'react-multi-date-picker'
 
-import Dates from '@/components/views/schedulePlan/components/Dates'
-import { CalendarContext } from '@/components/views/schedulePlan/contexts/CalendarContext'
+interface ICalendar {
+  setDates: React.Dispatch<React.SetStateAction<string[]>>
+}
 
-const Calendar = ({ index }: { index: number }) => {
-  const { currentMonth } = React.useContext(CalendarContext)
+const CalendarComponent = ({ setDates }: Omit<ICalendar, keyof CalendarProps> & ReactMultiDatePickerProps) => {
+  const [value, setValue] = React.useState<DateObject | DateObject[] | null>()
 
-  const calculateNewDates = (currentMonth: dayjs.Dayjs, index: number) => {
-    const newMonth = ((currentMonth.month() + index) % 12) + 1
-    const newYear = currentMonth.year() + Math.floor((currentMonth.month() + index) / 12)
-    return { newMonth, newYear }
+  const handleChangeDate = (dataObjects: DateObject | DateObject[] | null) => {
+    setValue(dataObjects)
+    const allDates = getAllDatesInRange(Object(dataObjects), true)
+    const formattedDates = allDates.map((date) => dayjs(date.toString()).format('YYYY-MM-DD'))
+    setDates(formattedDates)
   }
 
-  const [dates, setDates] = React.useState(calculateNewDates(currentMonth, index))
-
-  useEffect(() => {
-    setDates(calculateNewDates(currentMonth, index))
-  }, [currentMonth, index])
+  const localeKorean = {
+    name: 'ko',
+    months: [
+      ['1월', '1월'],
+      ['2월', '2월'],
+      ['3월', '3월'],
+      ['4월', '4월'],
+      ['5월', '5월'],
+      ['6월', '6월'],
+      ['7월', '7월'],
+      ['8월', '8월'],
+      ['9월', '9월'],
+      ['10월', '10월'],
+      ['11월', '11월'],
+      ['12월', '12월'],
+    ],
+    weekDays: [
+      ['토요일', '토'],
+      ['일요일', '일'],
+      ['월요일', '월'],
+      ['화요일', '화'],
+      ['수요일', '수'],
+      ['목요일', '목'],
+      ['금요일', '금'],
+    ],
+    digits: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+    meridiems: [
+      ['오전', '오전'],
+      ['오후', '오후'],
+    ],
+  }
 
   return (
     <div className='flex flex-col p-4'>
-      <Year year={dates.newYear} month={dates.newMonth} />
-      <WeekDays />
-      <Dates year={dates.newYear} month={dates.newMonth} />
+      <Calendar
+        className='custom-calendar'
+        range
+        numberOfMonths={2}
+        locale={localeKorean}
+        minDate={new Date()}
+        value={value}
+        onChange={(dataObjects) => {
+          handleChangeDate(dataObjects)
+        }}
+      />
     </div>
   )
 }
 
-interface WeekdayHeaderProps {
-  year: number
-  month: number
-}
-function Year({ year, month }: WeekdayHeaderProps) {
-  const formattedDate = (year: number, month: number) => `${year}년 ${month}월`
-  return <div className='mb-2 px-2 text-sm font-medium text-gray-700'>{formattedDate(year, month)}</div>
-}
-
-function WeekDays() {
-  const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토']
-  return (
-    <div className='flex h-10 items-center justify-around text-xs text-gray-500'>
-      {WEEKDAYS.map((el) => (
-        <div key={el}>{el}</div>
-      ))}
-    </div>
-  )
-}
-
-export default Calendar
+export default CalendarComponent

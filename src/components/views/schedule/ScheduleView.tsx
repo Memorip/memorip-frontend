@@ -2,10 +2,10 @@ import Link from 'next/link'
 
 import React from 'react'
 
-import { usePlan } from '@/app/schedule/plan/_hooks/usePlane'
-
 import { Input } from '@/components/forms'
 import Avatar from '@/components/user/Avatar'
+
+import { usePlan } from '@/hooks/usePlane'
 
 interface City {
   id: number

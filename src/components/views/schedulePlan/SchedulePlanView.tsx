@@ -1,26 +1,27 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
-import { usePlan } from '@/app/schedule/plan/_hooks/usePlane'
+// import dayjs from 'dayjs'
 
-import Calendar from '@/components/views/schedulePlan/components/Calendar'
+import { usePlan } from '@/hooks/usePlane'
 
-import { CalendarContext } from './contexts/CalendarContext'
+import Calendar from './components/Calendar'
 
 const SchedulePlanView = () => {
-  const { calendarSettings } = useContext(CalendarContext)
+  const [dates, setDates] = React.useState<string[]>([])
 
-  const { numMonths } = calendarSettings
-
-  const { plan } = usePlan()
-
-  console.log('plan', plan)
+  const { addDate, plan } = usePlan()
 
   const handleSubmit = async () => {
-    console.log('handleSubmit')
+    addDate(dates)
     // try {
-    //   await createPlan({})
+    //   await createPlan({
+    //     city: plan.city,
+    //     endDate: dayjs(plan.endDate)?.toISOString(),
+    //     startDate: dayjs(plan.startDate)?.toISOString(),
+    //   })
     // } catch {}
   }
+  console.log('plan', plan)
 
   return (
     <>
@@ -31,9 +32,7 @@ const SchedulePlanView = () => {
         </div>
 
         <section className='h-96 overflow-scroll bg-gray-50'>
-          {[...Array(numMonths)].map((_, index) => (
-            <Calendar key={`month-view-${index}`} index={index} />
-          ))}
+          <Calendar setDates={setDates} />
         </section>
         <button onClick={handleSubmit} className='mt-5 w-full bg-blue-50 p-2 font-semibold text-blue-400'>
           일정 등록하기
