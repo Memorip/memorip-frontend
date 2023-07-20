@@ -43,8 +43,6 @@ body {
   font-family: var(--font-notoSansKr), var(--font-poppins), sans-serif;
 }
 
-//calendar
-
 .rmdp-wrapper {
   border: 1px solid white;
 }
