@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+
 import React from 'react'
 
 // import dayjs from 'dayjs'
@@ -11,6 +13,8 @@ const SchedulePlanView = () => {
 
   const { addDate, plan } = usePlan()
 
+  const router = useRouter()
+
   const handleSubmit = async () => {
     addDate(dates)
     // try {
@@ -20,8 +24,18 @@ const SchedulePlanView = () => {
     //     startDate: dayjs(plan.startDate)?.toISOString(),
     //   })
     // } catch {}
+    router.push('/schedule/type')
   }
-  console.log('plan', plan)
+  console.log('dates', plan)
+
+  const convertedDatesArray = dates.map((date) => date.replace(/-/g, '.'))
+
+  const selectedDates = (convertedDatesArray: string[]) =>
+    convertedDatesArray.length === 0
+      ? '일정 등록하기'
+      : convertedDatesArray.length === 1
+      ? `${convertedDatesArray[0]} / 당일 일정으로 등록 완료`
+      : `${convertedDatesArray[0]} - ${convertedDatesArray[convertedDatesArray.length - 1]} / 등록완료`
 
   return (
     <>
@@ -34,8 +48,9 @@ const SchedulePlanView = () => {
         <section className='h-96 overflow-scroll bg-gray-50'>
           <Calendar setDates={setDates} />
         </section>
-        <button onClick={handleSubmit} className='mt-5 w-full bg-blue-50 p-2 font-semibold text-blue-400'>
-          일정 등록하기
+
+        <button onClick={handleSubmit} className=' mt-5 w-full rounded bg-blue-500 p-2 text-sm font-medium text-white'>
+          {selectedDates(convertedDatesArray)}
         </button>
       </div>
     </>
