@@ -35,7 +35,16 @@ const MapButton = () => {
   )
 }
 
+const AddPlanButton = () => {
+  return (
+    <Link href={ROUTE.SCHEDULE_PLAN}>
+      <i className='ri-flight-takeoff-line text-xl' />
+    </Link>
+  )
+}
+
 Header.HamburgerButton = HamburgerButton
 Header.MapButton = MapButton
+Header.AddPlanButton = AddPlanButton
 
 export default Header

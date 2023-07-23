@@ -1,10 +1,12 @@
 import { useState } from 'react'
 
+import { type Location } from '@/components/views/search/SearchView'
+
 import LocationCard from './LocationCard'
 
 interface LocationsProps {
-  selectedLocations: string[]
-  setSelectedLocations: React.Dispatch<React.SetStateAction<string[]>>
+  selectedLocations: Location[]
+  setSelectedLocations: React.Dispatch<React.SetStateAction<Location[]>>
 }
 
 const DUMMY_LOCATIONS = [
@@ -29,6 +31,8 @@ const Locations = ({ selectedLocations, setSelectedLocations }: LocationsProps) 
         {DUMMY_LOCATIONS.slice(0, 3 + addedLocationLength).map((location, index) => (
           <LocationCard
             location={location}
+            image='/images/testimage2.png'
+            category='Lorem ipsum dolor sit amet.'
             selectedLocations={selectedLocations}
             setSelectedLocations={setSelectedLocations}
             key={index}
