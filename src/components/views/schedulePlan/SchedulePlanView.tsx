@@ -24,7 +24,7 @@ const SchedulePlanView = () => {
     //     startDate: dayjs(plan.startDate)?.toISOString(),
     //   })
     // } catch {}
-    router.push('/schedule/type')
+    router.push('/schedule/option')
   }
   console.log('dates', plan)
 
