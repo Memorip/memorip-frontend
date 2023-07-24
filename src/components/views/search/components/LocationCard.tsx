@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import clsx from 'clsx'
 
-import { type Location } from '@/components/views/search/SearchView'
+import { type Location } from '@/components/views/search/types/location'
 
 interface LocationCardProps {
   location: string

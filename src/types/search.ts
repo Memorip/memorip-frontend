@@ -1,7 +1,10 @@
 import { z } from 'zod'
 
+export type Sort = 'random' | 'comment'
+
 export interface SearchParams {
   keyword: string
+  sort?: Sort
 }
 
 export const SearchSchema = z.array(
