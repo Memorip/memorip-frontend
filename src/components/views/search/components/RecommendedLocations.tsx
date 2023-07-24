@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 
+import Spinner from '@/components/shared/Spinner'
 import { useRecommendQuery } from '@/components/views/search/hooks/useRecommendQuery'
 import { type Location } from '@/components/views/search/types/location'
 
@@ -31,11 +32,7 @@ const RecommendedLocations = ({ selectedLocations, setSelectedLocations, planId 
         <span className='text-sm font-semibold'>추천 장소</span>
         {/* <button className='text-sm font-semibold text-blue-500'>전체 보기</button> */}
       </div>
-      {recommendQuery.isLoading && (
-        <div className='mb-4 flex flex-col gap-4'>
-          <i className='ri-loader-4-line animate-spin text-center text-4xl text-zinc-500' />
-        </div>
-      )}
+      {recommendQuery.isLoading && <Spinner />}
       {recommendQuery.isSuccess && (
         <div className='mb-4 flex flex-col gap-4'>
           {recommendQuery.data.map(({ title, imageLink, category }) => (

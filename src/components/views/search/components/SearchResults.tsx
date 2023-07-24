@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 
+import Spinner from '@/components/shared/Spinner'
 import LocationCard from '@/components/views/search/components/LocationCard'
 import { SearchContext } from '@/components/views/search/contexts/searchContext'
 import { useSearchQuery } from '@/components/views/search/hooks/useSearchQuery'
@@ -19,9 +20,7 @@ const SearchResults = ({ selectedLocations, setSelectedLocations }: SearchResult
       <span className='text-sm font-semibold'>검색 결과</span>
       <div className='mt-4 flex flex-col gap-2'>
         {searchQuery.isFetching ? (
-          <div className='flex justify-center'>
-            <i className='ri-loader-4-line animate-spin text-2xl text-gray-400' />
-          </div>
+          <Spinner />
         ) : searchQuery.isSuccess ? (
           searchQuery.data.length === 0 ? (
             <span className='text-xs text-gray-400'>검색 결과가 없습니다.</span>

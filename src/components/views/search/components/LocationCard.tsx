@@ -26,7 +26,7 @@ const LocationCard = ({ location, image, category, selectedLocations, setSelecte
   return (
     <div className='flex h-[50px] items-center gap-3'>
       <div className='relative h-[50px] w-[50px]'>
-        <Image className='rounded-lg object-cover' fill src={image} alt='제주도' />
+        <Image className='rounded-lg object-cover' fill src={image} alt={location} />
       </div>
       <div className='flex flex-1 items-center justify-between'>
         <div className='flex flex-col justify-between gap-2'>
