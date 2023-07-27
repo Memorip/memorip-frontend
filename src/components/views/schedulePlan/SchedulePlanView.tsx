@@ -4,7 +4,8 @@ import React from 'react'
 
 // import dayjs from 'dayjs'
 
-import { usePlan } from '@/hooks/usePlane'
+import ROUTE from '@/constants/route'
+import { usePlan } from '@/hooks/usePlan'
 
 import Calendar from './components/Calendar'
 
@@ -24,13 +25,13 @@ const SchedulePlanView = () => {
     //     startDate: dayjs(plan.startDate)?.toISOString(),
     //   })
     // } catch {}
-    router.push('/schedule/option')
+    router.push(ROUTE.SCHEDULE_OPTION)
   }
   console.log('dates', plan)
 
   const convertedDatesArray = dates.map((date) => date.replace(/-/g, '.'))
 
-  const selectedDates = (convertedDatesArray: string[]) =>
+  const getRegistrationStatusMessage = (convertedDatesArray: string[]) =>
     convertedDatesArray.length === 0
       ? '일정 등록하기'
       : convertedDatesArray.length === 1
@@ -50,7 +51,7 @@ const SchedulePlanView = () => {
         </section>
 
         <button onClick={handleSubmit} className=' mt-5 w-full rounded bg-blue-500 p-2 text-sm font-medium text-white'>
-          {selectedDates(convertedDatesArray)}
+          {getRegistrationStatusMessage(convertedDatesArray)}
         </button>
       </div>
     </>

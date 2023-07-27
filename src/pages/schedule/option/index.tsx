@@ -1,7 +1,7 @@
-import ScheduleOptionView from '@/components/views/scheduleType/ScheduleOptionView'
+import ScheduleOptionView from '@/components/views/scheduleOption/ScheduleOptionView'
 
-const Type = () => {
+const Option = () => {
   return <ScheduleOptionView />
 }
 
-export default Type
+export default Option

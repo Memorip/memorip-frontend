@@ -1,44 +1,30 @@
 import { atom, useAtom } from 'jotai'
 
-export interface Plan {
-  id?: number
-  userId?: number
-  city?: string[]
-  startDate?: string
-  endDate?: string
-  tripType?: string[]
-  participants?: number
-  createAt?: Date
-  isPublic?: boolean
-  views?: number
-  likes?: number
+import type { Plan } from '@/types/plan'
+
+const initialPlanData: Plan = {
+  id: 0,
+  userId: 0,
+  city: [],
+  startDate: '',
+  endDate: '',
+  tripType: [],
+  participants: 0,
+  createdAt: '',
+  isPublic: false,
+  views: 0,
+  likes: 0,
 }
-
-// const PLAN_KEY = 'plan_data'
-
-const initialPlanData: Plan = {}
-// if (typeof window !== 'undefined') {
-//   initialPlanData = JSON.parse(localStorage.getItem(PLAN_KEY) ?? 'null') || {}
-// }
 
 const planAtom = atom(initialPlanData)
 
 export const usePlan = () => {
   const [plan, setPlan] = useAtom(planAtom)
 
-  // React.useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     localStorage.setItem(PLAN_KEY, JSON.stringify(plan))
-  //   }
-  // }, [plan])
-
   const addPlanAndDate = (
     options: Partial<Pick<Plan, 'city' | 'startDate' | 'endDate' | 'tripType' | 'participants'>>
   ) => {
-    const newPlan = {
-      ...options,
-    }
-    setPlan((prev) => ({ ...prev, ...newPlan }))
+    setPlan((prev) => ({ ...prev, ...options }))
   }
   const addPlan = (city: string[]) => {
     addPlanAndDate({ city })

@@ -4,8 +4,10 @@ import React from 'react'
 
 import clsx from 'clsx'
 
-import { usePlan } from '@/hooks/usePlane'
+import { usePlan } from '@/hooks/usePlan'
 
+// 상수들 전부 하나의 파일에서 관리하는게 어떨지
+// 상수들을 응집도 있게 관리할 수 있는 장점이 있습니다.
 const Options = {
   Activity: '체험/액티비티',
   SnS: 'SNS 핫플레이스',
@@ -19,7 +21,8 @@ const Options = {
 
 const ScheduleOptionView = () => {
   const [selected, setSelected] = React.useState<string[]>([])
-  const [people, setPeople] = React.useState<number>(1)
+  const [people, setPeople] = React.useState(1)
+  const { addOption, plan } = usePlan()
 
   const changeHandler = (checked: boolean, key: string) => {
     if (checked) {
@@ -28,21 +31,19 @@ const ScheduleOptionView = () => {
       setSelected((prev) => prev.filter((item) => item !== key))
     }
   }
-  const handleParticipants = (method: string) => {
+
+  const handleParticipants = (method: 'plus' | 'minus') => {
     if (method === 'plus') {
       setPeople((prev) => prev + 1)
     } else if (method === 'minus') {
-      setPeople((prev) => prev - 1)
-      if (people === 0) {
-        setPeople(1)
-      }
+      setPeople((prev) => (prev > 1 ? prev - 1 : prev))
     }
   }
 
-  const { addOption, plan } = usePlan()
   const handleSetOption = () => {
     addOption(selected, people)
   }
+
   console.log('option', plan)
 
   return (
@@ -56,7 +57,7 @@ const ScheduleOptionView = () => {
         <div>
           <h2 className='font-semibold'>인원은 ?</h2>
           <div className='mt-3 flex space-x-3'>
-            <div className='flex items-center space-x-5 rounded border border-gray-300'>
+            <div className='flex items-center space-x-5 rounded  border-gray-300'>
               <button className='h-[30px] w-[50px] rounded-lg bg-slate-100' onClick={() => handleParticipants('plus')}>
                 +
               </button>

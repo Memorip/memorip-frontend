@@ -4,8 +4,8 @@ export interface Plan {
   city: string[]
   startDate: string
   endDate: string
-  tripType: string
-  participants: number[]
+  tripType: string[]
+  participants: number
   createdAt: string
   isPublic: boolean
   views: number

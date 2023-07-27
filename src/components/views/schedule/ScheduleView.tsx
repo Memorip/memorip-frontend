@@ -5,7 +5,8 @@ import React from 'react'
 import { Input } from '@/components/forms'
 import Avatar from '@/components/user/Avatar'
 
-import { usePlan } from '@/hooks/usePlane'
+import ROUTE from '@/constants/route'
+import { usePlan } from '@/hooks/usePlan'
 
 interface City {
   id: number
@@ -106,7 +107,7 @@ const ScheduleView = () => {
             ))}
           </div>
 
-          <Link href={'schedule/plan'}>
+          <Link href={ROUTE.SCHEDULE_PLAN}>
             <button
               className='mt-5 flex w-full flex-none items-center justify-center rounded-md bg-blue-500 py-4 text-sm font-medium text-white'
               onClick={handleSetPlan}
