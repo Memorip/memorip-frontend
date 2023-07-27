@@ -7,6 +7,9 @@ const ROUTE = {
   PLAN: (planId: number) => `/plan/${planId}`,
   SCHEDULE_PLAN: '/schedule/plan',
   SEARCH: (planId: number, date: string) => `/search?planId=${planId}&date=${date}`,
+  ME: (tab: 'travel' | 'review' | 'travelogue') => {
+    return `/me?tab=${tab}`
+  },
 } as const
 
 export default ROUTE

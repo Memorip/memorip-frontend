@@ -16,10 +16,7 @@ interface LocationsProps {
 
 const RecommendedLocations = ({ selectedLocations, setSelectedLocations, planId }: LocationsProps) => {
   const planQuery = usePlanQuery(planId)
-  const recommendQuery = useRecommendQuery(planQuery.isSuccess ? `${planQuery.data.city.join('')} 맛집` : '')
-  // const [isExpanded, setIsExpanded] = useState(false)
-
-  // const addedLocationLength = isExpanded ? 5 : 0
+  const recommendQuery = useRecommendQuery(planQuery.isSuccess ? `${planQuery.data.city.join('')} 관광` : '')
 
   return (
     <div
@@ -30,7 +27,6 @@ const RecommendedLocations = ({ selectedLocations, setSelectedLocations, planId 
     >
       <div className='mb-4 flex justify-between'>
         <span className='text-sm font-semibold'>추천 장소</span>
-        {/* <button className='text-sm font-semibold text-blue-500'>전체 보기</button> */}
       </div>
       {recommendQuery.isLoading && <Spinner />}
       {recommendQuery.isSuccess && (
@@ -47,14 +43,6 @@ const RecommendedLocations = ({ selectedLocations, setSelectedLocations, planId 
           ))}
         </div>
       )}
-      {/* {!isExpanded && (
-        <button
-          className='w-full rounded-full bg-zinc-100 py-2 text-base font-bold text-zinc-500'
-          onClick={() => setIsExpanded(true)}
-        >
-          더보기
-        </button>
-      )} */}
     </div>
   )
 }

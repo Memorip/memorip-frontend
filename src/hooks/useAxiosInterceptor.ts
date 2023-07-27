@@ -75,12 +75,10 @@ export const useAxiosInterceptor = () => {
   const requestInterceptor = axiosInstance.interceptors.request.use(requestHandler, requestErrorHandler)
   const responseInterceptor = axiosInstance.interceptors.response.use(responseHandler, responseErrorHandler)
 
-  // axiosInstance.defaults.headers.Cookie = getAccessTokenFromCookie()
-
   useEffect(() => {
     return () => {
       axiosInstance.interceptors.request.eject(requestInterceptor)
-      axiosInstance.interceptors.request.eject(responseInterceptor)
+      axiosInstance.interceptors.response.eject(responseInterceptor)
     }
   }, [requestInterceptor, responseInterceptor])
 }
