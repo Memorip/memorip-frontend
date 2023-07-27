@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
 
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { toast } from 'react-toastify'
 
 import { axiosInstance } from '@/lib/apis'
+import { isServerErrorWithMessage } from '@/lib/error'
 import type { RegenerateAccessTokenByRefreshTokenResponse, ServerError } from '@/types/api'
 
 export const useAxiosInterceptor = () => {
@@ -61,6 +63,10 @@ export const useAxiosInterceptor = () => {
         .finally(() => {
           isRefreshing = false
         })
+    }
+
+    if (isServerErrorWithMessage(error)) {
+      toast.error(error.response?.data.responseMessage ?? '서버에 문제가 생겼어요.')
     }
 
     return Promise.reject(error)
