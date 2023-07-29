@@ -1,7 +1,5 @@
 const removeBTag = (input: string): string => {
-  const withoutBTag = input.replace(/<b\b[^>]*>(.*?)<\/b>/gi, '$1')
-
-  return withoutBTag.replace(/<\/?[^>]+(>|$)/g, '')
+  return input.replace(/<\/?b>/g, '')
 }
 
 export default removeBTag

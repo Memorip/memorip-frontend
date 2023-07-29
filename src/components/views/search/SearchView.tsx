@@ -15,7 +15,7 @@ import { type Location } from '@/components/views/search/types/location'
 
 import ROUTE from '@/constants/route'
 
-import { SearchContextProvider } from './contexts/searchContext'
+import { SearchContextProvider } from './contexts/SearchContext'
 
 const SearchView = () => {
   const { push, query } = useRouter()
