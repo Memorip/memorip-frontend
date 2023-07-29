@@ -7,6 +7,7 @@ const MainView = () => {
   return (
     <>
       <Header>
+        <Header.AddPlanButton />
         <Header.HamburgerButton />
       </Header>
       <SNB />

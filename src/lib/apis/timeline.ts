@@ -7,6 +7,9 @@ import {
   TimelinesObjectSchema,
   type GetTimelinesParams,
   type DeleteTimelinesParams,
+  type GetTimelineParams,
+  TimelineSchema,
+  type UpdateTimelineParams,
 } from '@/types/timeline'
 
 export const getTimelines = async ({ planId }: GetTimelinesParams) => {
@@ -39,4 +42,17 @@ export const createTimelines = ({ locations, planId, date }: CreateTimelinesPara
 
 export const deleteTimelines = ({ ids }: DeleteTimelinesParams) => {
   return api.delete(`/api/timelines?ids=${ids.join(',')}`)
+}
+
+export const getTimeline = async ({ id }: GetTimelineParams) => {
+  const response = await api.get<Timeline>(`/api/timelines/${id}`)
+  return TimelineSchema.parse(response.data)
+}
+
+export const updateTimeline = async ({ id, date, memo, data }: UpdateTimelineParams) => {
+  return api.patch(`/api/timelines/${id}`, {
+    date,
+    memo,
+    data,
+  })
 }

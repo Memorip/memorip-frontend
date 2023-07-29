@@ -41,3 +41,14 @@ export interface CreateTimelinesParams {
 export interface DeleteTimelinesParams {
   ids: string[]
 }
+
+export interface GetTimelineParams {
+  id: number
+}
+
+export interface UpdateTimelineParams {
+  id: number
+  date?: string
+  memo?: string
+  data?: string
+}

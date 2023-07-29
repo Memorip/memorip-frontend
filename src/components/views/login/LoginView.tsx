@@ -4,9 +4,8 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import ROUTE from '@/constants/route'
-import { setAccessTokenToCookie } from '@/features/auth/token'
-import { signIn } from '@/lib/apis/auth'
-import { isServerErrorWithMessage } from '@/lib/error'
+
+import { useSignInMutation } from './hooks/useSignInMutation'
 
 interface FormValues {
   email: string
@@ -22,21 +21,18 @@ const LoginView = () => {
     mode: 'onChange',
   })
   const { back, push } = useRouter()
+  const signInMutation = useSignInMutation()
 
   const onSubmit = async ({ email, password }: FormValues) => {
-    try {
-      const { token } = await signIn({ email, password })
-      setAccessTokenToCookie(token)
-      toast.success('로그인에 성공했어요.')
-      push(ROUTE.MAIN)
-    } catch (error) {
-      if (isServerErrorWithMessage(error)) {
-        toast.error(error.response?.data.responseMessage)
-        return
+    signInMutation.mutate(
+      { email, password },
+      {
+        onSuccess: () => {
+          toast.success('로그인에 성공했어요.')
+          push(ROUTE.MAIN)
+        },
       }
-
-      toast.error('서버에 문제가 생겼어요. 잠시 후 다시 시도해주세요.')
-    }
+    )
   }
 
   return (

@@ -1,29 +1,22 @@
 import { useRouter } from 'next/router'
 
-import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 
 import Header from '@/components/shared/Header'
 import SNB from '@/components/shared/SNB'
+import TimeLineBlock from '@/components/views/planDetail/components/TimelineBlock'
+import TripInfoCard from '@/components/views/planDetail/components/TripInfoCard'
+import { useTimelinesObjectQuery } from '@/components/views/planDetail/hooks/useTimelinesObjectQuery'
 
-import { getPlan } from '@/lib/apis/plan'
-import { getTimelines } from '@/lib/apis/timeline'
-import { QueryKeys } from '@/lib/queryKeys'
+import { usePlanQuery } from '@/features/plan/usePlanQuery'
 import { getDatesArray } from '@/utils/date'
-
-import TimeLineBlock from './components/TimelineBlock'
-import TripInfoCard from './components/TripInfoCard'
 
 const PlanDetailView = () => {
   const { query } = useRouter()
   const planId = Number(query.slug)
 
-  const timelinesObjectQuery = useQuery(QueryKeys.TIMELINES(planId), () => getTimelines({ planId }), {
-    enabled: !!query.slug,
-  })
-  const planQuery = useQuery(QueryKeys.PLAN(planId), () => getPlan({ planId }), {
-    enabled: !!query.slug,
-  })
+  const timelinesObjectQuery = useTimelinesObjectQuery(planId)
+  const planQuery = usePlanQuery(planId)
 
   if (!timelinesObjectQuery.isSuccess || !planQuery.isSuccess) {
     return null
@@ -53,7 +46,7 @@ const PlanDetailView = () => {
           {datesArray.map((date, index) => (
             <TimeLineBlock
               date={dayjs(date).format('YYYY-MM-DD')}
-              timelines={timelinesObject[dayjs(date).format('YYYY-MM-DD')]}
+              timelines={timelinesObject[dayjs(date).format('YYYY-MM-DD')] ?? []}
               planId={planId}
               day={index + 1}
               key={date}

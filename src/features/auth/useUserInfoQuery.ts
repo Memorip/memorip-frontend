@@ -8,6 +8,7 @@ const useUserInfoQuery = (options?: UseQueryOptions<UserInfo, Error, UserInfo>) 
   return useQuery<UserInfo, Error, UserInfo>({
     queryKey: QueryKeys.USER_INFO,
     queryFn: getUserInfo,
+    staleTime: 1000 * 60 * 60, // 1 hour
     ...options,
   })
 }

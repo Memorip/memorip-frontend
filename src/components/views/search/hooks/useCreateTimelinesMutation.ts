@@ -7,7 +7,7 @@ import { type CreateTimelinesParams } from '@/types/timeline'
 
 const useCreateTimelinesMutation = (
   planId: number,
-  options: UseMutationOptions<ServerResponse<unknown>, unknown, CreateTimelinesParams>
+  options?: UseMutationOptions<ServerResponse<unknown>, unknown, CreateTimelinesParams>
 ) => {
   const queryClient = useQueryClient()
 
@@ -15,7 +15,6 @@ const useCreateTimelinesMutation = (
     mutationFn: createTimelines,
     onSuccess: (data, variables, context) => {
       options?.onSuccess && options.onSuccess(data, variables, context)
-
       return queryClient.invalidateQueries(QueryKeys.PLAN(planId))
     },
   })
