@@ -29,7 +29,7 @@ const TimeLine = ({ timeline, isEditing }: TimeLineProps) => {
         <span className='text-xs font-semibold'>{memo}</span>
       </div>
       <span className='text-xs font-semibold text-stone-400'>{dayjs(createdAt).format('HH:mm')}</span>
-      <TimeLineMenu isOpen={isOpenMenu} setIsOpen={setIsOpenMenu} />
+      <TimeLineMenu id={timeline.id} isOpen={isOpenMenu} setIsOpen={setIsOpenMenu} />
     </div>
   )
 }
