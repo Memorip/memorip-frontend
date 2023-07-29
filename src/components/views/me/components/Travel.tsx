@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { Tab } from '@headlessui/react'
@@ -9,6 +8,8 @@ import { useMyPlanQuery } from '@/components/views/me/hooks/useMyPlanQuery'
 
 import ROUTE from '@/constants/route'
 import useUserInfoQuery from '@/features/auth/useUserInfoQuery'
+
+import Travels from './Travels'
 
 const Travel = () => {
   const userInfoQuery = useUserInfoQuery()
@@ -37,53 +38,13 @@ const Travel = () => {
           {upComingPlans.length > 0 && (
             <div className='p-4'>
               <span className='mb-4 inline-block text-base font-bold'>다가오는 여행</span>
-              <div className='flex flex-col gap-5'>
-                {upComingPlans.map(({ id, city, startDate, endDate }) => (
-                  <Link href={ROUTE.PLAN(id)} className='flex items-center gap-4' key={id}>
-                    <Image
-                      className='rounded-full border border-gray-100 drop-shadow-sm'
-                      src={'/images/bear.jpeg'}
-                      width={60}
-                      height={60}
-                      alt='profile'
-                    />
-                    <div className='flex flex-col gap-1'>
-                      <span className='text-sm font-bold'>{city.join(',')}</span>
-                      <span className='text-xs font-semibold text-gray-500'>
-                        {dayjs(startDate).format('YYYY.MM.DD')} ~ {dayjs(endDate).format('YYYY.MM.DD')}
-                      </span>
-                      <span className='text-xs font-semibold text-gray-400'>{city.length}개 도시</span>
-                    </div>
-                    <i className='ri-more-fill ml-auto text-xl' />
-                  </Link>
-                ))}
-              </div>
+              <Travels plans={upComingPlans} />
             </div>
           )}
           {pastPlans.length > 0 && (
             <div className='p-4'>
               <span className='mb-4 inline-block text-base font-bold'>지난 여행</span>
-              <div className='flex flex-col gap-5'>
-                {pastPlans.map(({ id, city, startDate, endDate }) => (
-                  <Link href={ROUTE.PLAN(id)} className='flex items-center gap-4' key={id}>
-                    <Image
-                      className='rounded-full border border-gray-100 drop-shadow-sm'
-                      src={'/images/bear.jpeg'}
-                      width={60}
-                      height={60}
-                      alt='profile'
-                    />
-                    <div className='flex flex-col gap-1'>
-                      <span className='text-sm font-bold'>{city.join(',')}</span>
-                      <span className='text-xs font-semibold text-gray-500'>
-                        {dayjs(startDate).format('YYYY.MM.DD')} ~ {dayjs(endDate).format('YYYY.MM.DD')}
-                      </span>
-                      <span className='text-xs font-semibold text-gray-400'>{city.length}개 도시</span>
-                    </div>
-                    <i className='ri-more-fill ml-auto text-xl' />
-                  </Link>
-                ))}
-              </div>
+              <Travels plans={pastPlans} />
             </div>
           )}
         </div>
