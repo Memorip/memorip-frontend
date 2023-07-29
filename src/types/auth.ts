@@ -41,6 +41,8 @@ export const UserInfoSchema = z.object({
   profile: z.string().nullable(),
   created_at: z.string(),
   is_active: z.boolean(),
+  myPlanCount: z.number(),
+  myTravelCount: z.number(),
 })
 
 export type UserInfo = z.infer<typeof UserInfoSchema>

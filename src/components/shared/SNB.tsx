@@ -37,7 +37,7 @@ const SNB = () => {
 
   if (!userInfoQuery.isSuccess) return null
 
-  const { nickname, profile } = userInfoQuery.data
+  const { nickname, profile, myPlanCount, myTravelCount } = userInfoQuery.data
 
   return (
     <Dialog className='relative z-50' open={isOpenSnb} onClose={onClose}>
@@ -62,7 +62,7 @@ const SNB = () => {
               <span className='text-2xl font-bold'>{nickname}</span>
               <div className='flex gap-4'>
                 <Link className='flex flex-col gap-1' href={ROUTE.ME('travel')} onClick={onClose}>
-                  <span className='text-sm font-semibold text-blue-500'>0</span>
+                  <span className='text-sm font-semibold text-blue-500'>{myPlanCount}</span>
                   <span className='text-sm font-semibold'>내 여행</span>
                 </Link>
                 <Link className='flex flex-col gap-1' href={ROUTE.ME('review')} onClick={onClose}>
@@ -70,7 +70,7 @@ const SNB = () => {
                   <span className='text-sm font-semibold'>리뷰</span>
                 </Link>
                 <Link className='flex flex-col gap-1' href={ROUTE.ME('travelogue')} onClick={onClose}>
-                  <span className='text-sm font-semibold text-blue-500'>0</span>
+                  <span className='text-sm font-semibold text-blue-500'>{myTravelCount}</span>
                   <span className='text-sm font-semibold'>여행기</span>
                 </Link>
               </div>
