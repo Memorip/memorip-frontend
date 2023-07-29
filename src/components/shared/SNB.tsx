@@ -61,28 +61,36 @@ const SNB = () => {
             <div className='flex flex-col gap-8'>
               <span className='text-2xl font-bold'>{nickname}</span>
               <div className='flex gap-4'>
-                <Link className='flex flex-col gap-1' href={ROUTE.ME('travel')}>
+                <Link className='flex flex-col gap-1' href={ROUTE.ME('travel')} onClick={onClose}>
                   <span className='text-sm font-semibold text-blue-500'>0</span>
                   <span className='text-sm font-semibold'>내 여행</span>
                 </Link>
-                <Link className='flex flex-col gap-1' href={ROUTE.ME('review')}>
+                <Link className='flex flex-col gap-1' href={ROUTE.ME('review')} onClick={onClose}>
                   <span className='text-sm font-semibold text-blue-500'>0</span>
                   <span className='text-sm font-semibold'>리뷰</span>
                 </Link>
-                <Link className='flex flex-col gap-1' href={ROUTE.ME('travelogue')}>
+                <Link className='flex flex-col gap-1' href={ROUTE.ME('travelogue')} onClick={onClose}>
                   <span className='text-sm font-semibold text-blue-500'>0</span>
                   <span className='text-sm font-semibold'>여행기</span>
                 </Link>
               </div>
             </div>
             {profile ? (
-              <div className='relative h-20 w-20 overflow-hidden drop-shadow-md'>
+              <Link
+                className='relative h-20 w-20 overflow-hidden drop-shadow-md'
+                href={ROUTE.ME('travel')}
+                onClick={onClose}
+              >
                 <Image className='rounded-full' src={profile} fill alt='profile' />
-              </div>
+              </Link>
             ) : (
-              <div className='relative h-20 w-20 overflow-hidden rounded-full border-[0.5px] border-gray-200 drop-shadow-md'>
+              <Link
+                className='relative h-20 w-20 overflow-hidden rounded-full border-[0.5px] border-gray-200 drop-shadow-md'
+                href={ROUTE.ME('travel')}
+                onClick={onClose}
+              >
                 <Image className='rounded-full' src='/images/bear.jpeg' fill alt='default_profile' />
-              </div>
+              </Link>
             )}
           </div>
           <div>

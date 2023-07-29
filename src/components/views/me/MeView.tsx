@@ -1,23 +1,21 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { useState } from 'react'
-
 import { Tab } from '@headlessui/react'
-import clsx from 'clsx'
+import { motion } from 'framer-motion'
 
 import Review from '@/components/views/me/components/Review'
 import Travel from '@/components/views/me/components/Travel'
 import Travelogue from '@/components/views/me/components/Travelogue'
+import { Tabs } from '@/components/views/me/constants'
+import { useTab } from '@/components/views/me/hooks/useTab'
 
 import useUserInfoQuery from '@/features/auth/useUserInfoQuery'
 
-const Tabs = ['내 여행', '리뷰', '여행기']
-
 const MeView = () => {
   const userInfoQuery = useUserInfoQuery()
+  const { selectedIndex, setSelectedIndex, handleClickTab } = useTab()
   const { back } = useRouter()
-  const [selectedIndex, setSelectedIndex] = useState(0)
 
   if (!userInfoQuery.isSuccess) return null
 
@@ -42,16 +40,16 @@ const MeView = () => {
         </section>
         <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
           <Tab.List className='flex w-full justify-between'>
-            {Tabs.map((tab, index) => (
+            {Tabs.map(({ name, value }, index) => (
               <Tab
-                key={tab}
-                className={clsx(
-                  'w-1/3 border-b py-2 font-medium',
-                  selectedIndex === index ? 'border-b-2 border-b-blue-500' : ''
-                )}
-                onClick={() => setSelectedIndex(index)}
+                key={value}
+                className={'relative w-1/3 border-b py-2 font-medium'}
+                onClick={() => handleClickTab(index)}
               >
-                {tab}
+                {selectedIndex === index && (
+                  <motion.div className='absolute bottom-0 left-0 h-[2px] w-full bg-blue-500' layoutId='underline' />
+                )}
+                {name}
               </Tab>
             ))}
           </Tab.List>
