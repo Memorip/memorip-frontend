@@ -39,7 +39,7 @@ const PlanDetailView = () => {
           title='제주도 3박 4일 여행'
           startDate={dayjs(plan.startDate).format('YYYY.MM.DD')}
           endDate={dayjs(plan.endDate).format('YYYY.MM.DD')}
-          tags={[plan.tripType]}
+          tags={plan.tripType}
         />
         <hr className='mb-4' />
         <div className='flex flex-col space-y-4'>

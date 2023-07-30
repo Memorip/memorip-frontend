@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import React from 'react'
 
@@ -8,16 +8,20 @@ import { toast } from 'react-toastify'
 import useCreatePlanMutation from '@/components/views/schedule/hooks/useCreatePlanMutation'
 
 import { PartyOptions, StyleOptions } from '@/constants/common'
+import ROUTE from '@/constants/route'
+import useUserInfoQuery from '@/features/auth/useUserInfoQuery'
 import { usePlan } from '@/hooks/usePlan'
 import { type TripType } from '@/types/plan'
 
 const ScheduleOptionView = () => {
+  const { push } = useRouter()
+  const userInfoQuery = useUserInfoQuery()
   const [selected, setSelected] = React.useState<TripType>({
     partyOptions: [],
     styleOptions: [],
   })
 
-  const { addOption, plan } = usePlan()
+  const { plan } = usePlan()
 
   const createPlanMutation = useCreatePlanMutation()
 
@@ -48,13 +52,26 @@ const ScheduleOptionView = () => {
   }
 
   const handleSetOption = () => {
-    addOption(selected)
-    console.log('plan', plan)
-    createPlanMutation.mutate(plan, {
-      onSuccess: () => {
-        toast.success('여행 계획이 생성되었어요.')
+    if (!userInfoQuery.isSuccess) {
+      toast.error('로그인이 필요한 서비스입니다.')
+      return
+    }
+
+    createPlanMutation.mutate(
+      {
+        ...plan,
+        userId: userInfoQuery.data.id,
+        participants: [userInfoQuery.data.id],
+        tripType: selected,
+        isPublic: true,
       },
-    })
+      {
+        onSuccess: ({ id }) => {
+          toast.success('여행 계획이 생성되었어요.')
+          push(ROUTE.PLAN(id))
+        },
+      }
+    )
   }
 
   return (
@@ -119,17 +136,19 @@ const ScheduleOptionView = () => {
         </div>
       </section>
 
-      <Link href={''}>
-        <button
-          onClick={handleSetOption}
-          className='mt-5 flex w-full flex-none items-center justify-center rounded-md bg-blue-500 py-4 text-sm font-medium text-white'
-        >
-          완료
-        </button>
-        <button className='mt-5 flex w-full flex-none items-center justify-center rounded-md  text-sm font-medium underline'>
-          다음에 하기
-        </button>
-      </Link>
+      <button
+        className={clsx(
+          'mt-5 flex w-full flex-none items-center justify-center rounded-md bg-blue-500 py-4 text-sm font-medium text-white',
+          createPlanMutation.isLoading && 'cursor-not-allowed opacity-50'
+        )}
+        disabled={createPlanMutation.isLoading}
+        onClick={handleSetOption}
+      >
+        완료
+      </button>
+      <button className='mt-5 flex w-full flex-none items-center justify-center rounded-md  text-sm font-medium underline'>
+        다음에 하기
+      </button>
     </section>
   )
 }

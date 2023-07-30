@@ -36,6 +36,7 @@
     "react-check-in-out-calendar": "^0.1.2",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.44.1",
+    "react-multi-date-picker": "^4.1.2",
     "react-toastify": "^9.1.3",
     "remixicon": "^3.3.0",
     "zod": "^3.21.4"

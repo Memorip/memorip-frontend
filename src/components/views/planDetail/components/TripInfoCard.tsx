@@ -1,8 +1,10 @@
+import { type TripType } from '@/types/plan'
+
 interface TripInfoCardProps {
   title: string
   startDate: string
   endDate: string
-  tags: string[]
+  tags: string
 }
 
 const TripInfoCard = ({ title, startDate, endDate, tags }: TripInfoCardProps) => {
@@ -13,11 +15,13 @@ const TripInfoCard = ({ title, startDate, endDate, tags }: TripInfoCardProps) =>
         {startDate} ~ {endDate}
       </span>
       <div className='mb-4 flex gap-1'>
-        {tags.map((tag) => (
-          <span className='rounded-full bg-blue-500 px-3 py-1 text-white' key={tag}>
-            {tag}
-          </span>
-        ))}
+        {Object.entries(JSON.parse(tags) as TripType).map(([, values]) =>
+          values.map((value) => (
+            <span className='rounded-full bg-blue-500 px-3 py-1 text-white' key={value}>
+              {value}
+            </span>
+          ))
+        )}
       </div>
     </>
   )

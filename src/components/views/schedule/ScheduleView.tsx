@@ -92,7 +92,7 @@ const ScheduleView = () => {
           <div className='flex w-fit items-center space-x-3'>
             {selectedCity.map((city, idx) => (
               <>
-                <div key={`selected-${city.id}`} className='flex flex-col items-center'>
+                <div key={city.id} className='flex flex-col items-center'>
                   <span
                     className='relative left-4 top-3 flex h-[20px] w-[20px] items-center justify-center rounded-full border bg-white'
                     onClick={() => handleSelect(city.id)}

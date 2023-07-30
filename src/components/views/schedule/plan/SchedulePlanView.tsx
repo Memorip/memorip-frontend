@@ -2,8 +2,6 @@ import { useRouter } from 'next/router'
 
 import React from 'react'
 
-// import dayjs from 'dayjs'
-
 import ROUTE from '@/constants/route'
 import { usePlan } from '@/hooks/usePlan'
 
@@ -12,22 +10,14 @@ import Calendar from './Calendar'
 const SchedulePlanView = () => {
   const [dates, setDates] = React.useState<string[]>([])
 
-  const { addDate, plan } = usePlan()
+  const { addDate } = usePlan()
 
   const router = useRouter()
 
   const handleSubmit = async () => {
     addDate(dates)
-    // try {
-    //   await createPlan({
-    //     city: plan.city,
-    //     endDate: dayjs(plan.endDate)?.toISOString(),
-    //     startDate: dayjs(plan.startDate)?.toISOString(),
-    //   })
-    // } catch {}
     router.push(ROUTE.SCHEDULE_OPTION)
   }
-  console.log('dates', plan)
 
   const convertedDatesArray = dates.map((date) => date.replace(/-/g, '.'))
 

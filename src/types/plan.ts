@@ -40,6 +40,23 @@ export const CreatePlanParamsSchema = z.object({
   endDate: z.string(),
   tripType: TripTypeSchema,
   participants: z.array(z.number()),
+  isPublic: z.boolean(),
 })
 
 export type CreatePlanParams = z.infer<typeof CreatePlanParamsSchema>
+
+export const CreatePlanResponseSchema = z.object({
+  id: z.number(),
+  userId: z.number(),
+  city: z.array(z.string()),
+  startDate: z.string(),
+  endDate: z.string(),
+  tripType: z.string(),
+  participants: z.array(z.number()),
+  createdAt: z.string(),
+  isPublic: z.boolean(),
+  views: z.number(),
+  likes: z.number(),
+})
+
+export type CreatePlanResponse = z.infer<typeof CreatePlanResponseSchema>

@@ -37,7 +37,7 @@ const MapButton = () => {
 
 const AddPlanButton = () => {
   return (
-    <Link href={ROUTE.SCHEDULE_PLAN}>
+    <Link href={ROUTE.SCHEDULE_INDEX}>
       <i className='ri-flight-takeoff-line text-xl' />
     </Link>
   )

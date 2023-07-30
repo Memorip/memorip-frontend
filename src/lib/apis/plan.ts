@@ -6,6 +6,8 @@ import {
   type GetMyPlansParams,
   PlansSchema,
   PlanSchema,
+  type CreatePlanResponse,
+  CreatePlanResponseSchema,
 } from '@/types/plan'
 
 export const getPlan = async ({ planId }: GetPlanParams) => {
@@ -19,8 +21,9 @@ export const getMyPlans = async ({ userId }: GetMyPlansParams) => {
 }
 
 export const createPlan = async (plan: CreatePlanParams) => {
-  return api.post<Plan>('/api/plans/add', {
+  const response = await api.post<CreatePlanResponse>('/api/plans/add', {
     ...plan,
     tripType: JSON.stringify(plan.tripType),
   })
+  return CreatePlanResponseSchema.parse(response.data)
 }
