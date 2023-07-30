@@ -27,6 +27,12 @@ export const PlanSchema = z.object({
 
 export type Plan = z.infer<typeof PlanSchema>
 
+export interface GetMyPlansParams {
+  userId: number
+}
+
+export const PlansSchema = z.array(PlanSchema)
+
 export const CreatePlanParamsSchema = z.object({
   userId: z.number(),
   city: z.array(z.string()),
