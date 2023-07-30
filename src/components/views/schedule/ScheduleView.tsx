@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Input } from '@/components/forms'
-import Avatar from '@/components/user/Avatar'
+import Avatar from '@/components/shared/Avatar'
 
 import ROUTE from '@/constants/route'
 import { usePlan } from '@/hooks/usePlan'
