@@ -1,4 +1,4 @@
-import ScheduleOptionView from '@/components/views/scheduleOption/ScheduleOptionView'
+import ScheduleOptionView from '@/components/views/schedule/option/ScheduleOptionView'
 
 const Option = () => {
   return <ScheduleOptionView />

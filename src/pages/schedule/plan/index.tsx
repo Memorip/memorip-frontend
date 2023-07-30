@@ -1,4 +1,4 @@
-import SchedulePlanView from '@/components/views/schedulePlan/SchedulePlanView'
+import SchedulePlanView from '@/components/views/schedule/plan/SchedulePlanView'
 
 const Plan = () => {
   return <SchedulePlanView />

@@ -7,7 +7,7 @@ import React from 'react'
 import ROUTE from '@/constants/route'
 import { usePlan } from '@/hooks/usePlan'
 
-import Calendar from './components/Calendar'
+import Calendar from './Calendar'
 
 const SchedulePlanView = () => {
   const [dates, setDates] = React.useState<string[]>([])

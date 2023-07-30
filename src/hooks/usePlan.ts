@@ -1,19 +1,14 @@
 import { atom, useAtom } from 'jotai'
 
-import type { Plan } from '@/types/plan'
+import type { CreatePlanParams, TripType } from '@/types/plan'
 
-const initialPlanData: Plan = {
-  id: 0,
-  userId: 0,
+const initialPlanData: CreatePlanParams = {
+  userId: 1,
   city: [],
   startDate: '',
   endDate: '',
-  tripType: [],
-  participants: 0,
-  createdAt: '',
-  isPublic: false,
-  views: 0,
-  likes: 0,
+  tripType: { partyOptions: [], styleOptions: [] },
+  participants: [],
 }
 
 const planAtom = atom(initialPlanData)
@@ -22,7 +17,8 @@ export const usePlan = () => {
   const [plan, setPlan] = useAtom(planAtom)
 
   const addPlanAndDate = (
-    options: Partial<Pick<Plan, 'city' | 'startDate' | 'endDate' | 'tripType' | 'participants'>>
+    // options: Partial<Pick<Plan, 'city' | 'startDate' | 'endDate' | 'tripType' | 'participants'>>
+    options: Partial<CreatePlanParams>
   ) => {
     setPlan((prev) => ({ ...prev, ...options }))
   }
@@ -34,14 +30,16 @@ export const usePlan = () => {
     addPlanAndDate({ startDate: dates[0], endDate: dates[dates.length - 1] })
   }
 
-  const addOption = (selected: string[], people: number) => {
+  const addOption = (selected: TripType) => {
     addPlanAndDate({
       city: plan.city ?? [],
       startDate: plan?.startDate ?? '',
       endDate: plan?.endDate ?? '',
       tripType: selected,
-      participants: people,
+      participants: [1],
     })
+
+    console.log(JSON.parse(JSON.stringify(selected)))
   }
 
   return {
