@@ -41,8 +41,8 @@ const EmailVerification = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      await verifyCode(getValues('email'), codes.join(''))
-      await signUp(getValues('email'), getValues('password'), getValues('nickname'))
+      await verifyCode({ email: getValues('email'), code: codes.join('') })
+      await signUp({ email: getValues('email'), password: getValues('password'), nickname: getValues('nickname') })
       toast.success('회원가입이 완료되었어요.')
       push(ROUTE.SIGN_IN)
     } catch (error) {

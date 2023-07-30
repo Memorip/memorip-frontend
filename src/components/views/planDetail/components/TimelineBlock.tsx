@@ -17,7 +17,7 @@ import TimeLine from './Timeline'
 
 interface TimeLineBlockProps {
   date: string
-  timelines: Timeline[] | undefined
+  timelines: Timeline[]
   planId: number
   day: number
 }
@@ -25,7 +25,7 @@ interface TimeLineBlockProps {
 const TimeLineBlock = ({ date, timelines, planId, day }: TimeLineBlockProps) => {
   const [isEditing, toggleEditing] = useToggle()
   const [selectedLocations, setSelectedLocations] = useState<string[]>([])
-  const timelineLength = timelines?.length
+  const timelineLength = timelines.length
 
   const handleClickSelectLocation = (locationId: string) => {
     if (selectedLocations.includes(locationId)) {
@@ -99,9 +99,11 @@ const TimeLineBlock = ({ date, timelines, planId, day }: TimeLineBlockProps) => 
       <button
         className={clsx(
           isEditing && selectedLocations.length > 0 ? 'flex gap-2' : 'hidden',
-          'fixed bottom-0 left-0 flex h-16 w-full items-center justify-center bg-blue-500 text-base font-bold text-white'
+          deleteTimelinesMutation.isLoading ? 'cursor-not-allowed opacity-50' : 'hover:bg-blue-600',
+          'fixed bottom-0 left-0 z-10 flex h-16 w-full items-center justify-center bg-blue-500 text-base font-bold text-white'
         )}
-        onClick={() => deleteTimelinesMutation.mutate(selectedLocations)}
+        disabled={deleteTimelinesMutation.isLoading}
+        onClick={() => deleteTimelinesMutation.mutate({ ids: selectedLocations })}
         type='submit'
       >
         <i className='ri-delete-bin-line' />

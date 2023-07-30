@@ -1,19 +1,14 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { Dialog } from '@headlessui/react'
 import { useAtom } from 'jotai'
 
+import ROUTE from '@/constants/route'
+import useUserInfoQuery from '@/features/auth/useUserInfoQuery'
 import { snbAtom } from '@/stores/snb'
 
 export const MENU = [
-  {
-    name: '홈',
-    icon: 'ri-home-4-line',
-  },
-  {
-    name: '프로필',
-    icon: 'ri-user-3-line',
-  },
   {
     name: '메세지',
     icon: 'ri-chat-3-line',
@@ -21,10 +16,6 @@ export const MENU = [
   {
     name: '저장한 여행',
     icon: 'ri-bookmark-3-line',
-  },
-  {
-    name: '내 여행',
-    icon: 'ri-map-pin-2-line',
   },
   {
     name: '좋아요',
@@ -37,11 +28,16 @@ export const MENU = [
 ]
 
 const SNB = () => {
+  const userInfoQuery = useUserInfoQuery()
   const [isOpenSnb, setIsOpenSnb] = useAtom(snbAtom)
 
   const onClose = () => {
     setIsOpenSnb(false)
   }
+
+  if (!userInfoQuery.isSuccess) return null
+
+  const { nickname, profile, myPlanCount, myTravelCount } = userInfoQuery.data
 
   return (
     <Dialog className='relative z-50' open={isOpenSnb} onClose={onClose}>
@@ -63,29 +59,43 @@ const SNB = () => {
           </div>
           <div className='mt-8 flex justify-between'>
             <div className='flex flex-col gap-8'>
-              <span className='text-2xl font-bold'>여은지</span>
+              <span className='text-2xl font-bold'>{nickname}</span>
               <div className='flex gap-4'>
-                <div className='flex flex-col gap-1'>
-                  <span className='text-sm font-semibold text-blue-500'>6</span>
+                <Link className='flex flex-col gap-1' href={ROUTE.ME('travel')} onClick={onClose}>
+                  <span className='text-sm font-semibold text-blue-500'>{myPlanCount}</span>
                   <span className='text-sm font-semibold'>내 여행</span>
-                </div>
-                <div className='flex flex-col gap-1'>
-                  <span className='text-sm font-semibold text-blue-500'>1</span>
+                </Link>
+                <Link className='flex flex-col gap-1' href={ROUTE.ME('review')} onClick={onClose}>
+                  <span className='text-sm font-semibold text-blue-500'>0</span>
                   <span className='text-sm font-semibold'>리뷰</span>
-                </div>
-                <div className='flex flex-col gap-1'>
-                  <span className='text-sm font-semibold text-blue-500'>2</span>
+                </Link>
+                <Link className='flex flex-col gap-1' href={ROUTE.ME('travelogue')} onClick={onClose}>
+                  <span className='text-sm font-semibold text-blue-500'>{myTravelCount}</span>
                   <span className='text-sm font-semibold'>여행기</span>
-                </div>
+                </Link>
               </div>
             </div>
-            <div className='relative h-20 w-20'>
-              <Image className='rounded-full' src='/images/testimage2.png' fill alt='제주도' />
-            </div>
+            {profile ? (
+              <Link
+                className='relative h-20 w-20 overflow-hidden drop-shadow-md'
+                href={ROUTE.ME('travel')}
+                onClick={onClose}
+              >
+                <Image className='rounded-full' src={profile} fill alt='profile' />
+              </Link>
+            ) : (
+              <Link
+                className='relative h-20 w-20 overflow-hidden rounded-full border-[0.5px] border-gray-200 drop-shadow-md'
+                href={ROUTE.ME('travel')}
+                onClick={onClose}
+              >
+                <Image className='rounded-full' src='/images/bear.jpeg' fill alt='default_profile' />
+              </Link>
+            )}
           </div>
           <div>
             <ul className='mt-8 flex flex-col'>
-              {MENU.map(({ icon, name }, index) => (
+              {MENU.map(({ icon, name }) => (
                 <li key={name} className='flex items-center gap-4 border-b-[0.5px] border-gray-200 py-4'>
                   <i className={icon} />
                   <span className='font-semibold'>{name}</span>

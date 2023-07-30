@@ -1,4 +1,5 @@
 import api from '@/lib/apis'
+]
 import type { Plan, CreatePlanParams } from '@/types/plan'
 
 export const getPlan = async (planId: number) => {
@@ -10,4 +11,5 @@ export const createPlan = async (plan: CreatePlanParams) => {
     ...plan,
     tripType: JSON.stringify(plan.tripType),
   })
+
 }

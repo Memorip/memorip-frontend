@@ -1,15 +1,14 @@
 import { useEffect } from 'react'
 
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { toast } from 'react-toastify'
 
-import { ACCESS_TOKEN, getAccessTokenFromCookie } from '@/features/auth/token'
 import { axiosInstance } from '@/lib/apis'
+import { isServerErrorWithMessage } from '@/lib/error'
 import type { RegenerateAccessTokenByRefreshTokenResponse, ServerError } from '@/types/api'
 
 export const useAxiosInterceptor = () => {
   const requestHandler = (config: InternalAxiosRequestConfig) => {
-    config.headers.Cookie = `${ACCESS_TOKEN}=${getAccessTokenFromCookie() ?? ''}`
-
     return config
   }
 
@@ -66,18 +65,20 @@ export const useAxiosInterceptor = () => {
         })
     }
 
+    if (isServerErrorWithMessage(error)) {
+      toast.error(error.response?.data.responseMessage ?? '서버에 문제가 생겼어요.')
+    }
+
     return Promise.reject(error)
   }
 
   const requestInterceptor = axiosInstance.interceptors.request.use(requestHandler, requestErrorHandler)
   const responseInterceptor = axiosInstance.interceptors.response.use(responseHandler, responseErrorHandler)
 
-  // axiosInstance.defaults.headers.Cookie = getAccessTokenFromCookie()
-
   useEffect(() => {
     return () => {
       axiosInstance.interceptors.request.eject(requestInterceptor)
-      axiosInstance.interceptors.request.eject(responseInterceptor)
+      axiosInstance.interceptors.response.eject(responseInterceptor)
     }
   }, [requestInterceptor, responseInterceptor])
 }
