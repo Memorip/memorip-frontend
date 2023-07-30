@@ -6,6 +6,8 @@ const ROUTE = {
   SIGN_UP: '/signup',
   MAIN: '/main',
   MAP: '/map',
+  SCHEDULE_PLAN: '/schedule/plan',
+  SCHEDULE_OPTION: '/schedule/option',
   PLAN: (planId: number) => `/plan/${planId}`,
   SCHEDULE_PLAN: '/schedule/plan',
   SEARCH: (planId: number, date: string) => `/search?planId=${planId}&date=${date}`,
