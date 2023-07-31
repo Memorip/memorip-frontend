@@ -19,11 +19,11 @@ const Travel = () => {
 
   if (!myPlanQuery.isSuccess) return null
 
-  const upComingPlans = myPlanQuery.data.filter(({ startDate }) => dayjs(startDate).isAfter(dayjs()))
-  const pastPlans = myPlanQuery.data.filter(({ startDate }) => dayjs(startDate).isBefore(dayjs()))
+  const upComingPlans = myPlanQuery.data.filter(({ endDate }) => dayjs(endDate).isAfter(dayjs()))
+  const pastPlans = myPlanQuery.data.filter(({ endDate }) => dayjs(endDate).isBefore(dayjs()))
 
   return (
-    <Tab.Panel className={clsx('flex h-full flex-col items-center justify-center')}>
+    <Tab.Panel className={clsx('flex h-full flex-col', myPlanQuery.data.length <= 0 && 'items-center justify-center')}>
       {myPlanQuery.data.length > 0 ? (
         <div className='w-full'>
           <div className='p-4'>

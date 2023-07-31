@@ -9,13 +9,13 @@ import useCreatePlanMutation from '@/components/views/schedule/hooks/useCreatePl
 
 import { PartyOptions, StyleOptions } from '@/constants/common'
 import ROUTE from '@/constants/route'
-import useUserInfoQuery from '@/features/auth/useUserInfoQuery'
+import useGetUserIdFromCache from '@/features/auth/useGetUserIdFromCache'
 import { usePlan } from '@/hooks/usePlan'
 import { type TripType } from '@/types/plan'
 
 const ScheduleOptionView = () => {
   const { push } = useRouter()
-  const userInfoQuery = useUserInfoQuery()
+  const userId = useGetUserIdFromCache()
   const [selected, setSelected] = React.useState<TripType>({
     partyOptions: [],
     styleOptions: [],
@@ -52,16 +52,11 @@ const ScheduleOptionView = () => {
   }
 
   const handleSetOption = () => {
-    if (!userInfoQuery.isSuccess) {
-      toast.error('로그인이 필요한 서비스입니다.')
-      return
-    }
-
     createPlanMutation.mutate(
       {
         ...plan,
-        userId: userInfoQuery.data.id,
-        participants: [userInfoQuery.data.id],
+        userId,
+        participants: [userId],
         tripType: selected,
         isPublic: true,
       },

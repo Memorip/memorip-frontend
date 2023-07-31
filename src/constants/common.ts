@@ -8,6 +8,7 @@ export const StyleOptions = {
   Shopping: '쇼핑은 열정적으로',
   Food: '맛집 탐방',
 }
+
 export const PartyOptions = {
   Alone: '혼자',
   Couple: '커플',
