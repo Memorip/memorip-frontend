@@ -10,12 +10,11 @@ import RecommendedLocations from '@/components/views/search/components/Recommend
 import SearchInput from '@/components/views/search/components/SearchInput'
 import SearchResults from '@/components/views/search/components/SearchResults'
 import SelectedLocations from '@/components/views/search/components/SelectedLocations'
+import { SearchContextProvider } from '@/components/views/search/contexts/SearchContext'
 import useCreateTimelinesMutation from '@/components/views/search/hooks/useCreateTimelinesMutation'
 import { type Location } from '@/components/views/search/types/location'
 
 import ROUTE from '@/constants/route'
-
-import { SearchContextProvider } from './contexts/SearchContext'
 
 const SearchView = () => {
   const { push, query } = useRouter()

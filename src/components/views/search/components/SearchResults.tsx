@@ -15,7 +15,7 @@ const SearchResults = ({ selectedLocations, setSelectedLocations }: SearchResult
   const { debouncedValue } = useContext(SearchContext)
   const searchQuery = useSearchQuery(debouncedValue)
 
-  if (!debouncedValue) return
+  if (!debouncedValue) return null
 
   return (
     <div className='p-4'>
