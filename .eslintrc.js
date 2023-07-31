@@ -59,6 +59,12 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: ['../'],
+      },
+    ],
     eqeqeq: ['error', 'always'],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/triple-slash-reference': 'off',
@@ -77,6 +83,7 @@ module.exports = {
     ],
     '@typescript-eslint/promise-function-async': ['off'],
     '@typescript-eslint/return-await': ['off'],
+    '@typescript-eslint/no-floating-promises': ['off'],
     'no-warning-comments': [
       'warn',
       {
@@ -87,7 +94,7 @@ module.exports = {
     'react/function-component-definition': [
       'error',
       {
-        namedComponents: 'function-declaration',
+        namedComponents: ['function-declaration', 'arrow-function'],
         unnamedComponents: 'function-expression',
       },
     ],

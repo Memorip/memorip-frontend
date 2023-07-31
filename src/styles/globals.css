@@ -42,3 +42,52 @@ body {
 body {
   font-family: var(--font-notoSansKr), var(--font-poppins), sans-serif;
 }
+
+.rmdp-wrapper {
+  border: 1px solid white;
+}
+.rmdp-shadow {
+  box-shadow: 0 0 5px white !important;
+}
+.rmdp-week-day {
+  color: black !important;
+}
+.custom-calendar.rmdp-wrapper,
+.rmdp-container .custom-calendar.ep-arrow::after {
+  background-color: white;
+}
+
+.rmdp-container .custom-calendar.ep-arrow[direction='bottom'] {
+  border-top: 100px solid bisque;
+}
+
+.rmdp-container .custom-calendar.ep-arrow[direction='top'] {
+  border-bottom: 100px solid bisque;
+}
+
+.rmdp-range {
+  background-color: #dbeafe !important;
+  box-shadow: none !important;
+  color: black !important;
+}
+
+.rmdp-day.rmdp-today span {
+  background-color: #14b8a6 !important;
+  color: white !important;
+  box-shadow: #14b8a6 -0.4px 0px 0px 3px !important;
+}
+.rmdp-range.start span {
+  background-color: #3b82f6 !important;
+  color: white !important;
+  box-shadow: #3b82f6 -0.4px 0px 0px 3px !important;
+}
+
+.rmdp-range.end span {
+  background: #3b82f6 !important;
+  color: white !important;
+  box-shadow: #3b82f6 0px 0px 0px 3px;
+}
+
+.rmdp-selected {
+  border-radius: 50%;
+}

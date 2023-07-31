@@ -1,8 +1,7 @@
-const ACCESS_TOKEN = 'ACCESS_TOKEN'
+import { type NextRequest } from 'next/server'
 
-export const getAccessTokenFromLocalStorage = () =>
-  typeof window !== 'undefined' ? localStorage.getItem(ACCESS_TOKEN) : null
+export const ACCESS_TOKEN = 'accessToken'
 
-export const setAccessTokenToLocalStorage = (accessToken: string) => localStorage.setItem(ACCESS_TOKEN, accessToken)
-
-export const removeAccessTokenFromLocalStorage = () => localStorage.removeItem(ACCESS_TOKEN)
+export const isAuthenticated = (request: NextRequest) => {
+  return !!request.cookies.get(ACCESS_TOKEN)
+}

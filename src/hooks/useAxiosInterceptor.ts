@@ -1,22 +1,14 @@
-'use client'
-
 import { useEffect } from 'react'
 
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { toast } from 'react-toastify'
 
-import { getAccessTokenFromLocalStorage, setAccessTokenToLocalStorage } from '@/features/auth/token'
-import { axiosInstance } from '@/services/api'
+import { axiosInstance } from '@/lib/apis'
+import { isServerErrorWithMessage } from '@/lib/error'
 import type { RegenerateAccessTokenByRefreshTokenResponse, ServerError } from '@/types/api'
 
 export const useAxiosInterceptor = () => {
   const requestHandler = (config: InternalAxiosRequestConfig) => {
-    const accessToken = getAccessTokenFromLocalStorage()
-
-    if (accessToken) {
-      // eslint-disable-next-line no-param-reassign
-      config.headers.Authorization = `Bearer ${accessToken}`
-    }
-
     return config
   }
 
@@ -56,7 +48,6 @@ export const useAxiosInterceptor = () => {
           .post<RegenerateAccessTokenByRefreshTokenResponse>(`/user/refresh`)
           .then(({ data }) => {
             const { accessToken: newAccessToken } = data.payload
-            setAccessTokenToLocalStorage(newAccessToken)
             originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
             refreshSubscribers.forEach((subscriber) => subscriber(newAccessToken))
             refreshSubscribers = []
@@ -74,6 +65,10 @@ export const useAxiosInterceptor = () => {
         })
     }
 
+    if (isServerErrorWithMessage(error)) {
+      toast.error(error.response?.data.responseMessage ?? '서버에 문제가 생겼어요.')
+    }
+
     return Promise.reject(error)
   }
 
@@ -83,7 +78,7 @@ export const useAxiosInterceptor = () => {
   useEffect(() => {
     return () => {
       axiosInstance.interceptors.request.eject(requestInterceptor)
-      axiosInstance.interceptors.request.eject(responseInterceptor)
+      axiosInstance.interceptors.response.eject(responseInterceptor)
     }
   }, [requestInterceptor, responseInterceptor])
 }
