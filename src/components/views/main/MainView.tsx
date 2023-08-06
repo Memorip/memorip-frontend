@@ -7,8 +7,13 @@ const MainView = () => {
   return (
     <>
       <Header>
-        <Header.AddPlanButton />
-        <Header.HamburgerButton />
+        <div>
+          <Header.Logo />
+        </div>
+        <div className='flex items-center gap-4'>
+          <Header.AddPlanButton />
+          <Header.HamburgerButton />
+        </div>
       </Header>
       <SNB />
       <div className='p-4'>

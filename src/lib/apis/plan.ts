@@ -8,6 +8,7 @@ import {
   PlanSchema,
   type CreatePlanResponse,
   CreatePlanResponseSchema,
+  type LikePlanParams,
 } from '@/types/plan'
 
 export const getPlan = async ({ planId }: GetPlanParams) => {
@@ -26,4 +27,11 @@ export const createPlan = async (plan: CreatePlanParams) => {
     tripType: JSON.stringify(plan.tripType),
   })
   return CreatePlanResponseSchema.parse(response.data)
+}
+
+export const likePlan = async ({ planId, userId }: LikePlanParams) => {
+  return api.post('/api/plan/likes', {
+    planId,
+    userId,
+  })
 }

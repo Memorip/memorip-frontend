@@ -60,3 +60,8 @@ export const CreatePlanResponseSchema = z.object({
 })
 
 export type CreatePlanResponse = z.infer<typeof CreatePlanResponseSchema>
+
+export interface LikePlanParams {
+  planId: number
+  userId: number
+}
