@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import useDeleteTimelinesMutation from '@/components/views/planDetail/hooks/useDeleteTimelinesMutation'
 
 import ROUTE from '@/constants/route'
+import useGetUserIdFromCache from '@/features/auth/useGetUserIdFromCache'
 import { useToggle } from '@/hooks'
 import { type Timeline } from '@/types/timeline'
 
@@ -18,14 +19,18 @@ import TimeLine from './Timeline'
 interface TimeLineBlockProps {
   date: string
   timelines: Timeline[]
+  userId: number
   planId: number
   day: number
 }
 
-const TimeLineBlock = ({ date, timelines, planId, day }: TimeLineBlockProps) => {
+const TimeLineBlock = ({ date, timelines, userId, planId, day }: TimeLineBlockProps) => {
   const [isEditing, toggleEditing] = useToggle()
   const [selectedLocations, setSelectedLocations] = useState<string[]>([])
   const timelineLength = timelines.length
+
+  const currentUserId = useGetUserIdFromCache()
+  const isAuthor = userId === currentUserId
 
   const handleClickSelectLocation = (locationId: string) => {
     if (selectedLocations.includes(locationId)) {
@@ -56,9 +61,11 @@ const TimeLineBlock = ({ date, timelines, planId, day }: TimeLineBlockProps) => 
                   <i className={clsx(open ? 'rotate-180' : '', 'ri-arrow-down-s-line font-semibold text-gray-600')} />
                 </div>
               </Disclosure.Button>
-              <button className='text-xs font-semibold text-gray-500' onClick={toggleEditing}>
-                편집
-              </button>
+              {isAuthor && (
+                <button className='text-xs font-semibold text-gray-500' onClick={toggleEditing}>
+                  편집
+                </button>
+              )}
             </div>
             <Disclosure.Panel>
               <div className='flex gap-2'>
@@ -77,19 +84,21 @@ const TimeLineBlock = ({ date, timelines, planId, day }: TimeLineBlockProps) => 
                     ))}
                   </div>
                 ) : (
-                  <ProgressDot total={timelineLength ?? 0} />
+                  <ProgressDot total={timelineLength ?? 0} isAuthor={isAuthor} />
                 )}
                 <div className='flex flex-1 flex-col gap-4'>
                   {timelines?.map((timeline) => (
-                    <TimeLine timeline={timeline} isEditing={isEditing} key={timeline.id} />
+                    <TimeLine timeline={timeline} isEditing={isEditing} isAuthor={isAuthor} key={timeline.id} />
                   ))}
-                  <Link
-                    className='flex h-[88px] w-full items-center justify-center rounded-lg bg-zinc-100 p-4'
-                    href={ROUTE.SEARCH(planId, date)}
-                  >
-                    <i className='ri-add-line text-lg font-bold text-emerald-500' />
-                    <span className='text-sm font-bold text-emerald-500'>일정 추가하기</span>
-                  </Link>
+                  {isAuthor && (
+                    <Link
+                      className='flex h-[88px] w-full items-center justify-center rounded-lg bg-zinc-100 p-4'
+                      href={ROUTE.SEARCH(planId, date)}
+                    >
+                      <i className='ri-add-line text-lg font-bold text-emerald-500' />
+                      <span className='text-sm font-bold text-emerald-500'>일정 추가하기</span>
+                    </Link>
+                  )}
                 </div>
               </div>
             </Disclosure.Panel>

@@ -82,6 +82,7 @@ const PlanDetailView = () => {
               <TimeLineBlock
                 date={dayjs(date).format('YYYY-MM-DD')}
                 timelines={timelinesObject[dayjs(date).format('YYYY-MM-DD')] ?? []}
+                userId={plan.userId}
                 planId={planId}
                 day={index + 1}
                 key={date}
