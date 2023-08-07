@@ -16,6 +16,16 @@ export const getPlan = async ({ planId }: GetPlanParams) => {
   return PlanSchema.parse(response.data)
 }
 
+export const getPlanSortedByLikes = async () => {
+  const response = await api.get<Plan[]>('/api/plans/like/sort')
+  return PlansSchema.parse(response.data)
+}
+
+export const getPlanSortedByViews = async () => {
+  const response = await api.get<Plan[]>('/api/plans/view/sort')
+  return PlansSchema.parse(response.data)
+}
+
 export const getMyPlans = async ({ userId }: GetMyPlansParams) => {
   const response = await api.get<Plan[]>(`/api/plans/user/${userId}`)
   return PlansSchema.parse(response.data)

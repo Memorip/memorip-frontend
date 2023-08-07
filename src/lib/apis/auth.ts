@@ -11,6 +11,9 @@ import {
   SignInSchema,
   type UserInfo,
   UserInfoSchema,
+  type CheckDuplicateNicknameParams,
+  type CheckDuplicateNickname,
+  CheckDuplicateNicknameSchema,
 } from '@/types/auth'
 
 export const signUp = ({ email, password, nickname }: SingUpParams) => {
@@ -31,6 +34,11 @@ export const verifyCode = ({ email, code }: VerifyCodeParams) =>
 export const checkDuplicateEmail = async ({ email }: CheckDuplicateEmailParams) => {
   const response = await api.get<CheckDuplicateEmail>(`/api/checkEmail?email=${email}`)
   return CheckDuplicateEmailSchema.parse(response.data)
+}
+
+export const checkDuplicateNickname = async ({ nickname }: CheckDuplicateNicknameParams) => {
+  const response = await api.get<CheckDuplicateNickname>(`/api/checkNickname?nickname=${nickname}`)
+  return CheckDuplicateNicknameSchema.parse(response.data)
 }
 
 export const signIn = async ({ email, password }: SignInParams) => {
