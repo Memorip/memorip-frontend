@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 
 import { type Step, STEP } from '@/components/views/signup/constants'
 import { useEmailValidation } from '@/components/views/signup/hooks/useEmailValidation'
+import { useNicknameValidation } from '@/components/views/signup/hooks/useNicknameValidation'
 import { type FormValues } from '@/components/views/signup/SignUpView'
 
 import { regex } from '@/constants/regex'
@@ -28,7 +29,13 @@ const SignUpForm = ({ setStep }: Props) => {
     formState: { errors, isValid },
   } = useFormContext<FormValues>()
   const email = watch('email')
-  const { isEmailValidating, isDuplicated, error } = useEmailValidation(email)
+  const nickname = watch('nickname')
+  const { isEmailValidating, isDuplicated: isEmailDuplicated, error: emailValidationError } = useEmailValidation(email)
+  const {
+    isNicknameValidating,
+    isDuplicated: isNicknameDuplicated,
+    error: nicknameValidationError,
+  } = useNicknameValidation(nickname)
 
   const onSubmit = async ({ email }: FormValues) => {
     try {
@@ -49,13 +56,20 @@ const SignUpForm = ({ setStep }: Props) => {
   }
 
   useEffect(() => {
-    if (error) {
+    if (emailValidationError) {
       setError('email', {
         type: 'manual',
-        message: error.response?.data.responseMessage,
+        message: emailValidationError.response?.data.responseMessage,
       })
     }
-  }, [error, setError])
+
+    if (nicknameValidationError) {
+      setError('nickname', {
+        type: 'manual',
+        message: nicknameValidationError.response?.data.responseMessage,
+      })
+    }
+  }, [emailValidationError, nicknameValidationError, setError])
 
   const isEmailValid = getValues('email') && !errors.email
   const isNicknameValid = getValues('nickname') && !errors.nickname
@@ -89,7 +103,7 @@ const SignUpForm = ({ setStep }: Props) => {
                 />
                 {isEmailValid && isEmailValidating ? (
                   <i className='ri-loader-4-line animate-spin text-xl' />
-                ) : isEmailValid && !isDuplicated ? (
+                ) : isEmailValid && !isEmailDuplicated ? (
                   <i className='ri-check-line text-xl text-blue-600' />
                 ) : null}
               </div>
@@ -98,7 +112,7 @@ const SignUpForm = ({ setStep }: Props) => {
               {errors.email?.message}
             </small>
           </div>
-          {isEmailValid && !isDuplicated && (
+          {isEmailValid && !isEmailDuplicated && (
             <>
               <div className='flex h-24 flex-col gap-1'>
                 <div className='flex flex-col gap-2 [&>div]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
@@ -127,71 +141,79 @@ const SignUpForm = ({ setStep }: Props) => {
                         },
                       })}
                     />
-                    {isNicknameValid && <i className='ri-check-line text-xl text-blue-600' />}
+                    {isNicknameValid && isNicknameValidating ? (
+                      <i className='ri-loader-4-line animate-spin text-xl' />
+                    ) : isNicknameValid && !isNicknameDuplicated ? (
+                      <i className='ri-check-line text-xl text-blue-600' />
+                    ) : null}
                   </div>
                 </div>
                 <small className='text-red-600' role='alert'>
                   {errors.nickname?.message}
                 </small>
               </div>
-              <div className='flex h-24 flex-col gap-1'>
-                <div className='flex flex-col gap-2 [&>div]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
-                  <span>비밀번호</span>
-                  <div className='flex w-full items-center border-b border-b-zinc-300'>
-                    <input
-                      className='w-full py-2 outline-none'
-                      type='password'
-                      placeholder='비밀번호 입력'
-                      {...register('password', {
-                        required: {
-                          value: true,
-                          message: '비밀번호를 입력해주세요.',
-                        },
-                        pattern: {
-                          value: regex.password,
-                          message: '비밀번호 형식이 올바르지 않아요.',
-                        },
-                      })}
-                    />
-                    {isPasswordValid && <i className='ri-check-line text-xl text-blue-600' />}
+              {isNicknameValid && !isNicknameDuplicated && (
+                <>
+                  <div className='flex h-24 flex-col gap-1'>
+                    <div className='flex flex-col gap-2 [&>div]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
+                      <span>비밀번호</span>
+                      <div className='flex w-full items-center border-b border-b-zinc-300'>
+                        <input
+                          className='w-full py-2 outline-none'
+                          type='password'
+                          placeholder='비밀번호 입력'
+                          {...register('password', {
+                            required: {
+                              value: true,
+                              message: '비밀번호를 입력해주세요.',
+                            },
+                            pattern: {
+                              value: regex.password,
+                              message: '비밀번호 형식이 올바르지 않아요.',
+                            },
+                          })}
+                        />
+                        {isPasswordValid && <i className='ri-check-line text-xl text-blue-600' />}
+                      </div>
+                    </div>
+                    <small className='text-zinc-600' role='alert'>
+                      영문 대소문자, 숫자, 특수문자 포함 8자리 이상을 입력해주세요.
+                    </small>
+                    <small className='text-red-600' role='alert'>
+                      {errors.password?.message}
+                    </small>
                   </div>
-                </div>
-                <small className='text-zinc-600' role='alert'>
-                  영문 대소문자, 숫자, 특수문자 포함 8자리 이상을 입력해주세요.
-                </small>
-                <small className='text-red-600' role='alert'>
-                  {errors.password?.message}
-                </small>
-              </div>
-              <div className='flex h-24 flex-col gap-1'>
-                <div className='flex flex-col gap-2 [&>div]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
-                  <span>비밀번호 확인</span>
-                  <div className='flex w-full items-center border-b border-b-zinc-300'>
-                    <input
-                      className='w-full py-2 outline-none'
-                      type='password'
-                      placeholder='비밀번호 확인'
-                      {...register('passwordConfirm', {
-                        required: {
-                          value: true,
-                          message: '비밀번호를 입력해주세요.',
-                        },
-                        validate: (value) => value === getValues('password') || '비밀번호가 일치하지 않아요.',
-                      })}
-                    />
-                    {isPasswordConfirmValid && <i className='ri-check-line text-xl text-blue-600' />}
+                  <div className='flex h-24 flex-col gap-1'>
+                    <div className='flex flex-col gap-2 [&>div]:focus-within:border-blue-600 [&>span]:focus-within:text-blue-600'>
+                      <span>비밀번호 확인</span>
+                      <div className='flex w-full items-center border-b border-b-zinc-300'>
+                        <input
+                          className='w-full py-2 outline-none'
+                          type='password'
+                          placeholder='비밀번호 확인'
+                          {...register('passwordConfirm', {
+                            required: {
+                              value: true,
+                              message: '비밀번호를 입력해주세요.',
+                            },
+                            validate: (value) => value === getValues('password') || '비밀번호가 일치하지 않아요.',
+                          })}
+                        />
+                        {isPasswordConfirmValid && <i className='ri-check-line text-xl text-blue-600' />}
+                      </div>
+                    </div>
+                    <small className='text-red-600' role='alert'>
+                      {errors.passwordConfirm?.message}
+                    </small>
                   </div>
-                </div>
-                <small className='text-red-600' role='alert'>
-                  {errors.passwordConfirm?.message}
-                </small>
-              </div>
-              <button
-                className={`mt-8 w-full rounded-lg bg-blue-500 py-3 text-white ${isValid ? 'block' : 'hidden'}`}
-                type='submit'
-              >
-                확인
-              </button>
+                  <button
+                    className={`mt-8 w-full rounded-lg bg-blue-500 py-3 text-white ${isValid ? 'block' : 'hidden'}`}
+                    type='submit'
+                  >
+                    확인
+                  </button>
+                </>
+              )}
             </>
           )}
         </div>
