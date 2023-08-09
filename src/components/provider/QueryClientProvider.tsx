@@ -13,6 +13,7 @@ export default function QueryClientProvider({ children }: Props) {
       new QueryClient({
         defaultOptions: {
           queries: {
+            staleTime: 1000 * 30, // 30 seconds
             refetchOnWindowFocus: false,
             retry: false,
           },

@@ -4,20 +4,20 @@ import { type AxiosError } from 'axios'
 import { toast } from 'react-toastify'
 
 import { regex } from '@/constants/regex'
-import { checkDuplicateEmail } from '@/lib/apis/auth'
+import { checkDuplicateNickname } from '@/lib/apis/auth'
 import { isServerErrorWithMessage } from '@/lib/error'
 import { type ServerError } from '@/types/api'
 
-export const useEmailValidation = (email: string) => {
-  const [isEmailValidating, setIsEmailValidating] = useState(false)
+export const useNicknameValidation = (nickname: string) => {
+  const [isNicknameValidating, setIsNicknameValidating] = useState(false)
   const [isDuplicated, setIsDuplicated] = useState(false)
   const [error, setError] = useState<AxiosError<ServerError, any> | null>(null)
 
   useEffect(() => {
     const validateEmail = async () => {
       try {
-        setIsEmailValidating(true)
-        await checkDuplicateEmail({ email })
+        setIsNicknameValidating(true)
+        await checkDuplicateNickname({ nickname })
         setIsDuplicated(false)
       } catch (error) {
         if (isServerErrorWithMessage(error)) {
@@ -28,14 +28,14 @@ export const useEmailValidation = (email: string) => {
 
         toast.error('서버에 문제가 생겼어요.')
       } finally {
-        setIsEmailValidating(false)
+        setIsNicknameValidating(false)
       }
     }
 
-    if (email && regex.email.test(email)) {
+    if (nickname && regex.nickname.test(nickname)) {
       validateEmail()
     }
-  }, [email])
+  }, [nickname])
 
-  return { isEmailValidating, isDuplicated, error }
+  return { isNicknameValidating, isDuplicated, error }
 }

@@ -4,10 +4,9 @@ import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 
-import { useMyPlanQuery } from '@/components/views/me/hooks/useMyPlanQuery'
-
 import ROUTE from '@/constants/route'
 import useUserInfoQuery from '@/features/auth/useUserInfoQuery'
+import { useMyPlanQuery } from '@/features/plan/useMyPlanQuery'
 
 import Travels from './Travels'
 

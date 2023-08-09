@@ -23,6 +23,14 @@ export const CheckDuplicateEmailSchema = z.boolean()
 
 export type CheckDuplicateEmail = z.infer<typeof CheckDuplicateEmailSchema>
 
+export interface CheckDuplicateNicknameParams {
+  nickname: string
+}
+
+export const CheckDuplicateNicknameSchema = z.boolean()
+
+export type CheckDuplicateNickname = z.infer<typeof CheckDuplicateNicknameSchema>
+
 export interface SignInParams {
   email: string
   password: string

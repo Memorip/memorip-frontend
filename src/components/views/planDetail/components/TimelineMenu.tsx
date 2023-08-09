@@ -10,9 +10,10 @@ interface TimeLineMenuProps {
   id: number
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  isAuthor: boolean
 }
 
-const TimeLineMenu = ({ id, isOpen, setIsOpen }: TimeLineMenuProps) => {
+const TimeLineMenu = ({ id, isOpen, setIsOpen, isAuthor }: TimeLineMenuProps) => {
   const timelineQuery = useTimelineQuery(id)
   const [isOpenMemoDialog, setIsOpenMemoDialog] = useState(false)
 
@@ -32,23 +33,25 @@ const TimeLineMenu = ({ id, isOpen, setIsOpen }: TimeLineMenuProps) => {
               <span className='text-sm text-gray-500'>{memo}</span>
               <span className='font-semibold text-blue-500'>영업시간 09:00 ~ 21:00</span>
             </Dialog.Description>
-            <div className='flex justify-between gap-2'>
-              <button
-                className='w-1/2 rounded-lg border border-zinc-300 py-4 text-sm font-semibold'
-                onClick={() => alert('작업중!')}
-              >
-                시간 추가
-              </button>
-              <button
-                className='w-1/2 rounded-lg border border-zinc-300 py-4 text-sm font-semibold'
-                onClick={() => {
-                  setIsOpen(false)
-                  setIsOpenMemoDialog(true)
-                }}
-              >
-                메모 추가
-              </button>
-            </div>
+            {isAuthor && (
+              <div className='flex justify-between gap-2'>
+                <button
+                  className='w-1/2 rounded-lg border border-zinc-300 py-4 text-sm font-semibold'
+                  onClick={() => alert('작업중!')}
+                >
+                  시간 추가
+                </button>
+                <button
+                  className='w-1/2 rounded-lg border border-zinc-300 py-4 text-sm font-semibold'
+                  onClick={() => {
+                    setIsOpen(false)
+                    setIsOpenMemoDialog(true)
+                  }}
+                >
+                  메모 추가
+                </button>
+              </div>
+            )}
           </Dialog.Panel>
         </div>
       </Dialog>
