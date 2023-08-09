@@ -9,6 +9,8 @@ import {
   type CreatePlanResponse,
   CreatePlanResponseSchema,
   type LikePlanParams,
+  type CreateInviteCodeParams,
+  CreateInviteCodeSchema,
 } from '@/types/plan'
 
 export const getPlan = async ({ planId }: GetPlanParams) => {
@@ -44,4 +46,11 @@ export const likePlan = async ({ planId, userId }: LikePlanParams) => {
     planId,
     userId,
   })
+}
+
+export const createInviteCode = async ({ planId }: CreateInviteCodeParams) => {
+  const response = await api.post('/api/invitations', {
+    planId,
+  })
+  return CreateInviteCodeSchema.parse(response.data)
 }

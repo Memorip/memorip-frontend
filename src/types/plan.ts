@@ -65,3 +65,17 @@ export interface LikePlanParams {
   planId: number
   userId: number
 }
+
+export interface CreateInviteCodeParams {
+  planId: number
+}
+
+export const CreateInviteCodeSchema = z.object({
+  id: z.number(),
+  planId: z.number(),
+  slug: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+})
+
+export type CreateInviteCode = z.infer<typeof CreateInviteCodeSchema>

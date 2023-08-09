@@ -6,6 +6,9 @@ import { Disclosure } from '@headlessui/react'
 import clsx from 'clsx'
 import { toast } from 'react-toastify'
 
+import ProgressDot from '@/components/views/planDetail/components/ProgressDot'
+import TimeLine from '@/components/views/planDetail/components/Timeline'
+import { usePlanContext } from '@/components/views/planDetail/contexts/PlanContext'
 import useDeleteTimelinesMutation from '@/components/views/planDetail/hooks/useDeleteTimelinesMutation'
 
 import ROUTE from '@/constants/route'
@@ -13,20 +16,21 @@ import useGetUserIdFromCache from '@/features/auth/useGetUserIdFromCache'
 import { useToggle } from '@/hooks'
 import { type Timeline } from '@/types/timeline'
 
-import ProgressDot from './ProgressDot'
-import TimeLine from './Timeline'
-
 interface TimeLineBlockProps {
   date: string
   timelines: Timeline[]
-  userId: number
-  planId: number
+
   day: number
 }
 
-const TimeLineBlock = ({ date, timelines, userId, planId, day }: TimeLineBlockProps) => {
+const TimeLineBlock = ({ date, timelines, day }: TimeLineBlockProps) => {
+  const {
+    plan: { userId, id: planId },
+  } = usePlanContext()
+
   const [isEditing, toggleEditing] = useToggle()
   const [selectedLocations, setSelectedLocations] = useState<string[]>([])
+
   const timelineLength = timelines.length
 
   const currentUserId = useGetUserIdFromCache()
