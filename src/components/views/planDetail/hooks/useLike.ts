@@ -1,14 +1,16 @@
+import { useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 
 import useGetUserIdFromCache from '@/features/auth/useGetUserIdFromCache'
+import { likePlan } from '@/lib/apis/plan'
 
-import { useLikeMutation } from './useLikeMutation'
-
-interface UseLikeParams {
-  planId: number
+export const useLikeMutation = () => {
+  return useMutation({
+    mutationFn: likePlan,
+  })
 }
 
-export const useLike = ({ planId }: UseLikeParams) => {
+export const useLike = ({ planId }: { planId: number }) => {
   const likeMutation = useLikeMutation()
   const userId = useGetUserIdFromCache()
 
